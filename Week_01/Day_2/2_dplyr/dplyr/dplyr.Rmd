@@ -1,0 +1,83 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+tidyverse_logo()
+```
+# if restarted R and just want one part or tidyverse
+```{r}
+tidyverse::tidyverse_logo()
+```
+
+```{r}
+devtools::install_github("codeclan/CodeClanData")
+```
+
+```{r}
+library(CodeClanData)
+```
+
+```{r}
+students
+```
+# Working with dplyr
+```{r}
+all_deaths
+```
+#checking our data
+```{r}
+#number of rows
+nrow(all_deaths)
+```
+
+```{r}
+#number of colums
+ncol(all_deaths)
+```
+
+```{r}
+# overall dimensions
+dim(all_deaths)
+```
+
+```{r}
+# variable names
+names(all_deaths)
+```
+
+```{r}
+# check the first 10 rows
+head(all_deaths, 10)
+```
+
+```{r}
+# check the last 10
+tail(all_deaths, 10)
+```
+
+```{r}
+# get an overveiw of the data
+glimpse(all_deaths)
+```
+
+```{r}
+# view data
+view(all_deaths)
+```
+
+```{r}
+#view a shirt representation of the data
+str(all_deaths)
+```
+
+```{r}
+# print data in the console
+all_deaths
+```
+

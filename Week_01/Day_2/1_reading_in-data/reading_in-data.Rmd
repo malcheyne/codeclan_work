@@ -1,0 +1,57 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+```{r}
+read_csv("data/dog_bites.csv")
+```
+```{r}
+dog_bites <- read_csv("data/dog_bites.csv")
+```
+
+#Reading in Excel files
+
+```{r}
+library(readxl)
+```
+
+```{r}
+seedmix <-  read_excel("data/edinburgh_seedmix.xlsx")
+seedmix
+```
+# read sheet 3 from edinburgh_seedmix.xlsx
+```{r}
+seedmix_north <- read_excel("data/edinburgh_seedmix.xlsx", sheet = 3)
+seedmix_north
+```
+# read sheet 3 from edinburgh_seedmix.xlsx but by name incase someone move the sheets about
+```{r}
+seedmix_north <-  read_excel("data/edinburgh_seedmix.xlsx",
+                             sheet = "North Neighbourhood")
+seedmix_north
+```
+
+```{r}
+seedmix_south <- read_excel("data/edinburgh_seedmix.xlsx", 
+                            sheet = "South Neighbourhood")
+seedmix_south
+```
+
+```{r}
+seedmix_south <- read_excel("data/edinburgh_seedmix.xlsx",
+                            sheet = 4)
+seedmix_south
+```
+#change from xlsx to csv
+```{r}
+write_csv(seedmix_south, "seedmix_south.csv")
+```
+
+```{r}
+write_csv(seedmix_south, "clean_data/seedmix_cleaned.csv")
+```
+
