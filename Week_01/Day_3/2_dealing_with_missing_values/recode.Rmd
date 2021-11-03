@@ -1,0 +1,289 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+library(tidyverse)
+library(CodeClanData)
+```
+
+```{r}
+students_big 
+```
+
+```{r}
+students_big %>% 
+  select(ageyears) %>% 
+  mutate(
+    older_than_12 = ageyears > 12
+  )
+```
+
+# if_else
+```{r}
+students_big %>% 
+  select(ageyears) %>% 
+  mutate(
+    older_than_12 = if_else(ageyears > 12,
+                            "Older than 12",
+                            "12 or younger")
+  )
+```
+
+```{r}
+students_big %>% 
+  select(gender) %>% 
+  mutate(
+    gender = if_else(gender == "M", "Male", "Femlae")
+  )
+#if_else(gender == "M", if yes use this , "if no use this)
+```
+
+# Task change to words
+```{r}
+students_big %>% 
+  select(handed) %>% 
+  mutate(
+    handed = if_else(handed == "R", "Right", "Left")
+  )
+```
+
+# Task swap Football insted of Football/Soccer
+```{r}
+students_big %>% 
+  select(favourite_physical_activity) %>% 
+  mutate(
+    favourite_physical_activity = if_else(favourite_physical_activity == "Football/Soccer", "Football", favourite_physical_activity)
+  )
+
+```
+
+# recode
+```{r}
+students_big %>% 
+  select(travel_to_school) %>% 
+  mutate(
+    travel_to_school = recode(
+      travel_to_school,
+      "Bus" = "bus",
+      "Car" = "car",
+      "Walk" = "walk"   # makes it lower case for just these three
+    )
+  ) %>% 
+  # group_by(travel_to_school) %>% 
+  # summarise(n())
+```
+
+```{r}
+students_big %>% 
+  select(travel_to_school) %>%
+  group_by(travel_to_school) %>% 
+  summarise(n())
+```
+
+```{r}
+students_big %>% 
+  select(travel_to_school) %>% 
+  mutate(
+    travel_to_school = recode(
+      travel_to_school,
+      "Bus" = "bus",
+      "Car" = "car",
+      "Walk" = "walk", # makes it lower case for just these three
+      .default = "other" # changes anything else to other
+    )
+  )  %>% 
+  group_by(travel_to_school) %>% 
+  summarise(n())
+```
+
+
+```{r}
+students_big %>% 
+  select(ageyears) %>% 
+  mutate(ageyears = recode(
+    ageyears,
+    "12" = 120, # have to use ""
+    .default = 0 # have to be the same type as above 
+  ))
+```
+
+
+# Task
+```{r}
+data <- read.table(header = TRUE, text="
+ subject sex control cond1 cond2 compl
+       1   M     7.9  12.3  10.7  T
+       2   F     6.3  10.6  11.1  T
+       3   F     9.5  13.1  13.8  N
+       4   M    11.5  13.4  12.9  F
+ ")
+```
+
+# Task change the numbers
+```{r}
+data %>% 
+  select(subject) %>% 
+  mutate(subject = recode(
+    subject,
+    "1" = "001",
+    "2" = "002",
+    "3" = "003",
+    "4" = "004"
+  )
+    
+  )
+```
+
+
+```{r}
+data %>% 
+  mutate(subject = paste("00", subject))# see the numbers have a space
+```
+
+```{r}
+data %>% 
+  mutate(subject = paste0("00", subject)) #adding the 0 to paste egts ride of this
+```
+
+# Task change the sex to words
+```{r}
+data %>% 
+  select(sex) %>% 
+  mutate(sex = recode(
+    sex,
+    "M" = "Male",
+    "F" = "Female"
+  ))
+```
+
+# Task cahnge the logic to words
+```{r}
+data %>% 
+  select(compl) %>% 
+  mutate(compl = recode(
+    compl,
+    "T" = "True",
+    "F" = "False",
+    .default = "NA"
+  ))
+```
+
+```{r}
+data %>% 
+  select(compl) %>% 
+  mutate(compl = recode(
+    compl,
+    "T" = "True",
+    "F" = "False",
+    .default = NA_character_ # have made it NA, but still needed to character
+  ))
+```
+
+```{r}
+data %>% 
+  select(compl) %>% 
+  mutate(compl = recode(
+    compl,
+    "T" = TRUE,
+    "F" = FALSE,
+    .default = NA # All are now Logical 
+  ))
+```
+
+
+#case_when
+```{r}
+students_big %>% 
+  select(ageyears) %>% 
+  mutate(
+    age_divisible = case_when(
+      ageyears %% 2 == 0 ~ "Even",  # number / 2 with no remained will be even
+      ageyears %% 3 == 0 ~ "Divisable by 3", # number / 2 with a remained will be odd
+      ageyears %% 5 == 0 ~ "Divisable by 5", # %% 2 == 0 -> modulo operator
+      TRUE ~ "Other number"
+    )
+  )
+
+#11 %% 2
+#[1] 1
+# 10 %% 2
+#[1] 0
+```
+
+```{r}
+x <- 1:10
+
+case_when(
+  x <= 5 ~ "A",
+  x <= 7 ~ "B",
+  TRUE ~ "C"
+)
+```
+
+```{r}
+x <- 1:10
+
+case_when(
+  x <= 7 ~ "B",
+  x <= 5 ~ "A",
+  TRUE ~ "C"
+)
+```
+
+```{r}
+students_big %>% 
+  select(ageyears) %>% 
+  mutate(
+    age_divisible = case_when(
+      ageyears %% 2 == 0 ~ "Even",  
+      ageyears %% 3 == 0 ~ "Divisable by 3", 
+      ageyears %% 5 == 0 ~ "Divisable by 5", 
+      TRUE ~ as.character(ageyears)
+    )
+  )
+```
+
+
+# Task
+#what I did
+```{r}
+# students_big %>% 
+#   select(region, travel_to_school)
+#   mutate(
+#     estimated_travel_time = case_when(
+#       region = "London" ~ "60",
+#       travel_to_school = "Walk" ~ "10",
+#       travel_to_school = "Car" ~ "20",
+#       FALSE ~ "30"
+#     )
+#   )
+```
+
+```{r}
+# students_big %>%
+#   select(region, travel_to_school) %>%
+#   mutate(estimated_travel_time = case_when(
+#     region == "London" ~ 60,
+#     region != "London" & travel_to_school == "Walk" ~ 10,
+#     region != "London" & travel_to_school == "Car" ~ 20,
+#     
+#     )
+#   )
+```
+
+```{r}
+students_big %>% 
+  select(region, travel_to_school) %>% 
+  mutate(
+    estimated_travel_time = case_when(
+      region == "London" ~ 60,
+      travel_to_school == "Walk" ~ 10,
+      travel_to_school == "Car" ~ 20,
+      TRUE ~ 30 # it's TRUE as all the other true's have gone before
+    )
+  )
+```
+
