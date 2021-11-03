@@ -4,7 +4,7 @@ output: html_notebook
 ---
 
 ```{r}
-incomes <- read_csv("data/state_income_data")
+# incomes <- read_csv("data/state_income_data.csv")
 ```
 
 # Question 1. Load in the data, and have a look at it. How many variables does it have? How many observations? What are the variable names? What type of variables does it have?
@@ -71,9 +71,13 @@ greater_change
 
 ```{r}
 median_income_change <- A_to_C_states%>%
-                        mutate(income_change*-1) %>% 
-                        median(income_change)
+                        summarise(median = median(income_change))
 median_income_change
+
+mean__income_change <- A_to_C_states%>%
+                        summarise(mean = mean(income_change))
+
+mean__income_change
 ```
 
 #Question 9. Go back to the original dataset which contains all states. Write a pipe which selects the State and Y2008 variables, arranges the income from highest to lowest, filters all those states which have a income of greater than 1 million, and then finally chooses the top 10 wealthiest states.
@@ -82,7 +86,8 @@ median_income_change
 Top_states <- incomes %>% 
               select(State, Y2008) %>% 
               arrange(desc(Y2008)) %>% 
-              filter(Y2008 > 1000000) 
+              filter(Y2008 > 1000000) %>% 
+              head(10)
 Top_states
 ```
 
