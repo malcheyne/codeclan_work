@@ -1,0 +1,122 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+comms_data <- read_csv("data/telecom_data.csv")
+
+
+# select comms_data then hit ctrl + enter to get the table 
+
+# Chris had problems with his monthly_charges beaning a chrater than a number
+# comms_data <- read_csv(“data/telecom_data.csv”,
+#                        col_types = cols(“monthly_charges” = col_number()))
+```
+
+```{r}
+comms_data %>% 
+  filter(is.na(monthly_charges))
+```
+
+```{r}
+comms_data %>% 
+  summarise(count = sum(is.na(monthly_charges)))
+```
+# Get rid of the N/A rows, will lose data 
+```{r}
+comms_data %>% 
+  drop_na()
+```
+# if there's N/A it will throw off the mean/ median
+```{r}
+comms_data %>% 
+  mutate(monthly_charges = coalesce(
+    monthly_charges,
+    median(monthly_charges)
+    ))
+
+summary(comms_data)
+```
+
+# This will add values to the N/A simalar to the other values
+# Median
+```{r}
+comms_data %>% 
+  mutate(monthly_charges = coalesce(
+    monthly_charges,
+    median(monthly_charges,
+    na.rm = TRUE)
+    ))
+```
+
+# Mean
+```{r}
+comms_data %>% 
+  mutate(monthly_charges = coalesce(
+    monthly_charges,
+    mean(monthly_charges,
+    na.rm = TRUE)
+    ))
+```
+
+# task find all the NA's
+```{r}
+comms_data %>% 
+  filter(is.na(total_charges))
+```
+
+# reading the table I can see more NA
+# total_charges is a chrater rather than number
+```{r}
+comms_data %>% 
+  summarise(count = sum(is.na(total_charges)))
+```
+# Had a look and seen na and N/A, this changes them to the same NA 
+```{r}
+total_charges_replaced <- comms_data %>% 
+  mutate(
+    total_charges = na_if(total_charges, "na"),
+    total_charges = na_if(total_charges, "N/A")
+    )
+
+  # total_charges = na_if(total_charges, "na|N/A") dose the same
+```
+# Now finds all 9 rows
+```{r}
+total_charges_replaced %>% 
+  filter(is.na(total_charges))
+```
+# Changes total_charges from CHR to DBL
+```{r}
+total_charges_replaced %>% 
+  mutate(total_charges = as.numeric(total_charges))
+
+```
+
+# same as total_charges, seen NA & -- used, changed to NA
+```{r}
+payment_method_replaced <- total_charges_replaced %>% 
+  mutate(
+    payment_method = na_if(payment_method, "NA"),
+    payment_method = na_if(payment_method, "--")
+    )
+```
+
+
+```{r}
+payment_method_replaced %>% 
+  filter(is.na(payment_method))
+```
+# changes the NA to "unavailable"
+```{r}
+payment_new_category <- payment_method_replaced %>% 
+  mutate(payment_method = coalesce(payment_method, "unavailable"))
+payment_new_category
+```
+
+
