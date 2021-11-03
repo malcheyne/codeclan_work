@@ -1,0 +1,158 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+new_coders <- read_csv("data/new_coders.csv")
+```
+# summarise with fewer rows
+```{r}
+new_coders %>% 
+  group_by(reasons_to_code) %>% 
+  summarise(avg_expected_earn = mean(expected_earn))
+```
+
+```{r}
+new_coders %>% 
+  group_by(reasons_to_code) %>% 
+  mutate(avg_expected_earn = mean(expected_earn)) %>% 
+  select(reasons_to_code, avg_expected_earn, everything()) # keeps the two we want togeter, and leaves the rest at the end
+```
+
+
+
+```{r}
+new_coders %>% 
+  group_by(reasons_to_code) %>% 
+  mutate(
+    avg_expected_earn = mean(expected_earn),
+    diff_from_avg = expected_earn - avg_expected_earn
+    ) %>% 
+  select(reasons_to_code, avg_expected_earn, diff_from_avg, everything())
+```
+
+# Trying to show an example
+```{r}
+# new_coders %>% 
+#   group_by(reasons_to_code) %>% 
+#   mutate(
+#     avg_expected_earn = mean(expected_earn),
+#     diff_from_avg = expected_earn - avg_expected_earn
+#     ) %>% 
+#   select(reasons_to_code, avg_expected_earn, diff_from_avg, everything()) %>% 
+#   arrange(expected_earn)
+```
+
+
+```{r}
+new_coders %>% 
+  group_by(reasons_to_code) %>% 
+  mutate(
+    avg_expected_earn = mean(expected_earn),
+    diff_from_avg = expected_earn - avg_expected_earn
+    ) %>% 
+  select(reasons_to_code, avg_expected_earn, diff_from_avg, everything()) %>% 
+  ungroup()  # If you happy, best to ungroup. Can make error down the line 
+
+```
+
+# Task
+```{r}
+new_coders %>% 
+  select(reasons_to_code,age, gender) %>% 
+  group_by(gender) %>% 
+  mutate(
+    average_age_for_gender = mean(age)
+  ) %>% 
+  select(reasons_to_code, average_age_for_gender, age, gender, everything())
+```
+# This is what I was trying
+```{r}
+new_coders %>% 
+  group_by(gender) %>% 
+  mutate(
+    average_age_for_gender = mean(age)
+  ) %>% 
+  select(reasons_to_code, average_age_for_gender, age, gender, everything())
+```
+
+```{r}
+library(CodeClanData)
+```
+
+```{r}
+chinesemeal %>% 
+  mutate(
+    last_year_cal = lag(CaloriesPerDay), # Has copied and moved row one down
+    cal_change = CaloriesPerDay - last_year_cal # Looking down page 6 the table when it changes foodtype makes a problem
+    
+  )
+```
+
+```{r}
+chinesemeal %>% 
+  group_by(FoodType) %>% # Adding this it now restarts when the foodtype changes
+  mutate(
+    last_year_cal = lag(CaloriesPerDay), 
+    cal_change = CaloriesPerDay - last_year_cal 
+    
+  )
+```
+
+```{r}
+chinesemeal %>% 
+  group_by(FoodType) %>% 
+  mutate(
+    last_year_cal = lag(CaloriesPerDay, n = 5), # this delays the start by 5 rows
+    cal_change = CaloriesPerDay - last_year_cal,
+    next_year_cal = lead(CaloriesPerDay) # Has copied the line below and moved row one up 
+    
+  )
+```
+
+```{r}
+deaths <- read_csv("data/character-deaths.csv")
+```
+# across()
+```{r}
+deaths %>% 
+  mutate(across(book1_GoT:book5_DwD, as.logical)) # changes dbl to lgl
+```
+
+
+```{r}
+deaths %>% 
+  group_by(allegiances) %>% 
+  summarise(across(book1_GoT:book5_DwD, sum))
+```
+
+
+```{r}
+deaths %>% 
+  summarise(across(everything(), ~ sum(is.na(.))))
+```
+
+```{r}
+summary(deaths)
+```
+
+
+
+```{r}
+deaths %>% 
+  group_by(allegiances) %>% 
+  summarise(across(where(is.numeric), mean))
+```
+
+# Task
+```{r}
+new_coders %>% 
+  mutate(across(where(is.character), as.factor))
+```
+
