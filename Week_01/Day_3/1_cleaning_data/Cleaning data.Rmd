@@ -1,0 +1,72 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+library(tidyverse)
+```
+# Read the file, problems with the top row empty 
+```{r}
+video_games <-  read_csv("data/steam-200k-sample.csv")
+
+```
+# Cut out the top 4 rows 
+```{r}
+video_games <-  read_csv("data/steam-200k-sample.csv", 
+                         skip = 4)
+```
+# changing the last colum to a true/false
+```{r}
+video_games <-  read_csv("data/steam-200k-sample.csv", 
+                         skip = 4,
+                         col_types = cols("bought online" 
+                                          = col_logical()))
+```
+
+
+# Just another way to changing the last colum to a true/false
+```{r}
+video_games <-  read_csv("data/steam-200k-sample.csv", 
+                         skip = 4,
+                         col_types = cols("bought online" 
+                                          = col_logical())) %>% 
+  mutate(`bought online` = as.logical(`bought online`)) # another way, see the back qutoes left of 1 on keyborad
+
+video_games
+```
+
+```{r}
+video_games %>% 
+  names()
+```
+
+
+```{r}
+library(janitor)
+```
+# Changing the names ie no spaces and all lower case 
+```{r}
+video_games_clean_names <- video_games %>% 
+  clean_names()
+video_games_clean_names
+```
+
+```{r}
+video_games_clean_names %>% 
+  names()
+```
+# Renaming 
+```{r}
+video_games_rename <- video_games_clean_names %>% 
+  rename("game_title" = "game_name",
+         "activity" = "what",
+         "playing_hours" = "value")
+```
+
+```{r}
+video_games_rename %>% 
+  names()
+```
+
