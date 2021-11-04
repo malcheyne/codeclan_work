@@ -1,0 +1,106 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+the_name_of_my_variable <- c(3, 4, 5)
+
+the_name_of_my_variable == 4
+## Error in eval(expr, envir, enclos): object 'the_name_of_my_varaible' not found
+```
+
+```{r}
+library(fcuk)
+```
+
+```{r}
+sl()
+```
+
+```{r}
+the_name_of_my_variable <- c(3, 4, 5)
+
+filter(the_name_of_my_variable, variable == 4)
+```
+
+```{r}
+dim(the_name_of_my_variable)
+```
+
+```{r}
+length(the_name_of_my_variable)
+```
+
+```{r}
+class(the_name_of_my_variable)
+```
+
+```{r}
+the_name_of_my_variable == 4
+```
+
+```{r}
+library(dplyr)
+```
+
+```{r}
+library(MASS)
+```
+
+```{r}
+select(mtcars, mpg)
+```
+
+```{r}
+conflicts()
+```
+
+```{r}
+dplyr::select()
+```
+
+dplyr::select()
+
+```{r}
+dplyr::select(mtcars, mpg)
+# one use only, tell it to use that select from dplyr
+```
+
+```{r}
+the_name_of_my_variable <- c(3, 4, 5)
+the_name_of_your_variable <- c(6, 7, 8)
+
+both_variables <- tibble(the_name_of_my_variable the_name_of_your_variable)
+```
+
+```{r}
+the_name_of_my_variable <- c(3, 4, 5)
+the_name_of_your_variable <- c(6, 7, 8)
+
+both_variables <- tibble(the_name_of_my_variable, the_name_of_your_variable)
+# Just missing a ,
+```
+
+```{r}
+some_characters <- c("Steph", "Del", "Mhairi", "Aileen")
+# Just missing a "
+```
+
+```{r}
+the_name_of_my_variable <- c(3, 4, 5)
+the_name_of_your_variable <- c(6, 7, 8)
+
+both_variables <- tibble(the_name_of_my_variable the_name_of_your_variable)
+```
+
+```{r}
+library(errorist)
+
+the_name_of_my_variable <- c(3, 4, 5)
+the_name_of_your_variable <- c(6, 7, 8)
+
+both_variables <- data.frame(the_name_of_my_variable the_name_of_your_variable)
+```
+
