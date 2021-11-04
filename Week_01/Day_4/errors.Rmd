@@ -104,3 +104,21 @@ the_name_of_your_variable <- c(6, 7, 8)
 both_variables <- data.frame(the_name_of_my_variable the_name_of_your_variable)
 ```
 
+```{r}
+the_name_of_my_variable <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+subset_variable <- c(2, 3, 4)
+
+
+the_name_of_my_variable == subset_variable
+# not the same number of var, will loop through 1!=2,2!=3,3!=4,4!=2,5!=3,...
+```
+
+```{r}
+the_name_of_my_variable <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+subset_variable <- c(2, 3, 4)
+
+
+the_name_of_my_variable %in% subset_variable
+# better way this looks to see if any of the number are with in the other var
+```
+
