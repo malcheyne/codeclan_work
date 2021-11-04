@@ -1,0 +1,61 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+amount_spent = c(9.1, 8.55, 14.32, 14.17, 14.34, 
+                 7.97, 9.79, 11.47, 12.44)
+
+category = c('Lunch', 'Dinner', 'Lunch', 'Lunch', 
+           'Cinema', 'Drinks', 'Lunch', 'Lunch', 
+           'Dinner')
+
+my_week_of_spending = tibble(amount_spent = amount_spent, 
+                             spending_category = category)
+  str(my_week_of_spending)
+  view(my_week_of_spending)
+  
+my_week_of_spending
+
+# How much spent in total
+summarise(my_week_of_spending, sum(amount_spent))
+# How much spent at Lunch
+summarise(filter(my_week_of_spending, 
+                 spending_category == 'Lunch'), 
+                  sum(amount_spent))
+```
+# Just the last bit changed and middle taken out, then used the "styler" packages
+```{r}
+amount_spent <- c(
+  9.1, 8.55, 14.32, 14.17, 14.34,
+  7.97, 9.79, 11.47, 12.44
+)
+
+category <- c(
+  "Lunch", "Dinner", "Lunch", "Lunch",
+  "Cinema", "Drinks", "Lunch", "Lunch",
+  "Dinner"
+)
+
+my_week_of_spending <- tibble(
+  amount_spent = amount_spent,
+  spending_category = category
+)
+
+my_week_of_spending
+
+# How much spent in total
+summarise(my_week_of_spending, sum(amount_spent))
+# How much spent at Lunch
+filter(
+  my_week_of_spending,
+  spending_category == "Lunch"
+) %>%
+  summarise(sum(amount_spent))
+```
+
