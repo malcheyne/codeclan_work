@@ -3,4 +3,127 @@ title: "R Notebook"
 output: html_notebook
 ---
 
+```{r}
+library(tidyverse)
+
+```
+
+
+```{r}
+# create subject info tibble
+subject_hr <- tibble( 
+  name = c("SUBJ01","SUBJ02","SUBJ03"), 
+  hr_am = c(68,72,68), 
+  hr_pm = c(58,89,52))
+
+subject_hr
+```
+
+The data above isn’t tidy. Why?
+
+```{r}
+subject_hr %>% 
+  pivot_longer(cols = c("hr_am", "hr_pm"),
+               names_to = "measurement_time", # names
+               values_to = "hearthrate")      # values
+
+?pivot_longer
+```
+
+
+```{r}
+subject_hr %>% 
+  pivot_longer(cols = c("hr_am", "hr_pm"),
+               names_to = "measurement_time", # name of the colum for the colum
+               names_prefix = "hr_",          # takes out the prefix
+               values_to = "hearthrate")      # name of the colum for the values
+```
+
+What makes the table untidy?
+How could you tidy it? (You don’t need to know how to write the code, you just need to have an idea of you would tidy them up
+```{r}
+income <- tibble(religion = c("Agnostic","Atheist","Buddhist", "Catholic"), 
+  X10k = c(12,25,3,75), 
+  X10k_to_20k = c(34,14,6,60),
+  X20k_to_30k = c(45,22,10,110))
+
+income
+```
+
+```{r}
+tidy_income <-income %>% 
+  pivot_longer(-religion,                 # what colum we want to change, ie everything but religion
+               names_to = "income_band",  # what the new colum is for the colum
+               values_to = "count")       # what the new colum is for the values
+
+tidy_income
+```
+
+
+```{r}
+# print out the data
+messy_orders <- tibble( name = c("Joe Bloggs","Jane Smith","Penny Jones"), 
+  order_info = c("XY7282/29-06-19","LO0182/15-03-19","AS6812/04-06-19"), 
+  order_amount = c(58.00,125.00,75.25))
+
+messy_orders
+
+# order_info had order and date
+```
+
+
+```{r}
+tidy_order <-  messy_orders %>% 
+  separate(order_info,                # what colum we want to change
+           c("order_number", "date"), # what the new cols
+           sep = "/")                 # where we want to separate them
+
+tidy_order
+```
+
+
+```{r}
+hospital_visits <- read_csv("3_tidy_data/data/hospitals93to98.csv")
+head(hospital_visits)
+```
+
+
+```{r}
+hospital_visits_long <-  hospital_visits %>% 
+  pivot_longer(cols = starts_with("FY"),
+               names_to = "year",
+               values_to = "visit_numbers",
+               names_prefix = "FY")
+
+hospital_visits_long
+```
+
+not liking the data in field so make it wider
+```{r}
+hospital_visits_wider <- hospital_visits_long %>% 
+  pivot_wider(names_from = Field,                 # where the name for colum is from 
+              values_from = visit_numbers)        # where the values come from 
+
+head(hospital_visits_wider)
+```
+
+IcdChapter should be separated 
+```{r}
+hospital_visits_coded <- hospital_visits_wider %>% 
+  separate(IcdChapter,
+           c("code", "description"),
+           sep = "\\.")               # \ means not to use the genranl meaning of the next thing
+                                      #
+
+hospital_visits_coded
+```
+
+```{r}
+hospital_visits_unite <-hospital_visits_coded %>% 
+  unite(disease,
+        c("code", "description"),
+        sep = ":")
+
+hospital_visits_unite
+```
 
