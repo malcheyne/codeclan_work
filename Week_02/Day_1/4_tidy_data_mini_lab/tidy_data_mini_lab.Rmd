@@ -1,0 +1,80 @@
+---
+title: "Tidy Data Mini-Lab"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    df_print: paged
+    css: ../../../styles.css
+  pdf_document: default
+---
+
+**Duration: 30 minutes** 
+
+Now it's your turn to practice the verbs on a new dataset. Complete the following task:
+
+# MVP
+
+**Task 1.**  
+Load in the `country_data.csv` file and take a look at it. What needs changed in this to make it tidy? Which columns need made into long format, and which need spread to rows?
+
+```{r}
+country_data <- read_csv("data/country_data.csv")
+head(country_data)
+```
+
+<br>
+
+**Task 2.**  
+Do the appropriate pivoting of your columns using R  
+```{r}
+country_data_long <- country_data %>% 
+  pivot_longer(
+    cols = starts_with("Y"),
+    names_to = "year",
+    values_to = "count",
+    names_prefix = "Y"
+  )
+
+country_data_long
+```
+```{r}
+country_data_wider <- country_data_long %>% 
+  pivot_wider(names_from = "type",
+              values_from = "count")
+
+country_data_wider
+```
+
+<br>
+
+**Task 3.**  
+Separate the `country` variable so you have the name in one column and the number in another.   
+
+```{r}
+country_data_nocoded <- country_data_wider %>% 
+  separate(country,                         # the colum you want separated
+           c("code_numb", "country"),       # the names of the new colum, can over write code_numb as                                                 there both the same 
+           sep = "\\.")                     # where to separate, \ ignore the general rule of next thing
+
+country_data_nocoded
+```
+
+
+<br>
+
+**Task 4.**  
+Unite the `code_letter` and `code_numb` variables so that they are both in one column, with no spaces separating them.   
+
+```{r}
+country_data_untite <- country_data_nocoded %>% 
+  unite(code,                             # the new colum name
+        c("code_numb", "code_letter"),    # the colums being united together
+        sep = "")                         # for no space just use ""
+
+country_data_untite
+```
+
+
+

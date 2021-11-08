@@ -93,7 +93,9 @@ hospital_visits_long <-  hospital_visits %>%
   pivot_longer(cols = starts_with("FY"),
                names_to = "year",
                values_to = "visit_numbers",
-               names_prefix = "FY")
+               names_prefix = "FY",
+               names_transform = 
+                 list(year = as.numeric))  # change from chr to dbl in sted of mutate below
 
 hospital_visits_long
 ```
@@ -122,8 +124,11 @@ hospital_visits_coded
 hospital_visits_unite <-hospital_visits_coded %>% 
   unite(disease,
         c("code", "description"),
-        sep = ":")
+        sep = ":") %>% 
+  #mutate(year = as.numeric(year))           # make the year dbl from chr, see above names_transform =                                               list(year = as.numeric) 
 
 hospital_visits_unite
+
+
 ```
 

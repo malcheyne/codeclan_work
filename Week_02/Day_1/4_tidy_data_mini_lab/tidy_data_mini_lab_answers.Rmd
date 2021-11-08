@@ -1,0 +1,90 @@
+---
+title: "Tidy Data Mini-Lab - Answers"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    df_print: paged
+    css: ../../../styles.css
+  pdf_document: default
+---
+
+**Duration: 30 minutes** 
+
+Now it's your turn to practice the verbs on a new dataset. Complete the following task:
+
+# MVP
+
+**Task 1.**  
+Load in the `country_data.csv` file and take a look at it. What needs changed in this to make it tidy? Which columns need made into long format, and which need spread to rows?
+
+<details>
+<summary>**Answer**</summary>
+```{r, warning = FALSE, message= FALSE}
+library(tidyverse)
+
+# read in the data 
+country_data <- read_csv("data/country_data.csv")
+```
+</details>
+<br>
+
+**Task 2.**  
+Do the appropriate pivoting of your columns using R  
+
+<details>
+<summary>**Answer**</summary>
+```{r}
+# gather the year columns into a new one called year
+country_long <- country_data %>%
+  pivot_longer(cols =  starts_with("Y"), 
+               names_to = "year", 
+               values_to = "visitors")
+
+country_long
+```
+
+```{r}
+# spread the case type into two columns
+country_wide <- country_long %>%
+  pivot_wider(names_from = type, 
+             values_from = visitors)
+
+country_wide
+```
+</details>
+<br>
+
+**Task 3.**  
+Separate the `country` variable so you have the name in one column and the number in another.   
+
+<details>
+<summary>**Answer**</summary>
+```{r}
+# separate the country variable so you only have the name 
+country_separated <- country_wide %>%
+  separate(country, c("country_n", "country_name"), sep = "\\. " )
+
+country_separated
+```
+</details>
+<br>
+
+**Task 4.**  
+Unite the `code_letter` and `code_numb` variables so that they are both in one column, with no spaces separating them.   
+
+<details>
+<summary>**Answer**</summary>
+```{r, message = FALSE, warning = F}
+
+# unite the code_letter and code_numb variables into a new one called country_code
+country_united <- country_separated %>%
+  unite(country_code, 
+        c(code_letter, code_numb), 
+        sep = "")
+
+country_united
+```
+</details>
+
