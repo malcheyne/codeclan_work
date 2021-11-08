@@ -1,0 +1,79 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+actors <- read_csv("data/actors.csv")
+movies <- read_csv("data/movies.csv")
+roles <- read_csv("data/roles.csv")
+```
+
+```{r}
+names(actors)
+names(movies)
+names(roles)
+
+roles
+```
+
+Question 2.
+
+    What are the primary keys and the foreign keys for each data frame?
+    What kind of relationship (one-to-one, one-to-many, many-to-many) is there between
+        actors and roles    # many-to-many
+        movies and roles    # one-to-many
+        actors and movies   # one-to-one
+
+#2
+Question 1.
+From the movies table, find the id of the film The Little Mermaid. (In the data as “Little Mermaid, The”).
+```{r}
+movies %>% 
+  filter(name == "Little Mermaid, The")
+```
+
+Question 2.
+Filter the roles data frame, so we just have roles from the Little Mermaid (hint: use the ID you found in the last question). Save the result as little_mermaid_roles.
+```{r}
+little_mermaid_roles <- roles %>% 
+  filter(movie_id == 192017)
+little_mermaid_roles
+```
+Question 3.
+Carry out a left join on this new data frame and the actors data frame, to find the actors which appeared in The Little Mermaid.
+
+```{r}
+left_join(little_mermaid_roles, actors, by = c("actor_id" = "id"))
+```
+
+Question 4.
+Do the last join, but with an inner join instead. Is the data different? Why is that?
+```{r}
+inner_join(little_mermaid_roles, actors, by = c("actor_id" = "id"))
+```
+
+#3
+
+Question 1.
+For all actors who have appeared in at least two films. Call this data frame actors_more_than_once.
+```{r}
+actors_more_than_once <- actors %>% 
+  filter(film_count >= 2)
+
+actors_more_than_once
+```
+
+Question 2.
+Left join actors_more_than_once to roles, so we can see all the actors roles those actors played in.
+```{r}
+left_join(actors_more_than_once, roles, by = c("id" = "actor_id"))
+```
+
+
+
