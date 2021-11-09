@@ -1,0 +1,248 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+spotify_songs <-  read_csv("1_string_basics/data/spotify_sample.csv")
+```
+
+```{r}
+# single_quotes <-  'THis is a string'
+# double_quotes <-  "This is a string" # Both work, by this is better
+# 
+# string <- "sally"
+# varaibale <- first_name = c("Sally", "steven", "Mary", "John")
+# tibble/table <- tibble(
+#                 first_name = c("Sally", "steven", "Mary", "John"),
+#                 last_name = c("Smith", "hasTings", "Milne", "Davidson"),
+#                 postcode = c("EH10 6GH", "EH3 7HL", "G1 7FR", NA), 
+#                 location = c(" ", "Edinburgh", "", "Stirling")
+#                 )
+```
+
+
+
+```{r}
+employees <- tibble(
+  first_name = c("Sally", "steven", "Mary", "John"),
+  last_name = c("Smith", "hasTings", "Milne", "Davidson"),
+  postcode = c("EH10 6GH", "EH3 7HL", "G1 7FR", NA), 
+  location = c(" ", "Edinburgh", "", "Stirling")          # " " is diffrent to ""
+)
+
+employees
+```
+
+```{r}
+employees %>% 
+  group_by(location) %>% 
+  summarise(count = n()) 
+
+# This is 
+# There 4 count so four different inputs, 
+```
+
+# Manipulating Strings
+
+```{r}
+str_c("this", "is" , "a" , "string")
+```
+
+```{r}
+employees %>% 
+  mutate(fall_name = 
+           str_c(first_name, 
+                 last_name, 
+                 sep = " ")
+         ) # need to use str_ need to be used inside a mutate in a dateset
+
+```
+
+
+
+# Casing
+
+```{r}
+pangram <- "The quick brown fox jumps over the lazy dog"
+pangram
+```
+
+```{r}
+pangram %>% 
+  str_to_upper()
+
+pangram %>% 
+  str_to_lower()
+
+pangram %>% 
+  str_to_title()
+
+pangram %>% 
+  str_to_sentence()
+```
+# Title first and last name
+```{r}
+employees <- employees %>% 
+  mutate(first_name = str_to_title(first_name),
+         last_name = str_to_title(last_name),
+         full_name = str_c(first_name, last_name, sep = " "))
+
+employees
+```
+# Splitting strings
+
+```{r}
+unbroken_string <-  "We're going to split this string up"
+unbroken_string
+
+```
+
+
+```{r}
+unbroken_string %>% 
+  str_split(" ") %>%  # " " will split the each word, "" will split each letter... not what we want
+  flatten_chr()       # with out flatten() it would 
+```
+
+```{r}
+employees %>% 
+  mutate(postcode_new = str_split(postcode, " "))
+```
+
+
+```{r}
+employees %>% 
+  mutate(postcode_new = str_split(postcode, " ")) %>%  # This makes it a list saying two chr
+  unnest(postcode_new)  # This makes back to a veraible 
+```
+
+
+```{r}
+employees %>% 
+  separate(postcode, c("postcode_outer", "postcode_inner"), sep = " ")
+
+# This one is better as it doesn't add more rows
+```
+Task - 10 mins
+Concatenate the strings "Manipulating" "strings" "is" "fun!"
+Capitalise the result and save it in a new variable
+Split the formatted string into individual characters
+
+
+```{r}
+string_task <- str_c("Manipulating", "strings", "is", "fun!") # concatenate str_c() for strings 
+                                                              # to make 1 big string
+                                                              # concatenate c() to make separate strings
+capitalised_string_task <- str_to_upper(string_task)
+
+str_split(capitalised_string_task, "") %>%
+  flatten_chr()
+
+```
+
+```{r}
+full_string <-  "Let's grab a substring from this!"
+```
+
+
+```{r}
+full_string %>% 
+  str_sub(start = 1, end = 5)
+```
+
+```{r}
+full_string %>% 
+  str_sub(start = 6)
+```
+
+```{r}
+full_string %>% 
+  str_sub(-5, -1)
+
+#"Let's grab a substring from this"
+# L is 1
+# ! is -1
+```
+
+
+```{r}
+employees %>% 
+  mutate(postcode_inner = str_sub(postcode, start = -3),
+         postcode_outer = str_sub(postcode, start = 1, end = -4)) 
+
+# theres 3 chr at the end of the row so the space is always -4 
+# better to us the separate here
+```
+
+# Replace bits of strings
+
+```{r}
+original_string <-  "This will not wort the well"
+original_string
+```
+
+```{r}
+str_sub(original_string, 1, 22) <- "I've changed"  # Cuts out all letter for 1 to 22
+original_string                                    # and replaces with new wording
+
+# You can do it this way but will on work for this one time
+# better to use regex see the next notes
+# This would be hard coding ie one off
+```
+
+
+```{r}
+number <- 123456.789
+```
+
+```{r}
+number %>% 
+  format(nsmall = 2, big.mark= ",", decimal.mark = ".")
+
+# nsall is how many after the decimal mark
+# big.mark lets you put in , ie 1,000,000
+# decimal.mark lets you change the . to say ,
+```
+# Task
+
+```{r}
+spotify_songs 
+```
+```{r}
+names(spotify_songs)
+```
+
+
+```{r}
+spotify_songs <- spotify_songs %>% 
+  mutate(playlist_name = str_to_upper(playlist_name),
+         track_artist_lowcase = str_to_lower(track_artist),
+         playlist_start = str_sub(playlist_id, 1, 5),
+         year = str_sub(track_album_release_date, 1, 4),
+         playlist_subgenre = str_to_title(playlist_subgenre),
+         track_artist_lowcase = str_to_title(track_artist_lowcase)
+         )
+
+spotify_songs
+```
+# Johny work
+```{r}
+ spotify_data_edited <- spotify_samples %>% 
+  
+  clean_names() %>%
+  # mutate(as.Date(track_album_release_date, "%Y-%m-%d"))  
+  mutate(playlist_name = str_to_upper(playlist_name)) %>%
+  mutate(track_artist_lowercase = str_to_lower(track_artist)) %>%
+  mutate(playlist_start = str_sub(playlist_id, end = 5)) %>%
+  mutate(year = str_sub(track_album_release_date, end = 4))
+
+spotify_data_edited 
+
+# it the norm for dates to be "%Y-%m-%d", so it can be searched for by year
+```
+
