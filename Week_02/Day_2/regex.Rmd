@@ -137,7 +137,7 @@ test_strings %>%
 
 [] - or operation
 {2} -  number of occurrence
-(?i) -
+(?i) - [un]capalisation finds if it upper or lower case
 * - zero or more occurrence
 + - one or more occurrence
 
