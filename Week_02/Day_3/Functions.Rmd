@@ -98,3 +98,26 @@ triangle_function(n)
 ```
 
 
+```{r}
+triangular_number <- function(x) {
+  numerator <- x * (x + 1)
+  numerator / 2
+}
+tri_loop <- function(x) {
+  i <- 0
+  while (i < x) {
+    i <- i + 1
+    result <- triangular_number(i)
+    cat(result, "\n")
+  }
+}
+debugonce(tri_loop)  # This just dose it once
+tri_loop(5)
+
+
+
+# debug(tri_loop)
+# undebug(tri_loop)
+```
+
+
