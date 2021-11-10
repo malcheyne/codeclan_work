@@ -1,0 +1,100 @@
+---
+title: "Functions"
+output: html_notebook
+---
+
+
+```{r}
+# my_fun <- function(x, y, z) {
+#   
+# }
+```
+
+
+```{r}
+multiply_by_5 <-  function(x) {
+  x * 5
+}
+
+multiply_by_5(5)
+```
+
+```{r}
+multiply_by <-  function(x, y) {
+  x * y
+}
+multiply_by(1:3, 10)  # 1*10, 2*10, 3*10
+multiply_by(1:5, 1:5) # 1*1, 2*2, 3*3, 4*4, 5*5
+
+for (i in 1:5) {
+  print(
+    multiply_by(1:5, i)
+  )
+}
+```
+
+```{r}
+library(tidyverse)
+
+beaver1
+
+cheeky_fun <-  . %>% 
+  select(temp, activ) %>% 
+  group_by(activ) %>% 
+  summarise(mean_temp = mean(temp))
+
+# cheeky_fun <-  function(d, e, f,....)
+#   d %>% 
+#   select(temp, activ) %>% 
+#   group_by(activ) %>% 
+#   summarise(mean_temp = mean(temp))
+
+beaver1 %>% 
+  cheeky_fun()
+
+beaver2 %>% 
+  cheeky_fun()
+```
+
+#Task
+
+```{r}
+price <- str_c(5, 10, 15, 20)
+
+make_price(price)
+```
+# Johny work
+```{r}
+food_prices <- c(12,25,13,14,2)
+
+make_price <- .%>%
+  paste(prefix = "£")
+
+food_prices %>%
+  make_price()
+```
+# Ricardo work
+```{r}
+into_price <- function(amount) {
+  
+  paste0("£", round(amount, 2))  
+}
+
+into_price(food_prices)
+```
+
+$$\frac{n(n+1)}{2}$$
+
+```{r}
+
+n <- c(1, 2, 3, 4, 5)
+
+triangle_function <- function(n) {
+  (n*(n+1))/2
+}
+
+
+triangle_function(n)
+```
+
+

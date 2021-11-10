@@ -446,9 +446,9 @@ names(starwars)
 ```
 
 ```{r}
-starwars %>% 
-  select(name) %>% 
-  lapply()
+# starwars %>% 
+#   select(name) %>% 
+#   lapply()
 ```
 
 # Johny work
@@ -468,9 +468,9 @@ for (x in starwars$name) {
 ```{r}
 CodeClanData::starwars[[1]][["name"]]  # Give one name
 
-sapply(CodeClanData::starwars, `[[`, "name") # Gives it as a vector
+sapply(CodeClanData::starwars, `[[`, "name") # Gives it as a vector ie as in [[x]]
 
-sapply(CodeClanData::starwars, `[`, "name") # Gives it a a list
+sapply(CodeClanData::starwars, `[`, "name") # Gives it a a list ie as in [x]
 
 # R has a bigger data file of starwars, using starwars from CodeClanData
 ```
