@@ -1,0 +1,278 @@
+---
+title: "Data Structures"
+output: html_notebook
+---
+
+```{r}
+nums <- 1:5
+strings <-  c("I", "am", "text")
+booleans <-  c(TRUE, FALSE)
+
+class(nums)
+```
+
+# Lists
+
+create them with `list()` #`` backwards quotes to make it code when kitied
+
+```{r}
+list("text", TRUE, c(1, 2, 3))
+```
+
+`as.list`
+```{r}
+as.list(nums)
+```
+
+
+```{r}
+x <- list(1, "a", TRUE, c(1, 2, 3))
+
+x[[2]]
+x[2]
+
+class(x[[2]]) # this truns it back into a vector 
+class(x[2])   # this keeps it as a list
+```
+
+`[]` will always retrun the same data structure
+
+
+## Naming Lists
+
+```{r}
+named_list <- list(a = "I love R", b=1:10)
+
+named_list
+```
+
+```{r}
+named_list$b
+```
+
+```{r}
+named_list[["a"]]
+```
+
+```{r}
+returned_value <- "a"
+
+named_list[[returned_value]]
+```
+
+```{r}
+named_list <- list(a = "I love R", b=1:10)
+
+named_list[[2]]
+```
+
+## Nested List
+
+You can put a list inside another list (inside another list)
+
+```{r}
+student_info <- list(
+    "Agnes" = list(height = 1.8, shoe_size = 8L),
+    "Bobby" = list(height = 2.1, gender = "Male"),
+    "Charlie" = list(gender = "Female", likes_beets = TRUE)
+)
+
+student_info
+```
+
+```{r}
+student_info <- list(
+    "Agnes" = list(height = 1.8, shoe_size = 8L),
+    "Bobby" = list(height = 2.1, gender = "Male"),
+    "Charlie" = list(gender = "Female", likes_beets = TRUE)
+)
+
+student_info$Bobby$height
+```
+
+```{r}
+student_info <- list(
+    "Agnes" = list(height = 1.8, shoe_size = 8L),
+    "Bobby" = list(height = 2.1, gender = "Male"),
+    "Charlie" = list(gender = "Female", likes_beets = TRUE)
+)
+
+student_info[["Agnes"]][["shoe_size"]]
+```
+
+
+```{r}
+student_info[[1]][[2]]
+```
+
+
+Task - 5 minutes
+
+Make a named list that contains a numeric vector and a character vector.
+
+Access the second element of your list using double square brackets [[]]. What is it's class?
+
+Access the second element of your list using single square brackets []. What is it's class?
+
+Access the second element of your list by name. What is it's class?
+
+```{r}
+d <- list(a = 1:10, b = "same")
+
+d[[2]]
+class(d[[2]])
+
+returned <- "b"
+
+d[returned]
+class(d[returned])
+
+d$b
+```
+
+# Johny work
+```{r}
+# Question 1
+
+example_list <- list(a = c(1,4,7,9,11), b=  c("J","M","L","R","P"))
+
+example_list
+
+# Question 2
+
+example_list[[2]]
+
+class(example_list[[2]])
+
+# Question 3
+
+example_list[2]
+
+class(example_list[2])
+
+# Question 4
+
+example_list[["b"]]
+
+class(example_list[["b"]])
+```
+
+
+# Matrices
+Will populate matrices by cols by default
+
+```{r}
+matrix(1:4, nrow = 2,ncol = 2)
+```
+To populate matrices by row, specify `byrow = TRUE`
+
+```{r}
+matrix(1:4, nrow = 2, ncol = 2, byrow = TRUE)
+```
+
+```{r}
+m <- matrix(1:6, nrow = 2, ncol = 3)
+```
+
+```{r}
+class(m)
+```
+
+```{r}
+as.data.frame(m)
+```
+
+
+# Selecting elements in a matrix
+
+m[row, colum]
+
+```{r}
+# 1st row, 3rd colum
+m[1,3]
+# the first row
+m[1,]
+# 3rd colum
+m[ , 3]
+```
+
+You can select multiple rows or colums by passing a vector
+
+```{r}
+m[, c(1, 3)]
+# have picked 2 colums and dropped the middle one
+```
+
+```{r}
+m * 5
+# timesed all the matrix by 5
+```
+# This can be use in dplyr as well
+```{r}
+library(dplyr)
+library(magrittr)
+
+numers <- iris %>% select(-Species)
+
+# if it's all the same data type
+numers * 3
+
+# access the first row of a df
+numers[1, ]
+```
+
+## WOrking with rows and colums
+
+- want to get the mean average of a column of a matrix
+
+As we're out of the tidyveres we don't need to follow snake case
+
+`colMeans()`
+
+```{r}
+colMeans(m)
+```
+
+Other convenience functions:
+
+`rowSums`
+`colSums`
+`rowMeans`
+`colMeans`
+
+```{r}
+rowSums(m)
+```
+
+These functions also work on dfs, as long as the columns are the same type
+
+```{r}
+colSums(numers)
+```
+
+```{r}
+# you can specify the names of the columns, this over rides the vetor 
+colnames(m) <- c("1st", "2nd", "3rd")
+
+colSums(m)
+```
+
+Task - 5 minutes
+Make a matrix with 3 rows and 4 columns. Each column should contain the numbers 1 to 3.
+Find the element in the 2nd row, 3rd column.
+Check that all the columns are identical by checking that their sums are the same.
+
+```{r}
+#Q1
+p <- matrix(1:3, nrow = 3,ncol = 4)
+p
+
+#Q2
+p[2, 3]
+
+#Q3
+colSums(p)
+```
+
+
+
