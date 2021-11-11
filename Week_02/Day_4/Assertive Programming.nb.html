@@ -216,8 +216,306 @@ pre code {
 
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
+<pre class="r"><code>library(tidyverse)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUmVnaXN0ZXJlZCBTMyBtZXRob2RzIG92ZXJ3cml0dGVuIGJ5ICdkYnBseXInOlxuICBtZXRob2QgICAgICAgICBmcm9tXG4gIHByaW50LnRibF9sYXp5ICAgICBcbiAgcHJpbnQudGJsX3NxbCAgICAgIFxuLS0gQXR0YWNoaW5nIHBhY2thZ2VzIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSB0aWR5dmVyc2UgMS4zLjEgLS1cbnYgZ2dwbG90MiAzLjMuNSAgICAgdiBwdXJyciAgIDAuMy40XG52IHRpYmJsZSAgMy4xLjUgICAgIHYgZHBseXIgICAxLjAuN1xudiB0aWR5ciAgIDEuMS40ICAgICB2IHN0cmluZ3IgMS40LjBcbnYgcmVhZHIgICAyLjAuMiAgICAgdiBmb3JjYXRzIDAuNS4xXG4tLSBDb25mbGljdHMgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tIHRpZHl2ZXJzZV9jb25mbGljdHMoKSAtLVxueCByZWFkcjo6ZWRpdGlvbl9nZXQoKSAgIG1hc2tzIHRlc3R0aGF0OjplZGl0aW9uX2dldCgpXG54IGRwbHlyOjpmaWx0ZXIoKSAgICAgICAgbWFza3Mgc3RhdHM6OmZpbHRlcigpXG54IHB1cnJyOjppc19udWxsKCkgICAgICAgbWFza3MgdGVzdHRoYXQ6OmlzX251bGwoKVxueCBkcGx5cjo6bGFnKCkgICAgICAgICAgIG1hc2tzIHN0YXRzOjpsYWcoKVxueCByZWFkcjo6bG9jYWxfZWRpdGlvbigpIG1hc2tzIHRlc3R0aGF0Ojpsb2NhbF9lZGl0aW9uKClcbnggZHBseXI6Om1hdGNoZXMoKSAgICAgICBtYXNrcyB0aWR5cjo6bWF0Y2hlcygpLCB0ZXN0dGhhdDo6bWF0Y2hlcygpXG4ifQ== -->
+<pre><code>Registered S3 methods overwritten by &#39;dbplyr&#39;:
+  method         from
+  print.tbl_lazy     
+  print.tbl_sql      
+-- Attaching packages --------------------------------------------------------------- tidyverse 1.3.1 --
+v ggplot2 3.3.5     v purrr   0.3.4
+v tibble  3.1.5     v dplyr   1.0.7
+v tidyr   1.1.4     v stringr 1.4.0
+v readr   2.0.2     v forcats 0.5.1
+-- Conflicts ------------------------------------------------------------------ tidyverse_conflicts() --
+x readr::edition_get()   masks testthat::edition_get()
+x dplyr::filter()        masks stats::filter()
+x purrr::is_null()       masks testthat::is_null()
+x dplyr::lag()           masks stats::lag()
+x readr::local_edition() masks testthat::local_edition()
+x dplyr::matches()       masks tidyr::matches(), testthat::matches()</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2VhdGhlcl9vbmUgPC0gcmVhZF9jc3YoXCIyX2Fzc2VydGl2ZV9wcm9ncmFtbWluZy9kYXRhL2RlbGhpX3dlYXRoZXJfb25lLmNzdlwiKVxuYGBgIn0= -->
+<pre class="r"><code>weather_one &lt;- read_csv(&quot;2_assertive_programming/data/delhi_weather_one.csv&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUm93czogNTMgQ29sdW1uczogNFxuLS0gQ29sdW1uIHNwZWNpZmljYXRpb24gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLVxuRGVsaW1pdGVyOiBcIixcIlxuY2hyICgxKTogZGF0ZVxuZGJsICgzKTogdGVtcCwgaHVtaWRpdHksIHdpbmRfc3BlZWRcblxuaSBVc2UgYHNwZWMoKWAgdG8gcmV0cmlldmUgdGhlIGZ1bGwgY29sdW1uIHNwZWNpZmljYXRpb24gZm9yIHRoaXMgZGF0YS5cbmkgU3BlY2lmeSB0aGUgY29sdW1uIHR5cGVzIG9yIHNldCBgc2hvd19jb2xfdHlwZXMgPSBGQUxTRWAgdG8gcXVpZXQgdGhpcyBtZXNzYWdlLlxuIn0= -->
+<pre><code>Rows: 53 Columns: 4
+-- Column specification -------------------------------------------------------------------------------
+Delimiter: &quot;,&quot;
+chr (1): date
+dbl (3): temp, humidity, wind_speed
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkFzc2VydGl2ZSBQcm9ncmFtbWluZyINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KLS0tDQoNCg0K</div>
+i Use `spec()` to retrieve the full column specification for this data.
+i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2VhdGhlcl9yZXBvcnQgPC0gZnVuY3Rpb24od2VhdGhlcil7XG4gICMgT3VyIGF2ZXJhZ2UgdGVtcGVyYXR1cmUsIGh1bWlkaXR5IGFuZCB3aW5kIHNwZWVkIFxuICB3ZWF0aGVyX21lYW5zIDwtIFxuICB3ZWF0aGVyICU+JSBcbiAgc3VtbWFyaXNlKFxuICAgIG1lYW5fdGVtcCA9IG1lYW4odGVtcCksXG4gICAgbWVhbl9odW1pZGl0eSA9IG1lYW4oaHVtaWRpdHkpLFxuICAgIG1lYW5fd2luZHNwZWVkID0gbWVhbih3aW5kX3NwZWVkKVxuICApXG5cbiMgU2hvdyBob3QgYW5kIGh1bWlkIGRheXNcbmhvdF9hbmRfaHVtaWQgPC0gXG53ZWF0aGVyICU+JSBcbiAgZmlsdGVyKHRlbXAgPiAyMCkgJT4lIFxuICBmaWx0ZXIoaHVtaWRpdHkgPiA1NSlcblxucmV0dXJuKGxpc3Qod2VhdGhlcl9tZWFucywgaG90X2FuZF9odW1pZCkpXG59XG5cbndlYXRoZXJfcmVwb3J0KHdlYXRoZXJfb25lKVxuYGBgIn0= -->
+<pre class="r"><code>weather_report &lt;- function(weather){
+  # Our average temperature, humidity and wind speed 
+  weather_means &lt;- 
+  weather %&gt;% 
+  summarise(
+    mean_temp = mean(temp),
+    mean_humidity = mean(humidity),
+    mean_windspeed = mean(wind_speed)
+  )
+
+# Show hot and humid days
+hot_and_humid &lt;- 
+weather %&gt;% 
+  filter(temp &gt; 20) %&gt;% 
+  filter(humidity &gt; 55)
+
+return(list(weather_means, hot_and_humid))
+}
+
+weather_report(weather_one)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiW1sxXV1cbiJ9 -->
+<pre><code>[[1]]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6Mywic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIHggMyJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJndHlpVERtaXVCaVlHQmdabUJoWkdSZ1pnVXlHZGljQXd5TlRJMFlHRmlZZ0R4R0JoWUdUaEJkQVZRbERGYkt3TUFIRW5Bd1dIS2pZa1BCVERnL0tLWnI5ZHFMZkhDKzlKOC9XYldMKzlBTVlzMUx6RTB0QmpJRUlQYUNCVGx6VXhQejRrdFNjd3VnQXJ4Z2dZelMzTXlVekpKS3FDQWZXTEE4TXkrbHVDQTFOUVhOWU02aS9ISTltT0c4UU16VUFDVCtBd0c2QzVKekVvdGhMb0FKY3FVa2xpVHFwUlVCOVFONS85QzBzT2NYbEdUbTV3RTFNWUhDZ0JWTk0yTVJtZ0IvYVI3SUpTbTZ5Um1sZWRtNnhpQUx3TklRd0F0bE15S3htU0ZXTXYySEdzVUtOWW90TlM4OU15OFY1dmFjeEtUVUhGaDRBSDBNOXJCZVFWRm1YZ25NSjBEUllyMlMvSkpFbURxdTVQd2NtQWpZYnd6L0FGeXNUWFQ3QVFBQSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["mean_temp"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["mean_humidity"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["mean_windspeed"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"16.64393","2":"73.44596","3":"6.997057"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5bWzJdXVxuIn0= -->
+<pre><code>
+[[2]]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInNwZWNfdGJsX2RmIiwidGJsX2RmIiwidGJsIiwiZGF0YS5mcmFtZSJdLCJucm93Ijo3LCJuY29sIjo0LCJzdW1tYXJ5Ijp7IkEgdGliYmxlIjpbIjcgeCA0Il19fSwicmRmIjoiSDRzSUFBQUFBQUFBQmd0eWlURG1pdUJpWUdCZ1ptQmhaR1JnWmdVeUdkaWNBd3lOVEkwWUdGaVlnRHhHQmhZR1RoQmRBVlFsREdTd0FMRUFFTE5ESmJpTVRQVU5EUFdOREF6TllTS0dadm9HUnFnaTVoZ2lGaGdpbHVnaVJnWVlJb1p3RVFZR1BwQXJIRXdad01EQnhBRkNtL3FjQVlLekRxWUtFTDVackxqcndXc3FEdVlKVVBtcm9hSHVMTjV3L1lHMUJZdXZjOWs2K0VEbEF5Um5Bc0VzaDhBTlVIN3J4WklZMlNRSFB3RUlQekJxMWFwMWRtL2graFdiaGZLbTl3WTRxRHlBeUN2MXgyaDhQZFR2SUFsMWw0VDVyY090MWFFTzBnY2dmSTExNzk1elQyUkdDMTdXdk1UYzFHSm8wTEpBQlZsU0VrdFNZZXlTMU53Q0tKc2pvelEzTXlXenBCSVdMT1daZVNueHhRV3BxU2xveG5JVzVaZnJ3WXptQldLbUJpRHgvLy8vbitqMkorY2tGc1BzaHdseUFlMVAxRXNyQXVvSDh2NmhhV0hQTHlqSnpNOERhbUlDcFF0V05NMk1SV2dDL0tWNUlKZWs2Q1pubE9abDZ4cURMQUJMUXdBdmxNMk94R2FCV01uMEgyb1VLOVFvdHRTODlNdzhXTkN3NWlRbXBlWkFPWHhBSDRNOXJGZFFsSmxYQXZNSlVMUllyeVMvSkJHbWppczVQd2NtQXZZYnd6OEF1OTFjNkE4REFBQT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["date"],"name":[1],"type":["chr"],"align":["left"]},{"label":["temp"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["humidity"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["wind_speed"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"25/01/2017","2":"21.00000","3":"69.96000","4":"8.756000"},{"1":"16/02/2017","2":"20.25000","3":"56.75000","4":"10.437500"},{"1":"17/02/2017","2":"21.30000","3":"64.40000","4":"9.280000"},{"1":"18/02/2017","2":"21.12500","3":"70.75000","4":"6.250000"},{"1":"19/02/2017","2":"22.36364","3":"66.09091","4":"6.054545"},{"1":"20/02/2017","2":"23.37500","3":"60.12500","4":"6.937500"},{"1":"21/02/2017","2":"21.83333","3":"69.41667","4":"12.341667"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[7]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTkFcbiJ9 -->
+<pre><code>NA</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2VhdGhlcl90d28gPC0gcmVhZF9jc3YoXCIyX2Fzc2VydGl2ZV9wcm9ncmFtbWluZy9kYXRhL2RlbGhpX3dlYXRoZXJfdHdvLmNzdlwiKVxuYGBgIn0= -->
+<pre class="r"><code>weather_two &lt;- read_csv(&quot;2_assertive_programming/data/delhi_weather_two.csv&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUm93czogMjkgQ29sdW1uczogNFxuLS0gQ29sdW1uIHNwZWNpZmljYXRpb24gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cbkRlbGltaXRlcjogXCIsXCJcbmNociAoMSk6IGRhdGVcbmRibCAoMyk6IHRlbXAsIGh1bWlkaXR5LCB3aW5kX3NwZWVkXG5cbmkgVXNlIGBzcGVjKClgIHRvIHJldHJpZXZlIHRoZSBmdWxsIGNvbHVtbiBzcGVjaWZpY2F0aW9uIGZvciB0aGlzIGRhdGEuXG5pIFNwZWNpZnkgdGhlIGNvbHVtbiB0eXBlcyBvciBzZXQgYHNob3dfY29sX3R5cGVzID0gRkFMU0VgIHRvIHF1aWV0IHRoaXMgbWVzc2FnZS5cbiJ9 -->
+<pre><code>Rows: 29 Columns: 4
+-- Column specification --------------------------------------------------------------------------------------
+Delimiter: &quot;,&quot;
+chr (1): date
+dbl (3): temp, humidity, wind_speed
+
+i Use `spec()` to retrieve the full column specification for this data.
+i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2VhdGhlcl9yZXBvcnQod2VhdGhlcl90d28pXG5gYGAifQ== -->
+<pre class="r"><code>weather_report(weather_two)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiW1sxXV1cbiJ9 -->
+<pre><code>[[1]]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6Mywic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIHggMyJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJndHlpVERtaXVCaVlHQmdabUJoWkdSZ1pnVXlHZGljQXd5TlRJMFlHRmlZZ0R4R0JoWUdUaEJkQVZRbERGYkt3TUFIRW5Dd01QaFllR3JuUVRqZnk0YVhhVjV5TFp5djNteHcwSUZiQzgwZzFyekUzTlJpSUVNQVlpOVlrRE0zTlRFdnZpUTF0d0Fxd0FzV3lDak56VXpKTEttRUN2S0JCY3N6ODFLS0MxSlRVOUFNNWl6S0w5ZURHYzRMeEV3TlFPSS9FS0M3SURrbnNSam1BcGdnVjBwaVNhSmVXaEZRUDVEM0QwMExlMzVCU1daK0hsQVRFeWdNV05FME14YWhDZkNYNW9GY2txS2JuRkdhbDYxckNySUFMQTBCdkZBMkl4S2JHV0lsMDMrb1VheFFvOWhTODlJejgxSmhiczlKVEVyTmdZVUgwTWRnRCtzVkZHWG1sY0I4QWhRdDFpdkpMMG1FcWVOS3pzK0JpWUQ5eHZBUEFIM2QraXY3QVFBQSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["mean_temp"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["mean_humidity"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["mean_windspeed"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"24.19118","2":"52.46915","3":"11.75623"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5bWzJdXVxuIn0= -->
+<pre><code>
+[[2]]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInNwZWNfdGJsX2RmIiwidGJsX2RmIiwidGJsIiwiZGF0YS5mcmFtZSJdLCJucm93IjoyLCJuY29sIjo0LCJzdW1tYXJ5Ijp7IkEgdGliYmxlIjpbIjIgeCA0Il19fSwicmRmIjoiSDRzSUFBQUFBQUFBQmd0eWlURG1pdUJpWUdCZ1ptQmhaR1JnWmdVeUdkaWNBd3lOVEkwWUdGaVlnRHhHQmhZR1RoQmRBVlFsREdTd0FMRUFFRE5CSmJnTUxQVU5qUFdOREF6TllTS0c1bkFSQmdZK2tGcUh5SlpKbnNxY3N4eE1ucVdCQUlhNDc4MlpRREFMUTF6dDEwUDNkU0xWYUk1aHpVdk1UUzJHT29RRktzaVNrbGlTQ21PWHBPWVdRTmtjR2FXNW1TbVpKWlV3NTVWbjVxWEVGeGVrcHFhZ0djdFpsRit1QnpPYUYrU09CaUR4Ly8vL2YrajJKK2NrRnNQc2h3bHlBZTFQMUVzckF1b0g4dEMxc09jWGxHVG01d0UxTVlGQ2tSVk5NMk1SbWdCL2FSN0lKU202eVJtbGVkbTZwaUFMd05JUXdBdGxNeUd4V1NCV012MkhHc1VLTllvdE5TODlNdzhXTkt3NWlVbXBPVkFPSDlESFlBL3JGUlJsNXBYQWZBSVVMZFlyeVM5SmhLbmpTczdQZ1ltQS9jYndEd0NpejU3L1BRSUFBQT09In0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["date"],"name":[1],"type":["chr"],"align":["left"]},{"label":["temp"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["humidity"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["wind_speed"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"09/03/2017","2":"102.0714","3":"102.0714","4":"102.0714"},{"1":"17/03/2017","2":"20.9000","3":"59.7000","4":"11.4900"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTkFcbiJ9 -->
+<pre><code>NA</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShhc3NlcnRyKVxuYGBgIn0= -->
+<pre class="r"><code>library(assertr)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2VhdGhlcl9yZXBvcnQgPC0gZnVuY3Rpb24od2VhdGhlcil7XG4gIFxuICAjIEZyb20gYXNzZXJ0ciBwYWNrYWdlXG4gIHdlYXRoZXIgJT4lIFxuICAgIHZlcmlmeSh0ZW1wID49IC0zNSAmIHRlbXAgPD0gNTUpICU+JSBcbiAgICB2ZXJpZnkod2luZF9zcGVlZCA+PSAwICYgd2luZF9zcGVlZCA8PSAxMDgpICU+JSBcbiAgICB2ZXJpZnkoaHVtaWRpdHkgPj0gMCAmIGh1bWlkaXR5IDw9IDEwMClcbiAgXG4gICMgT3VyIGF2ZXJhZ2UgdGVtcGVyYXR1cmUsIGh1bWlkaXR5IGFuZCB3aW5kIHNwZWVkIFxuICB3ZWF0aGVyX21lYW5zIDwtIFxuICB3ZWF0aGVyICU+JSBcbiAgc3VtbWFyaXNlKFxuICAgIG1lYW5fdGVtcCA9IG1lYW4odGVtcCksXG4gICAgbWVhbl9odW1pZGl0eSA9IG1lYW4oaHVtaWRpdHkpLFxuICAgIG1lYW5fd2luZHNwZWVkID0gbWVhbih3aW5kX3NwZWVkKVxuICApXG5cbiMgU2hvdyBob3QgYW5kIGh1bWlkIGRheXNcbmhvdF9hbmRfaHVtaWQgPC0gXG53ZWF0aGVyICU+JSBcbiAgZmlsdGVyKHRlbXAgPiAyMCkgJT4lIFxuICBmaWx0ZXIoaHVtaWRpdHkgPiA1NSlcblxucmV0dXJuKGxpc3Qod2VhdGhlcl9tZWFucywgaG90X2FuZF9odW1pZCkpXG59XG5cbndlYXRoZXJfcmVwb3J0KHdlYXRoZXJfb25lKVxuYGBgIn0= -->
+<pre class="r"><code>weather_report &lt;- function(weather){
+  
+  # From assertr package
+  weather %&gt;% 
+    verify(temp &gt;= -35 &amp; temp &lt;= 55) %&gt;% 
+    verify(wind_speed &gt;= 0 &amp; wind_speed &lt;= 108) %&gt;% 
+    verify(humidity &gt;= 0 &amp; humidity &lt;= 100)
+  
+  # Our average temperature, humidity and wind speed 
+  weather_means &lt;- 
+  weather %&gt;% 
+  summarise(
+    mean_temp = mean(temp),
+    mean_humidity = mean(humidity),
+    mean_windspeed = mean(wind_speed)
+  )
+
+# Show hot and humid days
+hot_and_humid &lt;- 
+weather %&gt;% 
+  filter(temp &gt; 20) %&gt;% 
+  filter(humidity &gt; 55)
+
+return(list(weather_means, hot_and_humid))
+}
+
+weather_report(weather_one)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiW1sxXV1cbiJ9 -->
+<pre><code>[[1]]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6Mywic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIHggMyJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJndHlpVERtaXVCaVlHQmdabUJoWkdSZ1pnVXlHZGljQXd5TlRJMFlHRmlZZ0R4R0JoWUdUaEJkQVZRbERGYkt3TUFIRW5Bd1dIS2pZa1BCVERnL0tLWnI5ZHFMZkhDKzlKOC9XYldMKzlBTVlzMUx6RTB0QmpJRUlQYUNCVGx6VXhQejRrdFNjd3VnQXJ4Z2dZelMzTXlVekpKS3FDQWZXTEE4TXkrbHVDQTFOUVhOWU02aS9ISTltT0c4UU16VUFDVCtBd0c2QzVKekVvdGhMb0FKY3FVa2xpVHFwUlVCOVFONS85QzBzT2NYbEdUbTV3RTFNWUhDZ0JWTk0yTVJtb0JBYVI3SUpTbTZ5Um1sZWRtNmhvWWdHOER5RU1BTFpUTWlzWmtoZGpMOWg1ckZDaldMTFRVdlBUTXZGZWI0bk1TazFCeFlnQUM5RFBheFhrRlJabDRKekN0QTBXSzlrdnlTUkpnNnJ1VDhISmdJMkhNTS93QWIya1JIL0FFQUFBPT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["mean_temp"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["mean_humidity"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["mean_windspeed"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"16.64393","2":"73.44596","3":"6.997057"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5bWzJdXVxuIn0= -->
+<pre><code>
+[[2]]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInNwZWNfdGJsX2RmIiwidGJsX2RmIiwidGJsIiwiZGF0YS5mcmFtZSJdLCJucm93Ijo3LCJuY29sIjo0LCJzdW1tYXJ5Ijp7IkEgdGliYmxlIjpbIjcgeCA0Il19fSwicmRmIjoiSDRzSUFBQUFBQUFBQmd0eWlURG1pdUJpWUdCZ1ptQmhaR1JnWmdVeUdkaWNBd3lOVEkwWUdGaVlnRHhHQmhZR1RoQmRBVlFsREdTd0FMRUFFTE5ESmJpTVRQVU5EUFdOREF6TllTS0dadm9HUnFnaTVoZ2lGaGdpbHVnaVJnWVlJb1p3RVFZR1BwQXJIRXdad01EQnhBRkNtL3FjQVlLekRxWUtFTDVackxqcndXc3FEdVlKVVBtcm9hSHVMTjV3L1lHMUJZdXZjOWs2K0VEbEF5Um5Bc0VzaDhBTlVIN3J4WklZMlNRSFB3RUlQekJxMWFwMWRtL2graFdiaGZLbTl3WTRxRHlBeUN2MXgyaDhQZFR2SUFsMWw0VDVyY090MWFFTzBnY2dmSTExNzk1elQyUkdDMTdXdk1UYzFHSm8wTEpBQlZsU0VrdFNZZXlTMU53Q0tKc2pvelEzTXlXenBCSVdMT1daZVNueHhRV3BxU2xveG5JVzVaZnJ3WXptQldLbUJpRHgvLy8vbitqMkorY2tGc1BzaHdseUFlMVAxRXNyQXVvSDh2NmhhV0hQTHlqSnpNOERhbUlDcFF0V05NMk1SV2dDQXFWNUlKZWs2Q1pubE9abDZ4b2FnbXdBeTBNQUw1VE5qc1JtZ2RqSjlCOXFGaXZVTExiVXZQVE1QRmpZc09Za0pxWG1RRGw4UUMrRGZheFhVSlNaVndMekNsQzBXSzhrdnlRUnBvNHJPVDhISmdMMkhNTS9BQVBlLzFFUUF3QUEifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["date"],"name":[1],"type":["chr"],"align":["left"]},{"label":["temp"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["humidity"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["wind_speed"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"25/01/2017","2":"21.00000","3":"69.96000","4":"8.756000"},{"1":"16/02/2017","2":"20.25000","3":"56.75000","4":"10.437500"},{"1":"17/02/2017","2":"21.30000","3":"64.40000","4":"9.280000"},{"1":"18/02/2017","2":"21.12500","3":"70.75000","4":"6.250000"},{"1":"19/02/2017","2":"22.36364","3":"66.09091","4":"6.054545"},{"1":"20/02/2017","2":"23.37500","3":"60.12500","4":"6.937500"},{"1":"21/02/2017","2":"21.83333","3":"69.41667","4":"12.341667"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[7]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTkFcbiJ9 -->
+<pre><code>NA</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2VhdGhlcl9yZXBvcnQod2VhdGhlcl90d28pXG5gYGAifQ== -->
+<pre class="r"><code>weather_report(weather_two)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoidmVyaWZpY2F0aW9uIFt0ZW1wID49IC0zNSAmIHRlbXAgPD0gNTVdIGZhaWxlZCEgKDEgZmFpbHVyZSlcbiJ9 -->
+<pre><code>verification [temp &gt;= -35 &amp; temp &lt;= 55] failed! (1 failure)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6Niwic3VtbWFyeSI6eyJEZXNjcmlwdGlvbiI6WyJkZiBbMSB4IDZdIl19fSwicmRmIjoiSDRzSUFBQUFBQUFBQmwxUXdVNkVNQkNkN2dJS2licUpGNCtjdkVHeWJMaTVYdlFEaktlOW1TNFViWVJDU2xueDVwZXZEdGhKQUpLR2VhL3pPbS9lNi9OaEZ4d0NBRmlEd3hpc1hTekJlM3JaSm1rQzRLd1FNWERBSC80OWR0ME8xM2cya3d2dkpMUXN2ckVhSG1JL01IN1RqanNqcWlaODNJZlJMZzN2d3hFOTdNTTBYV2l1UmczQXpaeWYyWEFWcjBSckIzaVdkTkRDMGRhWFd1UmQvMVlvaS8wR0NabHhJOGh2VnBkZFJkZXVWTG5vQ1p4NDJZbkZSRi9YWHpGTkpZdHNhU3NyZVV1MmlBeHlibmhjYU5RaU9pOGtGM1ZqWksxUXRCcGlkUmRpcGhmRXBsT0RpenpLUGpyMUdXMFRTZ25tNmJGSjdmM1BYUDNhdDF6S1FLaDNxU2dSdCtSSFVWcHdqZXVPMjhhTmxzclFLc2kyc2FrTnA3NEFZeVJtWEE3T2Z5YjhOZzVQQWdBQSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["verb"],"name":[1],"type":["chr"],"align":["left"]},{"label":["redux_fn"],"name":[2],"type":["lgl"],"align":["right"]},{"label":["predicate"],"name":[3],"type":["chr"],"align":["left"]},{"label":["column"],"name":[4],"type":["lgl"],"align":["right"]},{"label":["index"],"name":[5],"type":["int"],"align":["right"]},{"label":["value"],"name":[6],"type":["lgl"],"align":["right"]}],"data":[{"1":"verify","2":"NA","3":"temp >= -35 & temp <= 55","4":"NA","5":"15","6":"NA"}],"options":{"columns":{"min":{},"max":[10],"total":[6]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6IGFzc2VydHIgc3RvcHBlZCBleGVjdXRpb25cbiJ9 -->
+<pre><code>Error: assertr stopped execution</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2VhdGhlcl9yZXBvcnQgPC0gZnVuY3Rpb24od2VhdGhlcil7XG4gIFxuICBzdG9waWZub3QoXG4gICAgbnJvdyh3ZWF0aGVyKSA+IDE1LFxuICAgIG5jb2wod2VhdGhlcikgPT0gNCxcbiAgICBkcm9wX25hKHdlYXRoZXIpID09IHdlYXRoZXJcbiAgKVxuICBcbiAgIyBGcm9tIGFzc2VydHIgcGFja2FnZVxuICB3ZWF0aGVyICU+JSBcbiAgICB2ZXJpZnkodGVtcCA+PSAtMzUgJiB0ZW1wIDw9IDU1KSAlPiUgXG4gICAgdmVyaWZ5KHdpbmRfc3BlZWQgPj0gMCAmIHdpbmRfc3BlZWQgPD0gMTA4KSAlPiUgXG4gICAgdmVyaWZ5KGh1bWlkaXR5ID49IDAgJiBodW1pZGl0eSA8PSAxMDApXG4gIFxuICAjIE91ciBhdmVyYWdlIHRlbXBlcmF0dXJlLCBodW1pZGl0eSBhbmQgd2luZCBzcGVlZCBcbiAgd2VhdGhlcl9tZWFucyA8LSBcbiAgd2VhdGhlciAlPiUgXG4gIHN1bW1hcmlzZShcbiAgICBtZWFuX3RlbXAgPSBtZWFuKHRlbXApLFxuICAgIG1lYW5faHVtaWRpdHkgPSBtZWFuKGh1bWlkaXR5KSxcbiAgICBtZWFuX3dpbmRzcGVlZCA9IG1lYW4od2luZF9zcGVlZClcbiAgKVxuXG4jIFNob3cgaG90IGFuZCBodW1pZCBkYXlzXG5ob3RfYW5kX2h1bWlkIDwtIFxud2VhdGhlciAlPiUgXG4gIGZpbHRlcih0ZW1wID4gMjApICU+JSBcbiAgZmlsdGVyKGh1bWlkaXR5ID4gNTUpXG5cbnJldHVybihsaXN0KHdlYXRoZXJfbWVhbnMsIGhvdF9hbmRfaHVtaWQpKVxufVxuXG53ZWF0aGVyX3JlcG9ydCh3ZWF0aGVyX29uZSlcbmBgYCJ9 -->
+<pre class="r"><code>weather_report &lt;- function(weather){
+  
+  stopifnot(
+    nrow(weather) &gt; 15,
+    ncol(weather) == 4,
+    drop_na(weather) == weather
+  )
+  
+  # From assertr package
+  weather %&gt;% 
+    verify(temp &gt;= -35 &amp; temp &lt;= 55) %&gt;% 
+    verify(wind_speed &gt;= 0 &amp; wind_speed &lt;= 108) %&gt;% 
+    verify(humidity &gt;= 0 &amp; humidity &lt;= 100)
+  
+  # Our average temperature, humidity and wind speed 
+  weather_means &lt;- 
+  weather %&gt;% 
+  summarise(
+    mean_temp = mean(temp),
+    mean_humidity = mean(humidity),
+    mean_windspeed = mean(wind_speed)
+  )
+
+# Show hot and humid days
+hot_and_humid &lt;- 
+weather %&gt;% 
+  filter(temp &gt; 20) %&gt;% 
+  filter(humidity &gt; 55)
+
+return(list(weather_means, hot_and_humid))
+}
+
+weather_report(weather_one)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiW1sxXV1cbiJ9 -->
+<pre><code>[[1]]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6Mywic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIHggMyJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJndHlpVERtaXVCaVlHQmdabUJoWkdSZ1pnVXlHZGljQXd5TlRJMFlHRmlZZ0R4R0JoWUdUaEJkQVZRbERGYkt3TUFIRW5Bd1dIS2pZa1BCVERnL0tLWnI5ZHFMZkhDKzlKOC9XYldMKzlBTVlzMUx6RTB0QmpJRUlQYUNCVGx6VXhQejRrdFNjd3VnQXJ4Z2dZelMzTXlVekpKS3FDQWZXTEE4TXkrbHVDQTFOUVhOWU02aS9ISTltT0c4UU16VUFDVCtBd0c2QzVKekVvdGhMb0FKY3FVa2xpVHFwUlVCOVFONS85QzBzT2NYbEdUbTV3RTFNWUhDZ0JWTk0yTVJtZ0IvYVI3SUpTbTZ5Um1sZWRtNmhpQUx3TklRd0F0bE15S3htU0ZXTXYySEdzVUtOWW90TlM4OU15OFY1dmFjeEtUVUhGaDRBSDBNOXJCZVFWRm1YZ25NSjBEUllyMlMvSkpFbURxdTVQd2NtQWpZYnd6L0FCam84Ykw3QVFBQSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["mean_temp"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["mean_humidity"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["mean_windspeed"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"16.64393","2":"73.44596","3":"6.997057"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5bWzJdXVxuIn0= -->
+<pre><code>
+[[2]]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInNwZWNfdGJsX2RmIiwidGJsX2RmIiwidGJsIiwiZGF0YS5mcmFtZSJdLCJucm93Ijo3LCJuY29sIjo0LCJzdW1tYXJ5Ijp7IkEgdGliYmxlIjpbIjcgeCA0Il19fSwicmRmIjoiSDRzSUFBQUFBQUFBQmd0eWlURG1pdUJpWUdCZ1ptQmhaR1JnWmdVeUdkaWNBd3lOVEkwWUdGaVlnRHhHQmhZR1RoQmRBVlFsREdTd0FMRUFFTE5ESmJpTVRQVU5EUFdOREF6TllTS0dadm9HUnFnaTVoZ2lGaGdpbHVnaVJnWVlJb1p3RVFZR1BwQXJIRXdad01EQnhBRkNtL3FjQVlLekRxWUtFTDVackxqcndXc3FEdVlKVVBtcm9hSHVMTjV3L1lHMUJZdXZjOWs2K0VEbEF5Um5Bc0VzaDhBTlVIN3J4WklZMlNRSFB3RUlQekJxMWFwMWRtL2graFdiaGZLbTl3WTRxRHlBeUN2MXgyaDhQZFR2SUFsMWw0VDVyY090MWFFTzBnY2dmSTExNzk1elQyUkdDMTdXdk1UYzFHSm8wTEpBQlZsU0VrdFNZZXlTMU53Q0tKc2pvelEzTXlXenBCSVdMT1daZVNueHhRV3BxU2xveG5JVzVaZnJ3WXptQldLbUJpRHgvLy8vbitqMkorY2tGc1BzaHdseUFlMVAxRXNyQXVvSDh2NmhhV0hQTHlqSnpNOERhbUlDcFF0V05NMk1SV2dDL0tWNUlKZWs2Q1pubE9abDZ4cUNMQUJMUXdBdmxNMk94R2FCV01uMEgyb1VLOVFvdHRTODlNdzhXTkN3NWlRbXBlWkFPWHhBSDRNOXJGZFFsSmxYQXZNSlVMUllyeVMvSkJHbWppczVQd2NtQXZZYnd6OEEvNW5nTGc4REFBQT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["date"],"name":[1],"type":["chr"],"align":["left"]},{"label":["temp"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["humidity"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["wind_speed"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"25/01/2017","2":"21.00000","3":"69.96000","4":"8.756000"},{"1":"16/02/2017","2":"20.25000","3":"56.75000","4":"10.437500"},{"1":"17/02/2017","2":"21.30000","3":"64.40000","4":"9.280000"},{"1":"18/02/2017","2":"21.12500","3":"70.75000","4":"6.250000"},{"1":"19/02/2017","2":"22.36364","3":"66.09091","4":"6.054545"},{"1":"20/02/2017","2":"23.37500","3":"60.12500","4":"6.937500"},{"1":"21/02/2017","2":"21.83333","3":"69.41667","4":"12.341667"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[7]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTkFcbiJ9 -->
+<pre><code>NA</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInNwZWNfdGJsX2RmIiwidGJsX2RmIiwidGJsIiwiZGF0YS5mcmFtZSJdLCJucm93Ijo1MywibmNvbCI6NCwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI1MyB4IDQiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFCbVZXQzB4VFZ4aStRQkVvUWQ3eUVDcVBScGpTeHoyMXRocW0veDVJQ09qYVhqclJpTFBTT3FyUUZucFpxNXZKTm9iSlJHRyt4bHlXR1owYUpRNWQzTkE1TVVNazZ0UVk1bXRxeUthWVRXSlFOelV1UnUxT2U4NTFXODlKYis0NTN6bm4vNy8vZk45cHJ1WDFHcDI4UnM1eFhCUW5pNGpnb3FKeGx4djNtb2xIZXNSeHNrZzhpdUJrWEZ6dzdjZXJVbkZIaHA4ay9PanBoRnpMYS9BUGFYbkRDd1F4aUk1QnBqR0lua0dtTTRpQlFZd01NaU1jNGJVTXduRG1HYzQ4dzVsbk9QTU1aNTdoekRPY2VZWXp6M0JHREdmRWNFWU1aOFJ3Umd4bnhIQkdER2ZFY0VZTVo4UncxakdjZGF3M01JSVl0eURHTFloeEMyTGNnaGkzSU1ZdGlIRUxZdHlDR0xjZ3hpMkljUXRpM0lJWXR5REdMWWh4QzJMY2doaTNJTVl0aUhFTFl0eUNHTGRRaE9QR0IyOHdhQzZzY2krNmxnL28vZURGNTREUGFUcVpzUzhMMEVGZHNBR3E2ekRlRnY0QW5WbXNuWlIyRjFUTHU3czdZcnRBczloMDVlRDFUbEFwTjFaa1ZsMkFZdU5JaDZZR3dXU094Q25hckw4MU9zOElVL3grLzdxZVhUQmxXYWlCMWoxMzlQalFXVkJWbmNYdEhCUTFuY3haZk1BQlU5S3QxcWJIVGxDVlBqaGZWcUFBOVpxajI5ZjRBcUErdFNCK1d0SmVRSjZ2cnNoZmJnS2tVQ2dLcCtMeGd2ajhwbG5Eb0tmNXRLcmU2OTZyWGFDbGRhaU9xTnRiOTVXRHhrcmlhbWtlYlI2WlYwdjFacFFOZVZvK0JrM1prUGllOFAyL2RXL2ZYK3pMNkFUdENLbGZEV1M5aHRhaC9wSG1vZkUxZEY0cnZURmVMcXNFN1c4MHo4WUs1YnJKVHBoRzUvVzBmajNsTTcwMm82ei9zaElNUytqOEpiSmZSK1pmNkdYMTdYNTRvLzUzRU9ZWlI5b3ZKMEMxZjZSalp0b1RNTGNTM3BhalJEL2hZbTFHK1dBcHpIOWt0WnI3VTZINnh2N2lob1Vub1ZwM3Z2U2hwUURNVDhrNlMweE8wK0NkY1dEWmxiQ3lMTWtLcG9HQmdST09GckJzdU5PbU9Hd0JpN0trcmJOeVBRaGZFTDVXNmc5aEM0bHJPYTNjT0NkVkQ2WXZUVmMyN1pvQjVrT1VYK0tpNGtmSE8wR2crcGhqRjhRcnVyTEJ2RG9rSkx3NVN2WUpyM1ozOTh3YWcrcHZ4TnEwbWlLb3hqcUpMejBBZ2ZwTzJpL3NJVy9UanR0SGRJM3BJTFR2dUgxNDVna1FxQjVDL1lxZmNnZHZnWGs1aWZjR1BYZHoxbGJjUGdkekpoMy9TZUtiSkY2ZjBiaFVUeE05ZjlOWTczVm56bm1va3NaU25BTjAzRFlrTHNwZEN2T1NhSnlGSkcvVkovL1hLL3F2blQ5RXZ1S0JtS0tmVjJldXo0V2s1T1RrQ1dmU0lVV2R0dXBHZVEvSUtmOThyUDhGbVJhVTVCN01EdWlJbnRsVGJ4NVR6NCtEZ3NNakhZWjdSaWhzWDlJYjU1ZEQ5Z2MxWTltM3prRldYMS9md0xubmtKNjk3ZGc3cDc2RmhQaDgrNHpISDRIeWVDY1dZQUR5VWtkbmJSN2VBcG01dzhNalhUZEIrWFgyVUovUERaTzl2KzQ5WGJvTnB0cEwydHpwQnNqd1gzejJvSGNPVEl5S2lud3lWZ000VEVuN1dpL2t0NmE0dXRhYklPL2UycjhQRENxZzVKRFB0L0NTSFFwdHh5N25mRmNKeWsvN1Y5emY5QlNTS3g1dW0xTllEaW4wWHFYUnVtSU4xd2JFdVJXem4rMHpYTHQ1WkJJVUJ0WDM3SVE4V2wvQmhQNkdsUHRwb0ZoSC9KVmtKcjZiUk9NVTRLWU1LQ0Z4YStqOFp6K2h1bVY5K0l0cXpkNDJtSGlWNkRKaFp1c2VZMkl0S0tudUJaM0VmMWwwZlNibTBmYXVGU1pTbll0Nzd0NkwzeEFGdWJ0RFBNTStkYUpkdGthSGx5T2ZPVElLeXV3MjBTSDFSVWVqaC9aajYxc2FuWGFudUZMNm0vVTVYZmEzdkI2SHd4NFdOcTdaN1ZOTG9SUHdFeG1zTWhBSW5BblBYOWRnODByNUpWQ084OXZVeTVyeGZqeDZIcllseHUwUm5XNFgzaFFaL0VhTER0c2MwUndHSkxhNGdrenNxcnI2RnRjS2xTNllJRFJOV2dMdDYvL1RsNUdVa1FFYUtwcUdHdWR3dmUxMFNVY1QzV0JiNm1pZ2cvRzQ0bERCYWsrejB5VktsV0RVcXhiZG9rMWFKNjl6TjBoSXFEYnUrVCt3RmFZeG13b0FBQT09In0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["date"],"name":[1],"type":["chr"],"align":["left"]},{"label":["temp"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["humidity"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["wind_speed"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"01/01/2017","2":"15.91304","3":"85.86957","4":"2.743478"},{"1":"02/01/2017","2":"18.50000","3":"77.22222","4":"2.894444"},{"1":"03/01/2017","2":"17.11111","3":"81.88889","4":"4.016667"},{"1":"04/01/2017","2":"18.70000","3":"70.05000","4":"4.545000"},{"1":"05/01/2017","2":"18.38889","3":"74.94444","4":"3.300000"},{"1":"06/01/2017","2":"19.31818","3":"79.31818","4":"8.681818"},{"1":"07/01/2017","2":"14.70833","3":"95.83333","4":"10.041667"},{"1":"08/01/2017","2":"15.68421","3":"83.52632","4":"1.950000"},{"1":"09/01/2017","2":"14.57143","3":"80.80952","4":"6.542857"},{"1":"10/01/2017","2":"12.11111","3":"71.94444","4":"9.361111"},{"1":"11/01/2017","2":"11.00000","3":"72.11111","4":"9.772222"},{"1":"12/01/2017","2":"11.78947","3":"74.57895","4":"6.626316"},{"1":"13/01/2017","2":"13.23529","3":"67.05882","4":"6.435294"},{"1":"14/01/2017","2":"13.20000","3":"74.28000","4":"5.276000"},{"1":"15/01/2017","2":"16.43478","3":"72.56522","4":"3.630435"},{"1":"16/01/2017","2":"14.65000","3":"78.45000","4":"10.380000"},{"1":"17/01/2017","2":"11.72222","3":"84.44444","4":"8.038889"},{"1":"18/01/2017","2":"13.04167","3":"78.33333","4":"6.029167"},{"1":"19/01/2017","2":"14.61905","3":"75.14286","4":"10.338095"},{"1":"20/01/2017","2":"15.26316","3":"66.47368","4":"11.226316"},{"1":"21/01/2017","2":"15.39130","3":"70.86957","4":"13.695652"},{"1":"22/01/2017","2":"18.44000","3":"76.24000","4":"5.868000"},{"1":"23/01/2017","2":"18.11765","3":"76.00000","4":"6.752941"},{"1":"24/01/2017","2":"18.34783","3":"68.13043","4":"3.391304"},{"1":"25/01/2017","2":"21.00000","3":"69.96000","4":"8.756000"},{"1":"26/01/2017","2":"16.17857","3":"91.64286","4":"8.467857"},{"1":"27/01/2017","2":"16.50000","3":"77.04167","4":"14.358333"},{"1":"28/01/2017","2":"14.86364","3":"82.77273","4":"9.690909"},{"1":"29/01/2017","2":"15.66667","3":"81.77778","4":"10.294444"},{"1":"30/01/2017","2":"16.44444","3":"77.55556","4":"4.322222"},{"1":"31/01/2017","2":"16.12500","3":"76.00000","4":"4.625000"},{"1":"01/02/2017","2":"15.25000","3":"78.62500","4":"5.100000"},{"1":"02/02/2017","2":"17.09091","3":"66.54545","4":"3.027273"},{"1":"03/02/2017","2":"15.63636","3":"78.18182","4":"1.854545"},{"1":"04/02/2017","2":"18.70000","3":"77.60000","4":"9.820000"},{"1":"05/02/2017","2":"18.63158","3":"77.63158","4":"8.100000"},{"1":"06/02/2017","2":"16.88889","3":"69.66667","4":"9.044444"},{"1":"07/02/2017","2":"15.12500","3":"63.75000","4":"7.637500"},{"1":"08/02/2017","2":"15.70000","3":"68.40000","4":"4.080000"},{"1":"09/02/2017","2":"15.37500","3":"68.37500","4":"7.875000"},{"1":"10/02/2017","2":"14.66667","3":"71.77778","4":"9.066667"},{"1":"11/02/2017","2":"15.62500","3":"64.00000","4":"3.950000"},{"1":"12/02/2017","2":"16.25000","3":"70.37500","4":"1.625000"},{"1":"13/02/2017","2":"16.33333","3":"67.00000","4":"6.377778"},{"1":"14/02/2017","2":"16.87500","3":"65.50000","4":"6.962500"},{"1":"15/02/2017","2":"17.57143","3":"67.71429","4":"5.557143"},{"1":"16/02/2017","2":"20.25000","3":"56.75000","4":"10.437500"},{"1":"17/02/2017","2":"21.30000","3":"64.40000","4":"9.280000"},{"1":"18/02/2017","2":"21.12500","3":"70.75000","4":"6.250000"},{"1":"19/02/2017","2":"22.36364","3":"66.09091","4":"6.054545"},{"1":"20/02/2017","2":"23.37500","3":"60.12500","4":"6.937500"},{"1":"21/02/2017","2":"21.83333","3":"69.41667","4":"12.341667"},{"1":"22/02/2017","2":"19.12500","3":"57.12500","4":"7.412500"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[53]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkFzc2VydGl2ZSBQcm9ncmFtbWluZyINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KLS0tDQoNCmBgYHtyfQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpgYGANCg0KDQpgYGB7cn0NCndlYXRoZXJfb25lIDwtIHJlYWRfY3N2KCIyX2Fzc2VydGl2ZV9wcm9ncmFtbWluZy9kYXRhL2RlbGhpX3dlYXRoZXJfb25lLmNzdiIpDQpgYGANCg0KDQpgYGB7cn0NCndlYXRoZXJfcmVwb3J0IDwtIGZ1bmN0aW9uKHdlYXRoZXIpew0KICAjIE91ciBhdmVyYWdlIHRlbXBlcmF0dXJlLCBodW1pZGl0eSBhbmQgd2luZCBzcGVlZCANCiAgd2VhdGhlcl9tZWFucyA8LSANCiAgd2VhdGhlciAlPiUgDQogIHN1bW1hcmlzZSgNCiAgICBtZWFuX3RlbXAgPSBtZWFuKHRlbXApLA0KICAgIG1lYW5faHVtaWRpdHkgPSBtZWFuKGh1bWlkaXR5KSwNCiAgICBtZWFuX3dpbmRzcGVlZCA9IG1lYW4od2luZF9zcGVlZCkNCiAgKQ0KDQojIFNob3cgaG90IGFuZCBodW1pZCBkYXlzDQpob3RfYW5kX2h1bWlkIDwtIA0Kd2VhdGhlciAlPiUgDQogIGZpbHRlcih0ZW1wID4gMjApICU+JSANCiAgZmlsdGVyKGh1bWlkaXR5ID4gNTUpDQoNCnJldHVybihsaXN0KHdlYXRoZXJfbWVhbnMsIGhvdF9hbmRfaHVtaWQpKQ0KfQ0KDQp3ZWF0aGVyX3JlcG9ydCh3ZWF0aGVyX29uZSkNCmBgYA0KDQoNCmBgYHtyfQ0Kd2VhdGhlcl90d28gPC0gcmVhZF9jc3YoIjJfYXNzZXJ0aXZlX3Byb2dyYW1taW5nL2RhdGEvZGVsaGlfd2VhdGhlcl90d28uY3N2IikNCmBgYA0KDQoNCmBgYHtyfQ0Kd2VhdGhlcl9yZXBvcnQod2VhdGhlcl90d28pDQoNCiMgVGhpcyBkb2Vzbid0IGxvb2sgcmlnaHQgY29tcGFyZWQgdG8gdGhlIG90aGVyIGRhdGENCmBgYA0KDQoNCmBgYHtyfQ0KbGlicmFyeShhc3NlcnRyKQ0KYGBgDQoNCg0KYGBge3J9DQp3ZWF0aGVyX3JlcG9ydCA8LSBmdW5jdGlvbih3ZWF0aGVyKXsNCiAgDQogICMgRnJvbSBhc3NlcnRyIHBhY2thZ2UNCiAgd2VhdGhlciAlPiUgDQogICAgdmVyaWZ5KHRlbXAgPj0gLTM1ICYgdGVtcCA8PSA1NSkgJT4lIA0KICAgIHZlcmlmeSh3aW5kX3NwZWVkID49IDAgJiB3aW5kX3NwZWVkIDw9IDEwOCkgJT4lIA0KICAgIHZlcmlmeShodW1pZGl0eSA+PSAwICYgaHVtaWRpdHkgPD0gMTAwKQ0KICANCiAgIyBPdXIgYXZlcmFnZSB0ZW1wZXJhdHVyZSwgaHVtaWRpdHkgYW5kIHdpbmQgc3BlZWQgDQogIHdlYXRoZXJfbWVhbnMgPC0gDQogIHdlYXRoZXIgJT4lIA0KICBzdW1tYXJpc2UoDQogICAgbWVhbl90ZW1wID0gbWVhbih0ZW1wKSwNCiAgICBtZWFuX2h1bWlkaXR5ID0gbWVhbihodW1pZGl0eSksDQogICAgbWVhbl93aW5kc3BlZWQgPSBtZWFuKHdpbmRfc3BlZWQpDQogICkNCg0KIyBTaG93IGhvdCBhbmQgaHVtaWQgZGF5cw0KaG90X2FuZF9odW1pZCA8LSANCndlYXRoZXIgJT4lIA0KICBmaWx0ZXIodGVtcCA+IDIwKSAlPiUgDQogIGZpbHRlcihodW1pZGl0eSA+IDU1KQ0KDQpyZXR1cm4obGlzdCh3ZWF0aGVyX21lYW5zLCBob3RfYW5kX2h1bWlkKSkNCn0NCg0Kd2VhdGhlcl9yZXBvcnQod2VhdGhlcl9vbmUpDQpgYGANCg0KYGBge3J9DQp3ZWF0aGVyX3JlcG9ydCh3ZWF0aGVyX3R3bykNCg0KIyBGaW5kcyB0aGUgZmlyc3QgZXJyb3Igd2l0aCB2ZXJpZmljYXRpb24sIG9uIHJlcnVucyB3aWxsIGZpbmQgdGhlIG90aGVyDQpgYGANCg0KDQpgYGB7cn0NCndlYXRoZXJfcmVwb3J0IDwtIGZ1bmN0aW9uKHdlYXRoZXIpew0KICANCiAgc3RvcGlmbm90KA0KICAgIG5yb3cod2VhdGhlcikgPiAxNSwNCiAgICBuY29sKHdlYXRoZXIpID09IDQsDQogICAgZHJvcF9uYSh3ZWF0aGVyKSA9PSB3ZWF0aGVyDQogICkNCiAgDQogICMgRnJvbSBhc3NlcnRyIHBhY2thZ2UNCiAgd2VhdGhlciAlPiUgDQogICAgdmVyaWZ5KHRlbXAgPj0gLTM1ICYgdGVtcCA8PSA1NSkgJT4lIA0KICAgIHZlcmlmeSh3aW5kX3NwZWVkID49IDAgJiB3aW5kX3NwZWVkIDw9IDEwOCkgJT4lIA0KICAgIHZlcmlmeShodW1pZGl0eSA+PSAwICYgaHVtaWRpdHkgPD0gMTAwKQ0KICANCiAgIyBPdXIgYXZlcmFnZSB0ZW1wZXJhdHVyZSwgaHVtaWRpdHkgYW5kIHdpbmQgc3BlZWQgDQogIHdlYXRoZXJfbWVhbnMgPC0gDQogIHdlYXRoZXIgJT4lIA0KICBzdW1tYXJpc2UoDQogICAgbWVhbl90ZW1wID0gbWVhbih0ZW1wKSwNCiAgICBtZWFuX2h1bWlkaXR5ID0gbWVhbihodW1pZGl0eSksDQogICAgbWVhbl93aW5kc3BlZWQgPSBtZWFuKHdpbmRfc3BlZWQpDQogICkNCg0KIyBTaG93IGhvdCBhbmQgaHVtaWQgZGF5cw0KaG90X2FuZF9odW1pZCA8LSANCndlYXRoZXIgJT4lIA0KICBmaWx0ZXIodGVtcCA+IDIwKSAlPiUgDQogIGZpbHRlcihodW1pZGl0eSA+IDU1KQ0KDQpyZXR1cm4obGlzdCh3ZWF0aGVyX21lYW5zLCBob3RfYW5kX2h1bWlkKSkNCn0NCg0Kd2VhdGhlcl9yZXBvcnQod2VhdGhlcl9vbmUpDQpgYGANCg0KDQpgYGB7cn0NCndlYXRoZXJfcmVwb3J0KHdlYXRoZXJfb25lKQ0KYGBgDQoNCg==</div>
 
 
 

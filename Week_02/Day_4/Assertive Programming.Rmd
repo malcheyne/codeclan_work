@@ -3,4 +3,132 @@ title: "Assertive Programming"
 output: html_notebook
 ---
 
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+weather_one <- read_csv("2_assertive_programming/data/delhi_weather_one.csv")
+```
+
+
+```{r}
+weather_report <- function(weather){
+  # Our average temperature, humidity and wind speed 
+  weather_means <- 
+  weather %>% 
+  summarise(
+    mean_temp = mean(temp),
+    mean_humidity = mean(humidity),
+    mean_windspeed = mean(wind_speed)
+  )
+
+# Show hot and humid days
+hot_and_humid <- 
+weather %>% 
+  filter(temp > 20) %>% 
+  filter(humidity > 55)
+
+return(list(weather_means, hot_and_humid))
+}
+
+weather_report(weather_one)
+```
+
+
+```{r}
+weather_two <- read_csv("2_assertive_programming/data/delhi_weather_two.csv")
+```
+
+
+```{r}
+weather_report(weather_two)
+
+# This doesn't look right compared to the other data
+```
+
+
+```{r}
+library(assertr)
+```
+
+
+```{r}
+weather_report <- function(weather){
+  
+  # From assertr package
+  weather %>% 
+    verify(temp >= -35 & temp <= 55) %>% 
+    verify(wind_speed >= 0 & wind_speed <= 108) %>% 
+    verify(humidity >= 0 & humidity <= 100)
+  
+  # Our average temperature, humidity and wind speed 
+  weather_means <- 
+  weather %>% 
+  summarise(
+    mean_temp = mean(temp),
+    mean_humidity = mean(humidity),
+    mean_windspeed = mean(wind_speed)
+  )
+
+# Show hot and humid days
+hot_and_humid <- 
+weather %>% 
+  filter(temp > 20) %>% 
+  filter(humidity > 55)
+
+return(list(weather_means, hot_and_humid))
+}
+
+weather_report(weather_one)
+```
+
+```{r}
+weather_report(weather_two)
+
+# Finds the first error with verification, on reruns will find the other
+```
+
+
+```{r}
+weather_report <- function(weather){
+  
+  stopifnot(
+    nrow(weather) > 15,
+    ncol(weather) == 4,
+    drop_na(weather) == weather
+  )
+  
+  # From assertr package
+  weather %>% 
+    verify(temp >= -35 & temp <= 55) %>% 
+    verify(wind_speed >= 0 & wind_speed <= 108) %>% 
+    verify(humidity >= 0 & humidity <= 100)
+  
+  # Our average temperature, humidity and wind speed 
+  weather_means <- 
+  weather %>% 
+  summarise(
+    mean_temp = mean(temp),
+    mean_humidity = mean(humidity),
+    mean_windspeed = mean(wind_speed)
+  )
+
+# Show hot and humid days
+hot_and_humid <- 
+weather %>% 
+  filter(temp > 20) %>% 
+  filter(humidity > 55)
+
+return(list(weather_means, hot_and_humid))
+}
+
+weather_report(weather_one)
+```
+
+
+```{r}
+weather_report(weather_one)
+```
 
