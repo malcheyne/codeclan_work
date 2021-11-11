@@ -1,0 +1,173 @@
+---
+title: "Unit Testing"
+output: html_notebook
+---
+
+```{r}
+is_leap_year <- function(year) {
+  
+  if (year %% 100 == 0) {
+    if (year %% 400 == 0) {
+      return(TRUE)
+    } else 
+      return(FALSE)
+    
+  }
+  
+  if (year %% 4 == 0) {
+    return(TRUE) 
+  } else {
+    return(FALSE)
+  }
+}
+```
+
+```{r}
+is_leap_year(2013)
+```
+
+
+```{r}
+library(testthat)
+```
+
+expect_equal()
+expect_erroe()
+
+```{r}
+a <- 10
+```
+
+```{r}
+expect_equal(a, 10)
+```
+
+```{r}
+expect_equal(a, 11)
+```
+
+
+```{r}
+test_that("Real leep year return true",{
+  expect_equal(is_leap_year(2012), TRUE)
+  expect_equal(is_leap_year(2000), TRUE)
+})
+```
+
+```{r}
+test_dir("results_test") # looks for the test folder script in the project, just put the dir not the file
+```
+
+
+
+```{r}
+# second test : one expectation
+test_that("Character input returns an error", {
+  expect_error(is_leap_year("year"))
+  expect_error(is_leap_year(TRUE))  # problem here due to logic working fix below
+})
+```
+
+```{r}
+is_leap_year <- function(year) {
+  
+  if (!is.numeric(year)) {
+    stop("Non-numeric input 😿")   # adding this solves the problem
+  }                                # the stop makes it an error, if it was a return it would just print the script
+  
+  if (year %% 100 == 0) {
+    if (year %% 400 == 0) {
+      return(TRUE)
+    } else 
+      return(FALSE)
+    
+  }
+  
+  if (year %% 4 == 0) {
+    return(TRUE) 
+  } else {
+    return(FALSE)
+  }
+}
+```
+
+
+```{r}
+# second test : one expectation
+test_that("Character input returns an error", {
+  expect_error(is_leap_year("year"))
+  expect_error(is_leap_year(TRUE))
+})
+```
+
+```{r}
+is_leap_year(TRUE) # the stop makes it an error, if it was a return it would just print the script
+```
+
+
+```{r}
+is_leap_year(2017)
+```
+
+```{r}
+is_leap_year(1900)
+```
+
+# Ricardo work
+```{r}
+test_that("Real leap year return true",{
+  expect_equal(is_leap_year(2017), F)
+  expect_equal(is_leap_year(1900), F)
+  })
+```
+
+
+```{r}
+num1 <- 5
+num2 <- (sqrt(5))^2
+
+expect_equal(num1, num2)
+
+expect_identical(num1, num2)
+
+# is equal but not identical so will throw error
+```
+
+
+```{r}
+expect_gte(2, 3) # greater than
+```
+
+
+```{r}
+string <-  "is there a match"
+
+expect_match(string, "there a") 
+
+# Happy there's a match
+```
+
+
+```{r}
+string <-  "is there a match"
+
+expect_match(string, "There a") 
+
+# Case senceative, there's not a match
+```
+
+
+```{r}
+string <-  "is there a match"
+
+expect_match(string, "There a", ignore.case = TRUE) 
+
+# Adding ignore.case makes it happy
+```
+
+```{r}
+expect_equal(is_leap_year(2000), T)
+
+# Good to check now and then that the code works
+```
+
