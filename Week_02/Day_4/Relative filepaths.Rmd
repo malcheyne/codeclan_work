@@ -1,0 +1,26 @@
+---
+title: "Relative filepaths"
+output: html_notebook
+---
+
+```{r}
+ library(tidyverse)
+```
+
+# This absolute file path
+
+Not good for reperjusing with other people
+```{r}
+read_csv("~/Code/GitHub/codeclan_work/Week_02/Day_4/3_relative_filepaths/project_example/data/students.csv")
+```
+
+
+# 
+
+This is better as I can share just folder/project and theres no loss of data
+```{r}
+read_csv("3_relative_filepaths/project_example/data/students.csv")
+```
+
+
+

@@ -1,0 +1,85 @@
+---
+title: "Reproducibility"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+student <- c("Abigail", "Bjorn", "Caitlin", "Dave", "Elly", "Francis")
+question_1 <- c(10, 3, 1, 5, 5, 8)
+question_2 <- c(2, 5, 5, 4, 5, 6)
+question_3 <- c(4, 5, 9, 7, 6, 8)
+exam_results <- data.frame(student, question_1, question_2, question_3)
+
+exam_results
+```
+
+
+```{r}
+exam_results[,1]
+
+# if anything is changed like the order 
+```
+```{r}
+exam_results <- exam_results %>% 
+                    select(question_2, student)
+
+exam_results[,1]                 # if move can pick the wrong column
+exam_results[,"student"]         # will always pick the same column
+```
+
+
+```{r}
+exam_results %>% 
+  select(everything(), student)
+```
+
+# have made function in the script,  
+```{r}
+source("Functions/subset_function.R")
+```
+
+
+```{r}
+number <- c(1,2,3,4,5,6,7)
+
+subset_function(number)
+```
+
+# Task
+
+Make the 2 scripts, save them, load them, use them
+
+```{r}
+source("Functions/multiply_by_n_function.R")
+source("Functions/add_two_function.R")
+```
+
+
+```{r}
+a <- multiply_by_n(2, 4)
+b <- add_two(a)
+b
+```
+
+
+# hfkds ------------
+Insert code section	- Ctrl+Shift+R it's not working at the mo 
+
+```{r}
+
+```
+
+
+# see good example of readme file
+github.com/hgw2/scotland_healt_group_project
+
+# 
+
+restart R and run all chucks now and then to make sure there's no errors from using the global environment in different notebooks
+
+
