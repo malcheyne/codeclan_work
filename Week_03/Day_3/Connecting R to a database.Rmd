@@ -1,0 +1,148 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+
+# Mac
+#source("~/omni_credentials.R")
+
+# PC
+source("C:/Users/Malcolm/omni_credentials.R")
+```
+
+
+```{r}
+#source("C:\Users\Malcolm\Documents\Code\GitHub")
+```
+
+
+#3 Connecting R to a database
+##3.1 Connecting
+```{r}
+library(RPostgres)
+```
+
+```{r}
+
+# source credential file
+# this makes the variables omni_username and omni_password
+# available to use
+
+source("C:/Users/Malcolm/omni_credentials.R")
+
+# create connection object using omni_username and omni_password
+db_connection = dbConnect(
+  drv = Postgres(), 
+  user = omni_username,
+  password = omni_password,
+  dbname = "omni_pool",
+  host = "db-postgresql-lon1-20135-do-user-7581050-0.b.db.ondigitalocean.com",
+  port = 25061,
+  bigint = "numeric"
+)
+
+# now we have our connection, don't need credentials anymore
+# remove them from global environment
+rm(omni_username, omni_password)
+```
+
+##3.2 Reading
+
+```{r}
+# list the tables, passing in the connection object
+dbListTables(conn = db_connection)
+
+# conn means connection
+```
+
+
+```{r}
+# we can also see the fields in a table
+dbListFields(conn = db_connection,
+             name = "employees")
+```
+
+```{r}
+# let's get the records!
+data <- dbGetQuery(conn = db_connection,
+                   statement = "SELECT * FROM employees")
+```
+
+
+```{r}
+class(data)
+```
+
+Fetching records in 'chunks' - useful for big data
+
+```{r}
+result_set <- dbSendQuery(conn = db_connection,
+                          statement = "SELECT * FROM employees")
+class(result_set)
+```
+
+```{r}
+first_10 <- dbFetch(res = result_set,
+                    n = 10)
+first_10
+```
+
+```{r}
+next_10 <- dbFetch(res = result_set,
+                    n = 10)
+next_10
+```
+
+each time where cutting the data so each time we run will be the next 10
+
+```{r}
+all_remaining <-  dbFetch(res = result_set,
+                          n = -1)
+
+nrow(all_remaining)
+```
+Clearing the data
+```{r}
+dbClearResult(res = result_set)
+
+
+```
+
+##3.3 Using native SQL code chunks in R notebooks
+
+Can use SQL code in the .Rmd, need to change the start of the code chuck
+
+```{sql, connection = db_connection}
+SELECT *
+FROM employees
+LIMIT 10
+```
+
+
+Can make the data into a variable, that gose into the Global Environment
+```{sql, connection = db_connection, output.var = "out"}
+SELECT *
+FROM employees
+LIMIT 10
+```
+
+
+
+```{r}
+library(tidyverse)
+
+out %>% 
+  summarise(avg_salary = 
+              mean(salary))
+```
+
+##3.4 Disconnecting
+
+Finally, it is good practice to close the database connection, once we are finished with it.
+
+```{r}
+dbDisconnect(conn = db_connection)
+```
+
