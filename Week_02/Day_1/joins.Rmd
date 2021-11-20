@@ -38,7 +38,7 @@ orders
 inner-join
 ```{r}
 inner_join(customers, orders, by = "customer_ID") # don't need the by =, reads better 
-                                                  # taking out by = "customer_ID" gives the same tbut also ells you that it's joined by "customer_ID"
+                                                  # taking out by = "customer_ID" gives the same but also ells you that it's joined by "customer_ID"
 ```
 
 Left join

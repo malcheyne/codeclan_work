@@ -217,40 +217,48 @@ pre code {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
-<pre class="r"><code>library(tidyverse)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUmVnaXN0ZXJlZCBTMyBtZXRob2RzIG92ZXJ3cml0dGVuIGJ5ICdkYnBseXInOlxuICBtZXRob2QgICAgICAgICBmcm9tXG4gIHByaW50LnRibF9sYXp5ICAgICBcbiAgcHJpbnQudGJsX3NxbCAgICAgIFxuLS0gQXR0YWNoaW5nIHBhY2thZ2VzIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gdGlkeXZlcnNlIDEuMy4xIC0tXG52IGdncGxvdDIgMy4zLjUgICAgIHYgcHVycnIgICAwLjMuNFxudiB0aWJibGUgIDMuMS41ICAgICB2IGRwbHlyICAgMS4wLjdcbnYgdGlkeXIgICAxLjEuNCAgICAgdiBzdHJpbmdyIDEuNC4wXG52IHJlYWRyICAgMi4wLjIgICAgIHYgZm9yY2F0cyAwLjUuMVxuLS0gQ29uZmxpY3RzIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gdGlkeXZlcnNlX2NvbmZsaWN0cygpIC0tXG54IGRwbHlyOjpmaWx0ZXIoKSBtYXNrcyBzdGF0czo6ZmlsdGVyKClcbnggZHBseXI6OmxhZygpICAgIG1hc2tzIHN0YXRzOjpsYWcoKVxuIn0= -->
-<pre><code>Registered S3 methods overwritten by &#39;dbplyr&#39;:
-  method         from
-  print.tbl_lazy     
-  print.tbl_sql      
--- Attaching packages ------------------------------------------------------- tidyverse 1.3.1 --
-v ggplot2 3.3.5     v purrr   0.3.4
-v tibble  3.1.5     v dplyr   1.0.7
-v tidyr   1.1.4     v stringr 1.4.0
-v readr   2.0.2     v forcats 0.5.1
--- Conflicts ---------------------------------------------------------- tidyverse_conflicts() --
-x dplyr::filter() masks stats::filter()
-x dplyr::lag()    masks stats::lag()</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>customers table</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBtYWtlcyBhIHRpYmJsZSh0YWJsZSlcbmN1c3RvbWVycyA8LSB0aWJibGUoXG4gIGN1c3RvbWVyX0lEID0gYygwMDEsIDAwMiwgMDA0LCAwMDUsIDAwOCwgMDEwKSwgXG4gIG5hbWUgPSBjKFwiSm9obiBTbWl0aFwiLCBcIkphbmUgQWRhbXNcIiwgXCJSb2JlcnQgTGFuZHJ5XCIsIFwiSmFuZSBUb3dcIiwgXCJSYXVsIFRhbm5cIiwgXCJIaWxhcnkgSm95YWxcIiksXG4gIGVtYWlsX2FkZHJlc3MgPSBjKFwiam9obnNtaXRoQGdtYWlsLmNvbVwiLCBcImphbmVhQGdtYWlsLmNvbVwiLCBcInJsYWJkcnlAaG90bWFpbC5jb21cIiwgXCJqYW5ldDg5QGFvbC5jb21cIiwgXCJwYXVsLnRhbm4xQGdtYWlsLmNvbVwiLCBOQSksXG4gIHNoaXBwaW5nX2FkZHJlc3MgPSBjKFwiMzIgU3RhdGlvbiBSb2FkLCBFZGluYnVyZ2hcIiwgXCI0MiBQYXJrIERyaXZlLCBFZGluYnVyZ2hcIiwgTkEsIFwiMTAgR2FyZGluZXIgUmQsIEVkaW5idXJnaFwiLCBcIjEyIE1haW4gU3QsIEVkaW5idXJnaFwiLCBcIiAyMzQgUXVlZW5zZmVycnkgUmQsIEVkaW5idXJnaCxcIilcbilcblxuY3VzdG9tZXJzXG5gYGAifQ== -->
-<pre class="r"><code># makes a tibble(table)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGBcbmBgYCJ9 -->
+<pre class="r"><code>```r
+library(tidyverse)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiUmVnaXN0ZXJlZCBTMyBtZXRob2RzIG92ZXJ3cml0dGVuIGJ5ICdkYnBseXInOlxuICBtZXRob2QgICAgICAgICBmcm9tXG4gIHByaW50LnRibF9sYXp5ICAgICBcbiAgcHJpbnQudGJsX3NxbCAgICAgIFxuLS0gQXR0YWNoaW5nIHBhY2thZ2VzIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gdGlkeXZlcnNlIDEuMy4xIC0tXG52IGdncGxvdDIgMy4zLjUgICAgIHYgcHVycnIgICAwLjMuNFxudiB0aWJibGUgIDMuMS41ICAgICB2IGRwbHlyICAgMS4wLjdcbnYgdGlkeXIgICAxLjEuNCAgICAgdiBzdHJpbmdyIDEuNC4wXG52IHJlYWRyICAgMi4wLjIgICAgIHYgZm9yY2F0cyAwLjUuMVxuLS0gQ29uZmxpY3RzIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gdGlkeXZlcnNlX2NvbmZsaWN0cygpIC0tXG54IGRwbHlyOjpmaWx0ZXIoKSBtYXNrcyBzdGF0czo6ZmlsdGVyKClcbnggZHBseXI6OmxhZygpICAgIG1hc2tzIHN0YXRzOjpsYWcoKVxuIn0= --&gt;
+</code></pre>
+<p>Registered S3 methods overwritten by ‘dbplyr’: method from print.tbl_lazy<br />
+print.tbl_sql<br />
+– Attaching packages ——————————————————- tidyverse 1.3.1 – v ggplot2 3.3.5 v purrr 0.3.4 v tibble 3.1.5 v dplyr 1.0.7 v tidyr 1.1.4 v stringr 1.4.0 v readr 2.0.2 v forcats 0.5.1 – Conflicts ———————————————————- tidyverse_conflicts() – x dplyr::filter() masks stats::filter() x dplyr::lag() masks stats::lag()</p>
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+customers table 
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyBtYWtlcyBhIHRpYmJsZSh0YWJsZSlcbmN1c3RvbWVycyA8LSB0aWJibGUoXG4gIGN1c3RvbWVyX0lEID0gYygwMDEsIDAwMiwgMDA0LCAwMDUsIDAwOCwgMDEwKSwgXG4gIG5hbWUgPSBjKFxcSm9obiBTbWl0aFxcLCBcXEphbmUgQWRhbXNcXCwgXFxSb2JlcnQgTGFuZHJ5XFwsIFxcSmFuZSBUb3dcXCwgXFxSYXVsIFRhbm5cXCwgXFxIaWxhcnkgSm95YWxcXCksXG4gIGVtYWlsX2FkZHJlc3MgPSBjKFxcam9obnNtaXRoQGdtYWlsLmNvbVxcLCBcXGphbmVhQGdtYWlsLmNvbVxcLCBcXHJsYWJkcnlAaG90bWFpbC5jb21cXCwgXFxqYW5ldDg5QGFvbC5jb21cXCwgXFxwYXVsLnRhbm4xQGdtYWlsLmNvbVxcLCBOQSksXG4gIHNoaXBwaW5nX2FkZHJlc3MgPSBjKFxcMzIgU3RhdGlvbiBSb2FkXG5gYGAifQ== --&gt;
+
+```r
+```r
+# makes a tibble(table)
 customers &lt;- tibble(
   customer_ID = c(001, 002, 004, 005, 008, 010), 
-  name = c(&quot;John Smith&quot;, &quot;Jane Adams&quot;, &quot;Robert Landry&quot;, &quot;Jane Tow&quot;, &quot;Raul Tann&quot;, &quot;Hilary Joyal&quot;),
-  email_address = c(&quot;johnsmith@gmail.com&quot;, &quot;janea@gmail.com&quot;, &quot;rlabdry@hotmail.com&quot;, &quot;janet89@aol.com&quot;, &quot;paul.tann1@gmail.com&quot;, NA),
-  shipping_address = c(&quot;32 Station Road, Edinburgh&quot;, &quot;42 Park Drive, Edinburgh&quot;, NA, &quot;10 Gardiner Rd, Edinburgh&quot;, &quot;12 Main St, Edinburgh&quot;, &quot; 234 Queensferry Rd, Edinburgh,&quot;)
-)
-
-customers</code></pre>
+  name = c(\John Smith\, \Jane Adams\, \Robert Landry\, \Jane Tow\, \Raul Tann\, \Hilary Joyal\),
+  email_address = c(\johnsmith@gmail.com\, \janea@gmail.com\, \rlabdry@hotmail.com\, \janet89@aol.com\, \paul.tann1@gmail.com\, NA),
+  shipping_address = c(\32 Station Road</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6NCwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI2IHggNCJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJtMVN6Mi9UTUJSMnU3VFFRTGRKSFJKd3dRZU9XMFRUVG9JVFJSUUJFMGdqMjJHMzZUWHhHbStKSGRrT296ZitaTTRjQnMrcFBYWFpMQ1h2K1h1L3Z2ZWVrL25aSkR3TENTRmJKT2gweUZZUFZkTC9lRHlPRDJOQ2dpN2VPaVFnQXl0L29kY0lsUUMvYmV2Mi9nOXB6b3c0dWV2a25wUFV5ZGZFSCt2UmR3bkRJNWtMZWxKeWs5OGlJQmo5a0VHcEhUSk01SUlwUTcrQnlOVEtnWThidDFONTdlNkRCT3FDbm9JUURuajZoUmVnVnZSSXJxQm9WUjFkWWxWdGk4NldKZkFpU21YcFREdVhtQmZ1d1NOVndBS3J6M0pwSG9vd2I5L05RRzdDZXhVU2lnd1NHbTlrUTZMLzhMVDR2SnpFOU1TQTRWTFFSRUsyVHo5bFhDeHF0ZlJUZVQ2TjZUR29LenBYL0NmYnRQdU1hNzhYNHpmME15aTBNa1dUQnhJOUc4ZjBPM0NjdWJsdmZFWGp5WlQrcUJrVCtvSXBuTjZkRlB1dDE5QVRVREx0ZWdrYytDU3R0WkVsVStkZjV3NEtySjlmSnJPek9JY3NVMHo3RGUvcW5GY1ZGOHRiL0c2aGdaTFhrUzgyeEsvN0czL1k5ZDgybzdRQTdSbDVNTXpBUUhTaExBbENibG9oajJSbDU0NUJYZnV3ZTYzZ2ptb0JPN1d3VExLRE5LL0YxY0hVRm1qTTZ6TjBlbjlERDlZbHUzN3RQWmVxejhRU0YrVzU0d3RqaGJ0c1k4ZE53MUdsdURDK0UwUjFaS1FCN3hlbXN2QkkweHU1K1ErS2tLa24wQU1BQUE9PSJ9 -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6NCwic3VtbWFyeSI6eyJBIHRpYmJsZSI6IjYgeCA0In19LCJyZGYiOiJINHNJQUFBQUFBQUFCbTFTejIvVE1CUjJ1N1RRUUxkSkhSSnd3UWVPVzBUVFRvSVRSUlFCRTBnajIyRzM2VFh4R20rSkhka09vemYrWk00Y0JzK3BQWFhaTENYditYdS92dmVlay9uWkpEd0xDU0ZiSk9oMHlGWVBWZEwvZUR5T0QyTkNnaTdlT2lRZ0F5dC9vZGNJbFFDL2JldjIvZzlwem93NHVldmtucFBVeWRmRUgrdlJkd25ESTVrTGVsSnlrOThpSUJqOWtFR3BIVEpNNUlJcFE3K0J5TlRLZ1k4YnQxTjU3ZTZEQk9xQ25vSVFEbmo2aFJlZ1Z2UklycUJvVlIxZFlsVnRpODZXSmZBaVNtWHBURHVYbUJmdXdTTlZ3QUtyejNKcEhvb3diOS9OUUc3Q2V4VVNpZ3dTR205a1E2TC84TFQ0dkp6RTlNU0E0VkxRUkVLMlR6OWxYQ3hxdGZSVGVUNk42VEdvS3pwWC9DZmJ0UHVNYTc4WDR6ZjBNeWkwTWtXVEJ4STlHOGYwTzNDY3VibHZmRVhqeVpUK3FCa1Qrb0lwbk42ZEZQdXQxOUFUVURMdGVna2MrQ1N0dFpFbFUrZGY1dzRLcko5ZkpyT3pPSWNzVTB6N0RlL3FuRmNWRjh0Yi9HNmhnWkxYa1M4MnhLLzdHMy9ZOWQ4Mm83UUE3Umw1TU16QVFIU2hMQWxDYmxvaGoyUmw1NDVCWGZ1d2U2M2dqbW9CTzdXd1RMS0ROSy9GMWNIVUZtak02ek4wZW45REQ5WWx1Mzd0UFplcXo4UVNGK1c1NHd0amhidHNZOGROdzFHbHVEQytFMFIxWktRQjd4ZW1zdkJJMHh1NStRK0trS2tuMEFNQUFBPT0ifQ== -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["customer_ID"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["email_address"],"name":[3],"type":["chr"],"align":["left"]},{"label":["shipping_address"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"John Smith","3":"johnsmith@gmail.com","4":"32 Station Road, Edinburgh"},{"1":"2","2":"Jane Adams","3":"janea@gmail.com","4":"42 Park Drive, Edinburgh"},{"1":"4","2":"Robert Landry","3":"rlabdry@hotmail.com","4":"NA"},{"1":"5","2":"Jane Tow","3":"janet89@aol.com","4":"10 Gardiner Rd, Edinburgh"},{"1":"8","2":"Raul Tann","3":"paul.tann1@gmail.com","4":"12 Main St, Edinburgh"},{"1":"10","2":"Hilary Joyal","3":"NA","4":"234 Queensferry Rd, Edinburgh,"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
@@ -262,210 +270,398 @@ customers</code></pre>
 <p>orders table</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxub3JkZXJzIDwtIHRpYmJsZShcbiAgY3VzdG9tZXJfSUQgPSBjKDAwMSwgMDAyLCAwMDUsIDAxMCwgMDEyLCAwMDEpLCBcbiAgb3JkZXJfbnVtYmVyID0gYyhcIktVNjU3ODFcIiwgXCJTVTk4MjAxXCIsIFwiSlM3NjgyMVwiLCBcIllSMjgyMTJcIiwgXCJKUzkxMjIxXCIsXCJZUjIxODczXCIpLFxuICBvcmRlcl90b3RhbCA9IGMoXCLCozMyLjUwXCIsIFwiwqM1Ni4wMFwiLCBcIsKjMTAwLjAyXCIsIFwiwqMyMC4yNVwiLCBcIsKjMzkuNTBcIiwgXCLCozQ1LjAwXCIpLFxuICBwcm9kdWN0X2NvZGUgPSBjKFwiWFpZNzgwXCIsIFwiWFlaMTIzXCIsIFwiWFlaMjU2XCIsIFwiWFlaMjYyXCIsIFwiWFlaMzQ1XCIsIFwiWFlaMTI3XCIpXG4pXG5vcmRlcnNcbmBgYCJ9 -->
-<pre class="r"><code>orders &lt;- tibble(
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxub3JkZXJzIDwtIHRpYmJsZShcbiAgY3VzdG9tZXJfSUQgPSBjKDAwMSwgMDAyLCAwMDUsIDAxMCwgMDEyLCAwMDEpLCBcbiAgb3JkZXJfbnVtYmVyID0gYyhcXEtVNjU3ODFcXCwgXFxTVTk4MjAxXFwsIFxcSlM3NjgyMVxcLCBcXFlSMjgyMTJcXCwgXFxKUzkxMjIxXFwsXFxZUjIxODczXFwpLFxuICBvcmRlcl90b3RhbCA9IGMoXFzDgsKjMzIuNTBcXCwgXFzDgsKjNTYuMDBcXCwgXFzDgsKjMTAwLjAyXFwsIFxcw4LCozIwLjI1XFwsIFxcw4LCozM5LjUwXFwsIFxcw4LCozQ1LjAwXFwpLFxuICBwcm9kdWN0X2NvZGUgPSBjKFxcWFpZNzgwXFwsIFxcWFlaMTIzXFwsIFxcWFlaMjU2XFwsIFxcWFlaMjYyXFwsIFxcWFlaMzQ1XFwsIFxcWFlaMTI3XFwpXG4pXG5vcmRlcnNcbmBgYFxuYGBgIn0= -->
+<pre class="r"><code>```r
+orders &lt;- tibble(
   customer_ID = c(001, 002, 005, 010, 012, 001), 
-  order_number = c(&quot;KU65781&quot;, &quot;SU98201&quot;, &quot;JS76821&quot;, &quot;YR28212&quot;, &quot;JS91221&quot;,&quot;YR21873&quot;),
-  order_total = c(&quot;£32.50&quot;, &quot;£56.00&quot;, &quot;£100.02&quot;, &quot;£20.25&quot;, &quot;£39.50&quot;, &quot;£45.00&quot;),
-  product_code = c(&quot;XZY780&quot;, &quot;XYZ123&quot;, &quot;XYZ256&quot;, &quot;XYZ262&quot;, &quot;XYZ345&quot;, &quot;XYZ127&quot;)
+  order_number = c(\KU65781\, \SU98201\, \JS76821\, \YR28212\, \JS91221\,\YR21873\),
+  order_total = c(\Â£32.50\, \Â£56.00\, \Â£100.02\, \Â£20.25\, \Â£39.50\, \Â£45.00\),
+  product_code = c(\XZY780\, \XYZ123\, \XYZ256\, \XYZ262\, \XYZ345\, \XYZ127\)
 )
 orders</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6NCwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI2IHggNCJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJsMVNUVytDUUJCZEVEVFNhcHUwUDZHSFhpVEw0Z0tlYWxJdmJTK054a1M5R0FUYW1pSnJGa2g3N0gveEQvYmNnM1NCWFVRMldXYmVtM2s3SDJFNldaamFRZ01BdElBaVNhQ2xNaGUwSDE4TmhCRUFpc3lRQkJUUXplMDN5N3BoanNKdVAwOTcrQVhGR1FOdWI3bTk0L2ErdENLUG5ldGN4eC9zdk13dGJEdUdnTFA1eUVHd2dzOHoyM0pRQlpkVHhCQTZSVWNHT29zYWptMVdGY0E0cDlzSEUra1lWZ2hiT2hTb2N6QWcxQ0dxZ2dqcUNKK0VvN3B3aUF2aFdmdnR4V3BwTzdCQ3k1V0J6QnBDMktvakM5V1FPY1JuT3J1eGF6VnlkMEhNQ3lxY3ZQRFNPQ0c3Z0s2ZkpweTZKTlJuT0VwM200Q0t0SkpMU09LR0ltMVBpWjk2eWRvamZ0QW8xYVhrU3hmbGV1ektQK3lUWmRsZnN5Y3ZkR1BSa3lBMTMwMWMvWTB5UFVQSGhxUkQ5c21XUkV3azV6K08yaEJMdEVGY3BWSGVpVC93UHRMb2M0RHpBa1c0UEQzdXQydStVcGFVTS82VUt2WWFSTy9iS0JDOWgrNG1FTnZvczRtTGdmVTkzVWFKbUlTeHNWN2ZtdWFSVURERmJPRDREL3Y5Z040d0F3QUEifQ== -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["customer_ID"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["order_number"],"name":[2],"type":["chr"],"align":["left"]},{"label":["order_total"],"name":[3],"type":["chr"],"align":["left"]},{"label":["product_code"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"KU65781","3":"£32.50","4":"XZY780"},{"1":"2","2":"SU98201","3":"£56.00","4":"XYZ123"},{"1":"5","2":"JS76821","3":"£100.02","4":"XYZ256"},{"1":"10","2":"YR28212","3":"£20.25","4":"XYZ262"},{"1":"12","2":"JS91221","3":"£39.50","4":"XYZ345"},{"1":"1","2":"YR21873","3":"£45.00","4":"XYZ127"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>inner-join</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW5uZXJfam9pbihjdXN0b21lcnMsIG9yZGVycywgYnkgPSBcImN1c3RvbWVyX0lEXCIpXG5gYGAifQ== -->
-<pre class="r"><code>inner_join(customers, orders, by = &quot;customer_ID&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NSwibmNvbCI6Nywic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI1IHggNyJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJvMVR6Vy9hTUJRM0ZNaGdwYTNFRHRzdTgySEhOa29jRXRKVG1jYTBqVjA2V0NYb0JabkVoYlNKalp5a0g3ZjlMLzBIZDUvVXpRR2JnbGR0ZTVKNTcvZDd6Ky9EZVF4Nkk2Y3hhZ0FBZGtDbFZBSTdWV0dDMnZ0VEc3a0lnRXBab0JLb2dIcWhiMFZVU3hpR09IdmlWRTkrZ0tVbzNRVlN2NUQ2TFZCeVVNVExSSTArbTFNNFRLSnMvaGNHVXdMZmhUaEpKZk5zeVh4ak54THZmb3Bpek85Z245M2hXS3ZRdWhUNTBpSmRkNWJnS0RZRGx2emJ0WDhwS3VDbjZjdy83bUsyb2dHby94S2kxWHp0SURqTWNCWXhDZ2NNaDRmd1F4alJhYzVuOC8rT2VObEc4QlR6SzlqajBUWDUwLy9LdHVCSHpBVkxPQnc4a2VBTlJFNGJmczBKb2VrRjRlSjV0cUlPdFo2TkwyZWUyL0Z0QmNjRFpQc2RSOEhoMmJHUHJMVzNQK3g0UHRvTUZnaXRVNEp1UWRmdUhXUzYxaHExWGRONlJLNzNpSXg3MjdKTUM2MmR5REtScTNWWUc1MlBPNzYxUnVOekczVzJrTE9Ca090dElrOWY0U3JGQ1VsbENVT1N6NE04elZoQytPUnpUMUtWSWs3YVRWTHN3d1NISVNlcFdzYURkQjR0RmhHZGFmd3U0NkZJUlBOa1Nyakt2K0l5bG9rOWxXRUx6c0k4eUNZQkM0bldZNTJ6RzFQMTJSU24vRjM4aUgzN3FROFR4RGhWd3lpeUVlSU1teGU4NkIrQUIrMkt3UmJGOW9sTDVkYnFtMjFkTG5HTjJNOXAwVWw0Rk14emVuWGtGUVdXN3BVMHBWM2RzSTFWeWJMKzk2Z1JPaE5ycTNxUDhaU28xOWdURXk4SE5oYzhvcG1hUkxDcHVmbHFqWURGaWxuT0JoNStBekdmNXkvQUJBQUEifQ== -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["customer_ID"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["email_address"],"name":[3],"type":["chr"],"align":["left"]},{"label":["shipping_address"],"name":[4],"type":["chr"],"align":["left"]},{"label":["order_number"],"name":[5],"type":["chr"],"align":["left"]},{"label":["order_total"],"name":[6],"type":["chr"],"align":["left"]},{"label":["product_code"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"John Smith","3":"johnsmith@gmail.com","4":"32 Station Road, Edinburgh","5":"KU65781","6":"£32.50","7":"XZY780"},{"1":"1","2":"John Smith","3":"johnsmith@gmail.com","4":"32 Station Road, Edinburgh","5":"YR21873","6":"£45.00","7":"XYZ127"},{"1":"2","2":"Jane Adams","3":"janea@gmail.com","4":"42 Park Drive, Edinburgh","5":"SU98201","6":"£56.00","7":"XYZ123"},{"1":"5","2":"Jane Tow","3":"janet89@aol.com","4":"10 Gardiner Rd, Edinburgh","5":"JS76821","6":"£100.02","7":"XYZ256"},{"1":"10","2":"Hilary Joyal","3":"NA","4":"234 Queensferry Rd, Edinburgh,","5":"YR28212","6":"£20.25","7":"XYZ262"}],"options":{"columns":{"min":{},"max":[10],"total":[7]},"rows":{"min":[10],"max":[10],"total":[5]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Left join</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVmdF9qb2luKGN1c3RvbWVycywgb3JkZXJzLCBieSA9IFwiY3VzdG9tZXJfSURcIilcbmBgYCJ9 -->
-<pre class="r"><code>left_join(customers, orders, by = &quot;customer_ID&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NywibmNvbCI6Nywic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI3IHggNyJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJvMVVXMi9UTUJSMnUxNVkyVTNha0lBWC9NRGpGaVhPMG5aUEZERUVESkJHdTBuYlhpWTM4ZHBzaVYwNURtTnYvSmY5UVY1NUdSeW5jV205Q2JDVUhwL1A1L0o5VGs3Nyt5ZCs2NlNGRUZwQ3RVb0ZMZFZoaXhwdkRqMFNFSVJxVmZBcXFJYVd0ZjBHVVp1d2FjS3pwdTJySDZoWXh2WlFhVGRLdTFWYVhOcVh5S3lOb3M2MGNPdEFqRGtlcExFYS93V2huT0hYRVUyekVsbnRpeUdUQ24raVBKSTNKZmlvQ0RzUzE2Vy8zS2Q1Z284bzV5V3c4ajVPcUx6QkIrS0dKaGFQelV2b211bW12VkZLNDhRSlJmcnZvL1ZMYUVudlo4aUVEb0ZZYnl6VVF4bXF1OWVqWWg3ZW1nQlhSd0ZYYjY0YWFQZ0Z5Nkw2M0NkNG9LaUtCY2Q5UWFOdC9EYUsrVENYby9GL1J6emRKZmlReWl1OEwrT3ZiUDdjOUp6R1BmTmMvSTVLT0dVUzl4OG85TVFqK0RPTjRZV3ArNGN2TVBGMzhaZWNNWjVkTUFsWHYxQmkyeExXL0hqY0RqcGR6N2luZmVKMU83NXhCOGQ3WGVKNkZzUG13YURUN3BKN01DUURTbVl0VUUvRGpWdWZPSUU3ODNZRHgvM2pCZTNDTTdkZW9NMWJ6M1VkbDFodzQ1YTREZ2tzQlkyVHM5Tk8xNTE1cDJjZTZTeDR2c1ZUb3lSb1A0UzI3U0dzYzVxeXpHcjVPTXd6SlZJbXp6L3NsMUJOeDVsSllmcHJPcWRSSkZsbXhtY2pHOGVUU2N4SEZyNGlaQVNGZUo3Q2RKbjZVMHdKQlROVGhrMmtpUEpRblljaVloYkhaU211SGNOekZaN3FkL2dCWlQ5dE1XRkNNeVBHZ0sySUt1cGNTTTBmb1RzcnBTa20rcE9HcEtyK0s2cGJ5UlZwQWVzNTEweWluWENjODZ1ZGptNVFIRS9YYXJsdkx1NTF5NnFadWJwNUlZeVBZQVlNZHhodlptNWpEUlFYZ3AySmpMa3lTZ0ROblBsYmE0VWlNVWloRGQzOUJzZlU4UENDQlFBQSJ9 -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["customer_ID"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["email_address"],"name":[3],"type":["chr"],"align":["left"]},{"label":["shipping_address"],"name":[4],"type":["chr"],"align":["left"]},{"label":["order_number"],"name":[5],"type":["chr"],"align":["left"]},{"label":["order_total"],"name":[6],"type":["chr"],"align":["left"]},{"label":["product_code"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"John Smith","3":"johnsmith@gmail.com","4":"32 Station Road, Edinburgh","5":"KU65781","6":"£32.50","7":"XZY780"},{"1":"1","2":"John Smith","3":"johnsmith@gmail.com","4":"32 Station Road, Edinburgh","5":"YR21873","6":"£45.00","7":"XYZ127"},{"1":"2","2":"Jane Adams","3":"janea@gmail.com","4":"42 Park Drive, Edinburgh","5":"SU98201","6":"£56.00","7":"XYZ123"},{"1":"4","2":"Robert Landry","3":"rlabdry@hotmail.com","4":"NA","5":"NA","6":"NA","7":"NA"},{"1":"5","2":"Jane Tow","3":"janet89@aol.com","4":"10 Gardiner Rd, Edinburgh","5":"JS76821","6":"£100.02","7":"XYZ256"},{"1":"8","2":"Raul Tann","3":"paul.tann1@gmail.com","4":"12 Main St, Edinburgh","5":"NA","6":"NA","7":"NA"},{"1":"10","2":"Hilary Joyal","3":"NA","4":"234 Queensferry Rd, Edinburgh,","5":"YR28212","6":"£20.25","7":"XYZ262"}],"options":{"columns":{"min":{},"max":[10],"total":[7]},"rows":{"min":[10],"max":[10],"total":[7]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Right join</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmlnaHRfam9pbihjdXN0b21lcnMsIG9yZGVycywgYnkgPSBcImN1c3RvbWVyX0lEXCIpXG5gYGAifQ== -->
-<pre class="r"><code>right_join(customers, orders, by = &quot;customer_ID&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6Nywic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI2IHggNyJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJvMVVTM1BhTUJBV0JIQ2hJY2xNY21oN3FRODk5SkI0YkJtRE9aVk82YlNsbHhTYUdjaUZFYllDVG15SmtlMm11ZlcvNUEvMjNFTmF5VWhnWFByUWpMMzdmYnZhaDdUMnNEKzJHK01HQUdBUFZFb2xzRmZsS3FpOU9iZWdBd0dvbERrcWdRcW9DL21WZXgxelJlUFBnWEI3OVIxa1M4a2VrUEpFeWhkU3ZnUnFIWWw5TW1CalFCZEVIMFZCc3ZnTGd3aldYL3NvaWlYektHTSswMXVKOTk4SElXSjMrb0Rlb1pEaitrKytDcG1PcjNuY1dJVHR6U01VaElaSG8zK2JEcTk1SnJTYlR0eHVEOUVWdmNtNUsvY3pHK3FqQkNVQkpmcVFJdjlVZitzSFpKYXkrZUsvUFo2MG9INk8ySTNlWjhFWC9MdjlxV1hxN3hEakxHYjZjRWVBNXpxMFcvcW5GR01TWDJIR2oydkw2L1FQdFdzZkw5cE94N1VVbkF5aDVYWnNCVWNYWFJlYWErdGcxR203TU8vTUVkeFl1eGJrVnBVQjlBUmR1N2VoNFpocjFISU1jNE9jOWdacDk1WnBHaVpjRzZGcFFHY1RwcHVGMlNxL05yNmNkRnh6alNhWEZ1eHNJVHVIb05QT296Yk1JYnZsRkw2R0trRVJqbVZDVFpLUHZUUk9hSVRaOUVOZlVoWGhKL1VtRnFNMFJiN1BjS3ptK1NoZUJNdGxRT1lGZnA4eW53Y2lhVFREVE1WZmNRbE4rS2hMdHlXamZ1b2xVNC82dUZCam5kRmJROVhaNUUvNUczL3hhLzVSYk1ZTFVheWFVV1REUndreXJwaW9INENId2hhTkxzWEE4azFsOFUrb0ZqYVhXSUU0VEltb3hEL3pGaW01T1hORmdzeThXazJwMTNLNnRrcFpWbE5aVlJlQ3laeFB1cW85UkRPc1R1T0FkNXcxYkN4WlFCTFZDV2RqSTM5cURZK0dpc2w2QXcrL0FPSVE4eUVMQlFBQSJ9 -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["customer_ID"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["email_address"],"name":[3],"type":["chr"],"align":["left"]},{"label":["shipping_address"],"name":[4],"type":["chr"],"align":["left"]},{"label":["order_number"],"name":[5],"type":["chr"],"align":["left"]},{"label":["order_total"],"name":[6],"type":["chr"],"align":["left"]},{"label":["product_code"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"John Smith","3":"johnsmith@gmail.com","4":"32 Station Road, Edinburgh","5":"KU65781","6":"£32.50","7":"XZY780"},{"1":"1","2":"John Smith","3":"johnsmith@gmail.com","4":"32 Station Road, Edinburgh","5":"YR21873","6":"£45.00","7":"XYZ127"},{"1":"2","2":"Jane Adams","3":"janea@gmail.com","4":"42 Park Drive, Edinburgh","5":"SU98201","6":"£56.00","7":"XYZ123"},{"1":"5","2":"Jane Tow","3":"janet89@aol.com","4":"10 Gardiner Rd, Edinburgh","5":"JS76821","6":"£100.02","7":"XYZ256"},{"1":"10","2":"Hilary Joyal","3":"NA","4":"234 Queensferry Rd, Edinburgh,","5":"YR28212","6":"£20.25","7":"XYZ262"},{"1":"12","2":"NA","3":"NA","4":"NA","5":"JS91221","6":"£39.50","7":"XYZ345"}],"options":{"columns":{"min":{},"max":[10],"total":[7]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Full join</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZnVsbF9qb2luKGN1c3RvbWVycywgb3JkZXJzKVxuYGBgIn0= -->
-<pre class="r"><code>full_join(customers, orders)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiSm9pbmluZywgYnkgPSBcImN1c3RvbWVyX0lEXCJcbiJ9 -->
-<pre><code>Joining, by = &quot;customer_ID&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6OCwibmNvbCI6Nywic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI4IHggNyJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJvMVV6VS9iTUJSM1M5dVVqaThKSm0yN3pJY2Rkb0FvY1pwK25OWnBUTnZZSnJFV0pPQ0NUR0xhUUdwWGpqUEdiZjhMLytDT083RzlwRFl0b2Z1dzVEeS8zL3Y2dlRndi9kMGpyM0hVUUFndG9VcXBoSmFxY0VTMU4vc3U4UWxDbFRKb0pWUkJ5NW44Qmw2YmNMQmdyOEd1di9xQjhtVmtEMm01b2VXV2xsakxGMXErUkdabG5uVmRvTEVuUmh3UHhwRWEvUVdobk9IWElSMG5HbG50aXpNbUZmNUVlU2l2TlZqUDNRN0VsZGFYK3pTTjhRSGxYQU1yNzZPWXltdThKNjVwbkRuOGdsWGdzM2tCMVpPc2VHODRwbEZzQjJMOGI5UDZCWlNtRHlOa1RNK0FZRzhrMUtJSTFlbjJxSmlIdHliQTJWYkEyWjNMTnFPNmlQSXpqK0NCb2lvU0hQY0ZEYmZ4MnpEaVo2a2NqdjdiNDBtVDRIMHFML0d1akw2eWVidXBPZlY3NmpyNEhaVmdaUkwzRnlSNjdCTDhtVVp3Z2VxaDhUa21YaE4vU1JuanlUbVRjQlgzVW16L29VSHI0MkhMYjNkY294NzNpZHRwZTBZZEhIWTd4SEVMVEsyOVFidlZJUTlnQ0FhVXpMeTZMc205cGhWUkw0TnJOeDZ4ZmVkT2EvcTJNOVA4VnE0WnJqbHEzYmlPWXp1a0FOZHVpR01UZjVhMm02ZTkxMTd0Nk9TNDNYSHV0T01UbDdUdmFWNmhpUXdsZm1zUjJpSnptdGYwQy9OYzVYVE1FazNBMHVDaklFMlVHRE41K21GWFE1WE16d3dieXo3RVV4cUdraVZtQWplU1VUU1pSSHhZd0ZlRURDRVJUOGN3b0NiL0ZGTkN3ZGhwdDRrVVlScW8wMENFck1CeFdZb3IyL0JjaFYzK0RnL284MmV4bVNDbWlXbkdnSTJRS21xZnk0dy9RcmVGRUV0TXNpbUFvSEwyVjZzV2drdXlBS3luUEdNUzdnU2psRi91ZExNQ3VYbTZWdlc1UG5lMnBpWEw1aXV1bWd0aGZBaGpZN2pEbjRHWnQ3RUdIZWNOMnhNWmNXVTZBVFN4NTk5YUl4Q3hRZkxlME8xdlpyS21SYzBGQUFBPSJ9 -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["customer_ID"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["email_address"],"name":[3],"type":["chr"],"align":["left"]},{"label":["shipping_address"],"name":[4],"type":["chr"],"align":["left"]},{"label":["order_number"],"name":[5],"type":["chr"],"align":["left"]},{"label":["order_total"],"name":[6],"type":["chr"],"align":["left"]},{"label":["product_code"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"John Smith","3":"johnsmith@gmail.com","4":"32 Station Road, Edinburgh","5":"KU65781","6":"£32.50","7":"XZY780"},{"1":"1","2":"John Smith","3":"johnsmith@gmail.com","4":"32 Station Road, Edinburgh","5":"YR21873","6":"£45.00","7":"XYZ127"},{"1":"2","2":"Jane Adams","3":"janea@gmail.com","4":"42 Park Drive, Edinburgh","5":"SU98201","6":"£56.00","7":"XYZ123"},{"1":"4","2":"Robert Landry","3":"rlabdry@hotmail.com","4":"NA","5":"NA","6":"NA","7":"NA"},{"1":"5","2":"Jane Tow","3":"janet89@aol.com","4":"10 Gardiner Rd, Edinburgh","5":"JS76821","6":"£100.02","7":"XYZ256"},{"1":"8","2":"Raul Tann","3":"paul.tann1@gmail.com","4":"12 Main St, Edinburgh","5":"NA","6":"NA","7":"NA"},{"1":"10","2":"Hilary Joyal","3":"NA","4":"234 Queensferry Rd, Edinburgh,","5":"YR28212","6":"£20.25","7":"XYZ262"},{"1":"12","2":"NA","3":"NA","4":"NA","5":"JS91221","6":"£39.50","7":"XYZ345"}],"options":{"columns":{"min":{},"max":[10],"total":[7]},"rows":{"min":[10],"max":[10],"total":[8]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Differnt name primary key join</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY3VzdG9tZXJzX2FkaiA8LSBjdXN0b21lcnMgJT4lIFxuICByZW5hbWUodGhpc19pc19hbl9pZCA9IGN1c3RvbWVyX0lEKVxuXG5pbm5lcl9qb2luKGN1c3RvbWVyc19hZGosIG9yZGVycywgYnkgPSBcbiAgICAgICAgICAgICBjKFwidGhpc19pc19hbl9pZFwiID0gXCJjdXN0b21lcl9JRFwiKSlcbmBgYCJ9 -->
-<pre class="r"><code>customers_adj &lt;- customers %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6NCwic3VtbWFyeSI6eyJBIHRpYmJsZSI6IjYgeCA0In19LCJyZGYiOiJINHNJQUFBQUFBQUFCbDFTVFcrQ1FCQmRFRFRTYXB1MFA2R0hYaVRMNGdLZWFsSXZiUytOeGtTOUdBVGFtaUpyRmtoNzdIL3hEL2JjZzNTQlhVUTJXV2JlbTNrN0gyRTZXWmphUWdNQXRJQWlTYUNsTWhlMEgxOE5oQkVBaXN5UUJCVFF6ZTAzeTdwaGpzSnVQMDk3K0FYRkdRTnViN205NC9hK3RDS1BuZXRjeHgvc3ZNd3RiRHVHZ0xQNXlFR3dnczh6MjNKUUJaZFR4QkE2UlVjR09vc2FqbTFXRmNBNHA5c0hFK2tZVmdoYk9oU29jekFnMUNHcWdnanFDSitFbzdwd2lBdmhXZnZ0eFdwcE83QkN5NVdCekJwQzJLb2pDOVdRT2NSbk9ydXhhelZ5ZDBITUN5cWN2UERTT0NHN2dLNmZKcHk2Sk5Sbk9FcDNtNENLdEpKTFNPS0dJbTFQaVo5Nnlkb2pmdEFvMWFYa1N4ZmxldXpLUCt5VFpkbGZzeWN2ZEdQUmt5QTEzMDFjL1kweVBVUEhocVJEOXNtV1JFd2s1eitPMmhCTHRFRmNwVkhlaVQvd1B0TG9jNER6QWtXNFBEM3V0MnUrVXBhVU0vNlVLdllhUk8vYktCQzloKzRtRU52b3M0bUxnZlU5M1VhSm1JU3hzVjdmbXVhUlVEREZiT0Q0RC92OWdONHdBd0FBIn0= --&gt;
+
+&lt;div data-pagedtable=&quot;false&quot;&gt;
+  &lt;script data-pagedtable-source type=&quot;application/json&quot;&gt;
+{&quot;columns&quot;:[{&quot;label&quot;:[&quot;customer_ID&quot;],&quot;name&quot;:[1],&quot;type&quot;:[&quot;dbl&quot;],&quot;align&quot;:[&quot;right&quot;]},{&quot;label&quot;:[&quot;order_number&quot;],&quot;name&quot;:[2],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;order_total&quot;],&quot;name&quot;:[3],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;product_code&quot;],&quot;name&quot;:[4],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]}],&quot;data&quot;:[{&quot;1&quot;:&quot;1&quot;,&quot;2&quot;:&quot;KU65781&quot;,&quot;3&quot;:&quot;£32.50&quot;,&quot;4&quot;:&quot;XZY780&quot;},{&quot;1&quot;:&quot;2&quot;,&quot;2&quot;:&quot;SU98201&quot;,&quot;3&quot;:&quot;£56.00&quot;,&quot;4&quot;:&quot;XYZ123&quot;},{&quot;1&quot;:&quot;5&quot;,&quot;2&quot;:&quot;JS76821&quot;,&quot;3&quot;:&quot;£100.02&quot;,&quot;4&quot;:&quot;XYZ256&quot;},{&quot;1&quot;:&quot;10&quot;,&quot;2&quot;:&quot;YR28212&quot;,&quot;3&quot;:&quot;£20.25&quot;,&quot;4&quot;:&quot;XYZ262&quot;},{&quot;1&quot;:&quot;12&quot;,&quot;2&quot;:&quot;JS91221&quot;,&quot;3&quot;:&quot;£39.50&quot;,&quot;4&quot;:&quot;XYZ345&quot;},{&quot;1&quot;:&quot;1&quot;,&quot;2&quot;:&quot;YR21873&quot;,&quot;3&quot;:&quot;£45.00&quot;,&quot;4&quot;:&quot;XYZ127&quot;}],&quot;options&quot;:{&quot;columns&quot;:{&quot;min&quot;:{},&quot;max&quot;:[10],&quot;total&quot;:[4]},&quot;rows&quot;:{&quot;min&quot;:[10],&quot;max&quot;:[10],&quot;total&quot;:[6]},&quot;pages&quot;:{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+
+&lt;!-- rnb-frame-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+inner-join
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuaW5uZXJfam9pbihjdXN0b21lcnMsIG9yZGVycywgYnkgPSBcXGN1c3RvbWVyX0lEXFwpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+inner_join(customers, orders, by = \customer_ID\)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NSwibmNvbCI6Nywic3VtbWFyeSI6eyJBIHRpYmJsZSI6IjUgeCA3In19LCJyZGYiOiJINHNJQUFBQUFBQUFCbzFUelcvYU1CUTNGTWhncGEzRUR0c3U4MkhITmtvY0V0SlRtY2EwalYwNldDWG9CWm5FaGJTSmpaeWtIN2Y5TC8wSGQ1L1V6UUdiZ2xkdGU1SjU3L2Q3eisvRGVReDZJNmN4YWdBQWRrQ2xWQUk3VldHQzJ2dFRHN2tJZ0VwWm9CS29nSHFoYjBWVVN4aUdPSHZpVkU5K2dLVW8zUVZTdjVENkxWQnlVTVRMUkkwK20xTTRUS0pzL2hjR1V3TGZoVGhKSmZOc3lYeGpOeEx2Zm9waXpPOWduOTNoV0t2UXVoVDUwaUpkZDViZ0tEWURsdnpidFg4cEt1Q242Y3cvN21LMm9nR28veEtpMVh6dElEak1jQll4Q2djTWg0ZndReGpSYWM1bjgvK09lTmxHOEJUeks5amowVFg1MC8vS3R1Qkh6QVZMT0J3OGtlQU5SRTRiZnMwSm9la0Y0ZUo1dHFJT3RaNk5MMmVlMi9GdEJjY0RaUHNkUjhIaDJiR1ByTFczUCt4NFB0b01GZ2l0VTRKdVFkZnVIV1M2MWhxMVhkTjZSSzczaUl4NzI3Sk1DNjJkeURLUnEzVllHNTJQTzc2MVJ1TnpHM1cya0xPQmtPdHRJazlmNFNyRkNVbGxDVU9TejRNOHpWaEMrT1J6VDFLVklrN2FUVkxzd3dTSElTZXBXc2FEZEI0dEZoR2RhZnd1NDZGSVJQTmtTcmpLditJeWxvazlsV0VMenNJOHlDWUJDNG5XWTUyekcxUDEyUlNuL0YzOGlIMzdxUThUeERoVnd5aXlFZUlNbXhlODZCK0FCKzJLd1JiRjlvbEw1ZGJxbTIxZExuR04yTTlwMFVsNEZNeHplblhrRlFXVzdwVTBwVjNkc0kxVnliTCs5NmdST2hOcnEzcVA4WlNvMTlnVEV5OEhOaGM4b3BtYVJMQ3B1ZmxxallERmlsbk9CaDUrQXpHZjV5L0FCQUFBIn0= --&gt;
+
+&lt;div data-pagedtable=&quot;false&quot;&gt;
+  &lt;script data-pagedtable-source type=&quot;application/json&quot;&gt;
+{&quot;columns&quot;:[{&quot;label&quot;:[&quot;customer_ID&quot;],&quot;name&quot;:[1],&quot;type&quot;:[&quot;dbl&quot;],&quot;align&quot;:[&quot;right&quot;]},{&quot;label&quot;:[&quot;name&quot;],&quot;name&quot;:[2],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;email_address&quot;],&quot;name&quot;:[3],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;shipping_address&quot;],&quot;name&quot;:[4],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;order_number&quot;],&quot;name&quot;:[5],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;order_total&quot;],&quot;name&quot;:[6],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;product_code&quot;],&quot;name&quot;:[7],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]}],&quot;data&quot;:[{&quot;1&quot;:&quot;1&quot;,&quot;2&quot;:&quot;John Smith&quot;,&quot;3&quot;:&quot;johnsmith@gmail.com&quot;,&quot;4&quot;:&quot;32 Station Road, Edinburgh&quot;,&quot;5&quot;:&quot;KU65781&quot;,&quot;6&quot;:&quot;£32.50&quot;,&quot;7&quot;:&quot;XZY780&quot;},{&quot;1&quot;:&quot;1&quot;,&quot;2&quot;:&quot;John Smith&quot;,&quot;3&quot;:&quot;johnsmith@gmail.com&quot;,&quot;4&quot;:&quot;32 Station Road, Edinburgh&quot;,&quot;5&quot;:&quot;YR21873&quot;,&quot;6&quot;:&quot;£45.00&quot;,&quot;7&quot;:&quot;XYZ127&quot;},{&quot;1&quot;:&quot;2&quot;,&quot;2&quot;:&quot;Jane Adams&quot;,&quot;3&quot;:&quot;janea@gmail.com&quot;,&quot;4&quot;:&quot;42 Park Drive, Edinburgh&quot;,&quot;5&quot;:&quot;SU98201&quot;,&quot;6&quot;:&quot;£56.00&quot;,&quot;7&quot;:&quot;XYZ123&quot;},{&quot;1&quot;:&quot;5&quot;,&quot;2&quot;:&quot;Jane Tow&quot;,&quot;3&quot;:&quot;janet89@aol.com&quot;,&quot;4&quot;:&quot;10 Gardiner Rd, Edinburgh&quot;,&quot;5&quot;:&quot;JS76821&quot;,&quot;6&quot;:&quot;£100.02&quot;,&quot;7&quot;:&quot;XYZ256&quot;},{&quot;1&quot;:&quot;10&quot;,&quot;2&quot;:&quot;Hilary Joyal&quot;,&quot;3&quot;:&quot;NA&quot;,&quot;4&quot;:&quot;234 Queensferry Rd, Edinburgh,&quot;,&quot;5&quot;:&quot;YR28212&quot;,&quot;6&quot;:&quot;£20.25&quot;,&quot;7&quot;:&quot;XYZ262&quot;}],&quot;options&quot;:{&quot;columns&quot;:{&quot;min&quot;:{},&quot;max&quot;:[10],&quot;total&quot;:[7]},&quot;rows&quot;:{&quot;min&quot;:[10],&quot;max&quot;:[10],&quot;total&quot;:[5]},&quot;pages&quot;:{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+
+&lt;!-- rnb-frame-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Left join
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubGVmdF9qb2luKGN1c3RvbWVycywgb3JkZXJzLCBieSA9IFxcY3VzdG9tZXJfSURcXClcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+left_join(customers, orders, by = \customer_ID\)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NywibmNvbCI6Nywic3VtbWFyeSI6eyJBIHRpYmJsZSI6IjcgeCA3In19LCJyZGYiOiJINHNJQUFBQUFBQUFCbzFVVzIvVE1CUjJ1MTVZMlUzYWtJQVgvTURqRmlYTzBuWlBGREVFREpCR3UwbmJYaVkzOGRwc2lWMDVEbU52L0pmOVFWNTVHUnluY1dtOUNiQ1VIcC9QNS9KOVRrNzcreWQrNjZTRkVGcEN0VW9GTGRWaGl4cHZEajBTRUlScVZmQXFxSWFXdGYwR1VadXdhY0t6cHUyckg2aFl4dlpRYVRkS3UxVmFYTnFYeUt5Tm9zNjBjT3RBakRrZXBMRWEvd1dobk9IWEVVMnpFbG50aXlHVENuK2lQSkkzSmZpb0NEc1MxNlcvM0tkNWdvOG81eVd3OGo1T3FMekJCK0tHSmhhUHpVdm9tdW1tdlZGSzQ4UUpSZnJ2by9WTGFFbnZaOGlFRG9GWWJ5elVReG1xdTllalloN2VtZ0JYUndGWGI2NGFhUGdGeTZMNjNDZDRvS2lLQmNkOVFhTnQvRGFLK1RDWG8vRi9SenpkSmZpUXlpdThMK092YlA3YzlKekdQZk5jL0k1S09HVVM5eDhvOU1RaitET040WVdwKzRjdk1QRjM4WmVjTVo1ZE1BbFh2MUJpMnhMVy9IamNEanBkejdpbmZlSjFPNzV4QjhkN1hlSjZGc1Btd2FEVDdwSjdNQ1FEU21ZdFVFL0RqVnVmT0lFNzgzWUR4LzNqQmUzQ003ZGVvTTFiejNVZGwxaHc0NWE0RGdrc0JZMlRzOU5PMTUxNXAyY2U2U3g0dnNWVG95Um9QNFMyN1NHc2M1cXl6R3I1T013ekpWSW16ei9zbDFCTng1bEpZZnByT3FkUkpGbG14bWNqRzhlVFNjeEhGcjRpWkFTRmVKN0NkSm42VTB3SkJUTlRoazJraVBKUW5ZY2lZaGJIWlNtdUhjTnpGWjdxZC9nQlpUOXRNV0ZDTXlQR2dLMklLdXBjU00wZm9Uc3JwU2ttK3BPR3BLcitLNnBieVJWcEFlczUxMHlpblhDYzg2dWRqbTVRSEUvWGFybHZMdTUxeTZxWnVicDVJWXlQWUFZTWR4aHZabTVqRFJRWGdwMkpqTGt5U2dETm5QbGJhNFVpTVVpaERkMzlCc2ZVOFBDQ0JRQUEifQ== --&gt;
+
+&lt;div data-pagedtable=&quot;false&quot;&gt;
+  &lt;script data-pagedtable-source type=&quot;application/json&quot;&gt;
+{&quot;columns&quot;:[{&quot;label&quot;:[&quot;customer_ID&quot;],&quot;name&quot;:[1],&quot;type&quot;:[&quot;dbl&quot;],&quot;align&quot;:[&quot;right&quot;]},{&quot;label&quot;:[&quot;name&quot;],&quot;name&quot;:[2],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;email_address&quot;],&quot;name&quot;:[3],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;shipping_address&quot;],&quot;name&quot;:[4],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;order_number&quot;],&quot;name&quot;:[5],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;order_total&quot;],&quot;name&quot;:[6],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;product_code&quot;],&quot;name&quot;:[7],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]}],&quot;data&quot;:[{&quot;1&quot;:&quot;1&quot;,&quot;2&quot;:&quot;John Smith&quot;,&quot;3&quot;:&quot;johnsmith@gmail.com&quot;,&quot;4&quot;:&quot;32 Station Road, Edinburgh&quot;,&quot;5&quot;:&quot;KU65781&quot;,&quot;6&quot;:&quot;£32.50&quot;,&quot;7&quot;:&quot;XZY780&quot;},{&quot;1&quot;:&quot;1&quot;,&quot;2&quot;:&quot;John Smith&quot;,&quot;3&quot;:&quot;johnsmith@gmail.com&quot;,&quot;4&quot;:&quot;32 Station Road, Edinburgh&quot;,&quot;5&quot;:&quot;YR21873&quot;,&quot;6&quot;:&quot;£45.00&quot;,&quot;7&quot;:&quot;XYZ127&quot;},{&quot;1&quot;:&quot;2&quot;,&quot;2&quot;:&quot;Jane Adams&quot;,&quot;3&quot;:&quot;janea@gmail.com&quot;,&quot;4&quot;:&quot;42 Park Drive, Edinburgh&quot;,&quot;5&quot;:&quot;SU98201&quot;,&quot;6&quot;:&quot;£56.00&quot;,&quot;7&quot;:&quot;XYZ123&quot;},{&quot;1&quot;:&quot;4&quot;,&quot;2&quot;:&quot;Robert Landry&quot;,&quot;3&quot;:&quot;rlabdry@hotmail.com&quot;,&quot;4&quot;:&quot;NA&quot;,&quot;5&quot;:&quot;NA&quot;,&quot;6&quot;:&quot;NA&quot;,&quot;7&quot;:&quot;NA&quot;},{&quot;1&quot;:&quot;5&quot;,&quot;2&quot;:&quot;Jane Tow&quot;,&quot;3&quot;:&quot;janet89@aol.com&quot;,&quot;4&quot;:&quot;10 Gardiner Rd, Edinburgh&quot;,&quot;5&quot;:&quot;JS76821&quot;,&quot;6&quot;:&quot;£100.02&quot;,&quot;7&quot;:&quot;XYZ256&quot;},{&quot;1&quot;:&quot;8&quot;,&quot;2&quot;:&quot;Raul Tann&quot;,&quot;3&quot;:&quot;paul.tann1@gmail.com&quot;,&quot;4&quot;:&quot;12 Main St, Edinburgh&quot;,&quot;5&quot;:&quot;NA&quot;,&quot;6&quot;:&quot;NA&quot;,&quot;7&quot;:&quot;NA&quot;},{&quot;1&quot;:&quot;10&quot;,&quot;2&quot;:&quot;Hilary Joyal&quot;,&quot;3&quot;:&quot;NA&quot;,&quot;4&quot;:&quot;234 Queensferry Rd, Edinburgh,&quot;,&quot;5&quot;:&quot;YR28212&quot;,&quot;6&quot;:&quot;£20.25&quot;,&quot;7&quot;:&quot;XYZ262&quot;}],&quot;options&quot;:{&quot;columns&quot;:{&quot;min&quot;:{},&quot;max&quot;:[10],&quot;total&quot;:[7]},&quot;rows&quot;:{&quot;min&quot;:[10],&quot;max&quot;:[10],&quot;total&quot;:[7]},&quot;pages&quot;:{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+
+&lt;!-- rnb-frame-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Right join
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucmlnaHRfam9pbihjdXN0b21lcnMsIG9yZGVycywgYnkgPSBcXGN1c3RvbWVyX0lEXFwpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+right_join(customers, orders, by = \customer_ID\)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6Nywic3VtbWFyeSI6eyJBIHRpYmJsZSI6IjYgeCA3In19LCJyZGYiOiJINHNJQUFBQUFBQUFCbzFVUzNQYU1CQVdCSENoSWNsTWNtaDdxUTg5OUpCNGJCbURPWlZPNmJTbGx4U2FHY2lGRWJZQ1RteUprZTJtdWZXLzVBLzIzRU5heVVoZ1hQclFqTDM3ZmJ2YWg3VDJzRCsyRytNR0FHQVBWRW9sc0ZmbEtxaTlPYmVnQXdHb2xEa3FnUXFvQy9tVmV4MXpSZVBQZ1hCNzlSMWtTOGtla1BKRXloZFN2Z1JxSFlsOU1tQmpRQmRFSDBWQnN2Z0xnd2pXWC9zb2lpWHpLR00rMDF1Sjk5OEhJV0ozK29EZW9aRGoraysrQ3BtT3IzbmNXSVR0elNNVWhJWkhvMytiRHE5NUpyU2JUdHh1RDlFVnZjbTVLL2N6RytxakJDVUJKZnFRSXY5VWYrc0haSmF5K2VLL1BaNjBvSDZPMkkzZVo4RVgvTHY5cVdYcTd4RGpMR2I2Y0VlQTV6cTBXL3FuRkdNU1gySEdqMnZMNi9RUHRXc2ZMOXBPeDdVVW5BeWg1WFpzQlVjWFhSZWFhK3RnMUdtN01PL01FZHhZdXhia1ZwVUI5QVJkdTdlaDRaaHIxSElNYzRPYzlnWnA5NVpwR2laY0c2RnBRR2NUcHB1RjJTcS9OcjZjZEZ4empTYVhGdXhzSVR1SG9OUE9vemJNSWJ2bEZMNkdLa0VSam1WQ1RaS1B2VFJPYUlUWjlFTmZVaFhoSi9VbUZxTTBSYjdQY0t6bStTaGVCTXRsUU9ZRmZwOHlud2NpYVRURFRNVmZjUWxOK0toTHR5V2pmdW9sVTQvNnVGQmpuZEZiUTlYWjVFLzVHMy94YS81UmJNWUxVYXlhVVdURFJ3a3lycGlvSDRDSHdoYU5Mc1hBOGsxbDhVK29GamFYV0lFNFRJbW94RC96RmltNU9YTkZnc3k4V2sycDEzSzZ0a3BaVmxOWlZSZUN5WnhQdXFvOVJET3NUdU9BZDV3MWJDeFpRQkxWQ1dkakkzOXFEWStHaXNsNkF3Ky9BT0lROHlFTEJRQUEifQ== --&gt;
+
+&lt;div data-pagedtable=&quot;false&quot;&gt;
+  &lt;script data-pagedtable-source type=&quot;application/json&quot;&gt;
+{&quot;columns&quot;:[{&quot;label&quot;:[&quot;customer_ID&quot;],&quot;name&quot;:[1],&quot;type&quot;:[&quot;dbl&quot;],&quot;align&quot;:[&quot;right&quot;]},{&quot;label&quot;:[&quot;name&quot;],&quot;name&quot;:[2],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;email_address&quot;],&quot;name&quot;:[3],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;shipping_address&quot;],&quot;name&quot;:[4],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;order_number&quot;],&quot;name&quot;:[5],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;order_total&quot;],&quot;name&quot;:[6],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;product_code&quot;],&quot;name&quot;:[7],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]}],&quot;data&quot;:[{&quot;1&quot;:&quot;1&quot;,&quot;2&quot;:&quot;John Smith&quot;,&quot;3&quot;:&quot;johnsmith@gmail.com&quot;,&quot;4&quot;:&quot;32 Station Road, Edinburgh&quot;,&quot;5&quot;:&quot;KU65781&quot;,&quot;6&quot;:&quot;£32.50&quot;,&quot;7&quot;:&quot;XZY780&quot;},{&quot;1&quot;:&quot;1&quot;,&quot;2&quot;:&quot;John Smith&quot;,&quot;3&quot;:&quot;johnsmith@gmail.com&quot;,&quot;4&quot;:&quot;32 Station Road, Edinburgh&quot;,&quot;5&quot;:&quot;YR21873&quot;,&quot;6&quot;:&quot;£45.00&quot;,&quot;7&quot;:&quot;XYZ127&quot;},{&quot;1&quot;:&quot;2&quot;,&quot;2&quot;:&quot;Jane Adams&quot;,&quot;3&quot;:&quot;janea@gmail.com&quot;,&quot;4&quot;:&quot;42 Park Drive, Edinburgh&quot;,&quot;5&quot;:&quot;SU98201&quot;,&quot;6&quot;:&quot;£56.00&quot;,&quot;7&quot;:&quot;XYZ123&quot;},{&quot;1&quot;:&quot;5&quot;,&quot;2&quot;:&quot;Jane Tow&quot;,&quot;3&quot;:&quot;janet89@aol.com&quot;,&quot;4&quot;:&quot;10 Gardiner Rd, Edinburgh&quot;,&quot;5&quot;:&quot;JS76821&quot;,&quot;6&quot;:&quot;£100.02&quot;,&quot;7&quot;:&quot;XYZ256&quot;},{&quot;1&quot;:&quot;10&quot;,&quot;2&quot;:&quot;Hilary Joyal&quot;,&quot;3&quot;:&quot;NA&quot;,&quot;4&quot;:&quot;234 Queensferry Rd, Edinburgh,&quot;,&quot;5&quot;:&quot;YR28212&quot;,&quot;6&quot;:&quot;£20.25&quot;,&quot;7&quot;:&quot;XYZ262&quot;},{&quot;1&quot;:&quot;12&quot;,&quot;2&quot;:&quot;NA&quot;,&quot;3&quot;:&quot;NA&quot;,&quot;4&quot;:&quot;NA&quot;,&quot;5&quot;:&quot;JS91221&quot;,&quot;6&quot;:&quot;£39.50&quot;,&quot;7&quot;:&quot;XYZ345&quot;}],&quot;options&quot;:{&quot;columns&quot;:{&quot;min&quot;:{},&quot;max&quot;:[10],&quot;total&quot;:[7]},&quot;rows&quot;:{&quot;min&quot;:[10],&quot;max&quot;:[10],&quot;total&quot;:[6]},&quot;pages&quot;:{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+
+&lt;!-- rnb-frame-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Full join
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZnVsbF9qb2luKGN1c3RvbWVycywgb3JkZXJzKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+full_join(customers, orders)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiSm9pbmluZywgYnkgPSBcXGN1c3RvbWVyX0lEXFxcbiJ9 --&gt;
+</code></pre>
+<p>Joining, by = _ID<br />
+</p>
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6OCwibmNvbCI6Nywic3VtbWFyeSI6eyJBIHRpYmJsZSI6IjggeCA3In19LCJyZGYiOiJINHNJQUFBQUFBQUFCbzFVelUvYk1CUjNTOXVVamk4SkptMjd6SWNkZG9Bb2NacCtuTlpwVE52WUpyRVdKT0NDVEdMYVFHcFhqalBHYmY4TC8rQ09PN0c5cERZdG9mdXc1RHkvMy92NnZUZ3YvZDBqcjNIVVFBZ3RvVXFwaEphcWNFUzFOL3N1OFFsQ2xUSm9KVlJCeTVuOEJsNmJjTEJncjhHdXYvcUI4bVZrRDJtNW9lV1dsbGpMRjFxK1JHWmxublZkb0xFblJod1B4cEVhL1FXaG5PSFhJUjBuR2xudGl6TW1GZjVFZVNpdk5WalAzUTdFbGRhWCt6U044UUhsWEFNcjc2T1l5bXU4SjY1cG5EbjhnbFhnczNrQjFaT3NlRzg0cGxGc0IyTDhiOVA2QlpTbUR5TmtUTStBWUc4azFLSUkxZW4ycUppSHR5YkEyVmJBMlozTE5xTzZpUEl6aitDQm9pb1NIUGNGRGJmeDJ6RGlaNmtjanY3YjQwbVQ0SDBxTC9HdWpMNnllYnVwT2ZWNzZqcjRIWlZnWlJMM0Z5UjY3Qkw4bVVad2dlcWg4VGttWGhOL1NSbmp5VG1UY0JYM1Vtei9vVUhyNDJITGIzZGNveDczaWR0cGUwWWRISFk3eEhFTFRLMjlRYnZWSVE5Z0NBYVV6THk2THNtOXBoVlJMNE5yTng2eGZlZE9hL3EyTTlQOFZxNFpyamxxM2JpT1l6dWtBTmR1aUdNVGY1YTJtNmU5MTE3dDZPUzQzWEh1dE9NVGw3VHZhVjZoaVF3bGZtc1IyaUp6bXRmMEMvTmM1WFRNRWszQTB1Q2pJRTJVR0RONSttRlhRNVhNend3Ynl6N0VVeHFHa2lWbUFqZVNVVFNaUkh4WXdGZUVEQ0VSVDhjd29DYi9GRk5Dd2RocHQ0a1VZUnFvMDBDRXJNQnhXWW9yMi9CY2hWMytEZy9vODJleG1TQ21pV25HZ0kyUUttcWZ5NHcvUXJlRkVFdE1zaW1Bb0hMMlY2c1dna3V5QUt5blBHTVM3Z1NqbEYvdWRMTUN1WG02VnZXNVBuZTJwaVhMNWl1dW1ndGhmQWhqWTdqRG40R1p0N0VHSGVjTjJ4TVpjV1U2QVRTeDU5OWFJeEN4UWZMZTBPMXZackttUmMwRkFBQT0ifQ== --&gt;
+
+&lt;div data-pagedtable=&quot;false&quot;&gt;
+  &lt;script data-pagedtable-source type=&quot;application/json&quot;&gt;
+{&quot;columns&quot;:[{&quot;label&quot;:[&quot;customer_ID&quot;],&quot;name&quot;:[1],&quot;type&quot;:[&quot;dbl&quot;],&quot;align&quot;:[&quot;right&quot;]},{&quot;label&quot;:[&quot;name&quot;],&quot;name&quot;:[2],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;email_address&quot;],&quot;name&quot;:[3],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;shipping_address&quot;],&quot;name&quot;:[4],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;order_number&quot;],&quot;name&quot;:[5],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;order_total&quot;],&quot;name&quot;:[6],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;product_code&quot;],&quot;name&quot;:[7],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]}],&quot;data&quot;:[{&quot;1&quot;:&quot;1&quot;,&quot;2&quot;:&quot;John Smith&quot;,&quot;3&quot;:&quot;johnsmith@gmail.com&quot;,&quot;4&quot;:&quot;32 Station Road, Edinburgh&quot;,&quot;5&quot;:&quot;KU65781&quot;,&quot;6&quot;:&quot;£32.50&quot;,&quot;7&quot;:&quot;XZY780&quot;},{&quot;1&quot;:&quot;1&quot;,&quot;2&quot;:&quot;John Smith&quot;,&quot;3&quot;:&quot;johnsmith@gmail.com&quot;,&quot;4&quot;:&quot;32 Station Road, Edinburgh&quot;,&quot;5&quot;:&quot;YR21873&quot;,&quot;6&quot;:&quot;£45.00&quot;,&quot;7&quot;:&quot;XYZ127&quot;},{&quot;1&quot;:&quot;2&quot;,&quot;2&quot;:&quot;Jane Adams&quot;,&quot;3&quot;:&quot;janea@gmail.com&quot;,&quot;4&quot;:&quot;42 Park Drive, Edinburgh&quot;,&quot;5&quot;:&quot;SU98201&quot;,&quot;6&quot;:&quot;£56.00&quot;,&quot;7&quot;:&quot;XYZ123&quot;},{&quot;1&quot;:&quot;4&quot;,&quot;2&quot;:&quot;Robert Landry&quot;,&quot;3&quot;:&quot;rlabdry@hotmail.com&quot;,&quot;4&quot;:&quot;NA&quot;,&quot;5&quot;:&quot;NA&quot;,&quot;6&quot;:&quot;NA&quot;,&quot;7&quot;:&quot;NA&quot;},{&quot;1&quot;:&quot;5&quot;,&quot;2&quot;:&quot;Jane Tow&quot;,&quot;3&quot;:&quot;janet89@aol.com&quot;,&quot;4&quot;:&quot;10 Gardiner Rd, Edinburgh&quot;,&quot;5&quot;:&quot;JS76821&quot;,&quot;6&quot;:&quot;£100.02&quot;,&quot;7&quot;:&quot;XYZ256&quot;},{&quot;1&quot;:&quot;8&quot;,&quot;2&quot;:&quot;Raul Tann&quot;,&quot;3&quot;:&quot;paul.tann1@gmail.com&quot;,&quot;4&quot;:&quot;12 Main St, Edinburgh&quot;,&quot;5&quot;:&quot;NA&quot;,&quot;6&quot;:&quot;NA&quot;,&quot;7&quot;:&quot;NA&quot;},{&quot;1&quot;:&quot;10&quot;,&quot;2&quot;:&quot;Hilary Joyal&quot;,&quot;3&quot;:&quot;NA&quot;,&quot;4&quot;:&quot;234 Queensferry Rd, Edinburgh,&quot;,&quot;5&quot;:&quot;YR28212&quot;,&quot;6&quot;:&quot;£20.25&quot;,&quot;7&quot;:&quot;XYZ262&quot;},{&quot;1&quot;:&quot;12&quot;,&quot;2&quot;:&quot;NA&quot;,&quot;3&quot;:&quot;NA&quot;,&quot;4&quot;:&quot;NA&quot;,&quot;5&quot;:&quot;JS91221&quot;,&quot;6&quot;:&quot;£39.50&quot;,&quot;7&quot;:&quot;XYZ345&quot;}],&quot;options&quot;:{&quot;columns&quot;:{&quot;min&quot;:{},&quot;max&quot;:[10],&quot;total&quot;:[7]},&quot;rows&quot;:{&quot;min&quot;:[10],&quot;max&quot;:[10],&quot;total&quot;:[8]},&quot;pages&quot;:{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+
+&lt;!-- rnb-frame-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Differnt name primary key join
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuY3VzdG9tZXJzX2FkaiA8LSBjdXN0b21lcnMgJT4lIFxuICByZW5hbWUodGhpc19pc19hbl9pZCA9IGN1c3RvbWVyX0lEKVxuXG5pbm5lcl9qb2luKGN1c3RvbWVyc19hZGosIG9yZGVycywgYnkgPSBcbiAgICAgICAgICAgICBjKFxcdGhpc19pc19hbl9pZFxcID0gXFxjdXN0b21lcl9JRFxcKSlcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+customers_adj &lt;- customers %&gt;% 
   rename(this_is_an_id = customer_ID)
 
 inner_join(customers_adj, orders, by = 
-             c(&quot;this_is_an_id&quot; = &quot;customer_ID&quot;))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NSwibmNvbCI6Nywic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI1IHggNyJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJvMVR6Mi9UTUJSMnU3YWhaZDBxbFFOd3dRZU9XNVE0VFp1ZEtHSUlWQzZqWlZLN1MrVW1YdU10c1NzblllekcvN0ova0R2U3dHbnRMZzBUOEJUbitmdmU4L3Zodkl4UHAwNXIyZ0lBN0lGYXBRTDI2bklMR3UvT2JPUWlBR3BWaVNxZ0JwcTUvaWE5dW5KanlIVWdWLzNORDdBV3JZZEE2V2RLdndaYU9ybS9DdFFhOFpEQlNVelQ4QzhNWmdTK0RYQ2NLT2JKbXZuQ2J4VGUvMGdqTEc3aGlOL2lxSlNoZXlYakpYbTQ0VExHTkRKOUh2L2JkSGdsTStESDZkUTdHV0srb1FGby9wSlN5dm5TUVhDUzRwUnlCc2NjQjBmd2ZVRFpJaFBMOEw4OW52Y1FQTVBpR3A0SytwWDhhWDloVy9BREZwSWxBbzRmQ2ZBS0lxY0hQMmVFc09TU0NIazlPMTVIcFpxTlQrZDlkK0RaR3M3R3lQWUdqb2FUOHhNUFdWdnJhRExvZTZqb0xCSGFoZ1REbkc3Y09jaDByUzNxdWFiMWdOeitBekx1Yk1zeUxiUTFJc3RFYnFuQ3h2UmlOdkNzTFpwZDJHaXdnNXdDUW02L2lQcmxFYTR6SEpORXBUQVUyVTVEbXN6bGc5bWNCb3FzNVo3YWdlUVRNY2RCSUVpaXg3R1RoSFMxb214WjR2ZTVDSWlZc3l4ZUVLRzRweHN1NWFtY1ZPVzJFanpJL0hUdTg0Q1VxbXdLZm1QcVN0dHlWYi9MbDV5NG4rVjIvQWdudWgxTnRnS2NZdk5TNVBVRGNGODZZdkJWUG4veVVMVzcrV283aHl1aVJIUXlsbGNTSFB0aHhxNlBiU3ZQc0xadnBLMzI5Y0xlMk9Tc2x2K1FCbUZMT2JtNitBZ3ZpTDZPQTlueXVtTnpKU2hMZFN1U1Rjeml0YlY4SG1sbTNSeTQvdzBsSWlLOXd3UUFBQT09In0= -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["this_is_an_id"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["email_address"],"name":[3],"type":["chr"],"align":["left"]},{"label":["shipping_address"],"name":[4],"type":["chr"],"align":["left"]},{"label":["order_number"],"name":[5],"type":["chr"],"align":["left"]},{"label":["order_total"],"name":[6],"type":["chr"],"align":["left"]},{"label":["product_code"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"John Smith","3":"johnsmith@gmail.com","4":"32 Station Road, Edinburgh","5":"KU65781","6":"£32.50","7":"XZY780"},{"1":"1","2":"John Smith","3":"johnsmith@gmail.com","4":"32 Station Road, Edinburgh","5":"YR21873","6":"£45.00","7":"XYZ127"},{"1":"2","2":"Jane Adams","3":"janea@gmail.com","4":"42 Park Drive, Edinburgh","5":"SU98201","6":"£56.00","7":"XYZ123"},{"1":"5","2":"Jane Tow","3":"janet89@aol.com","4":"10 Gardiner Rd, Edinburgh","5":"JS76821","6":"£100.02","7":"XYZ256"},{"1":"10","2":"Hilary Joyal","3":"NA","4":"234 Queensferry Rd, Edinburgh,","5":"YR28212","6":"£20.25","7":"XYZ262"}],"options":{"columns":{"min":{},"max":[10],"total":[7]},"rows":{"min":[10],"max":[10],"total":[5]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>joining on two points</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjcmVhdGUgYSBuZXcgY29sdW1uIGluIGJvdGggdGFibGVzXG5jdXN0b21lcnMyIDwtIGN1c3RvbWVycyAlPiUgXG4gIG11dGF0ZShwYXltZW50X3R5cGUgPSBjKFwiY2FyZFwiLCBcImNhc2hcIiwgXCJjYXNoXCIsIFwiY2FyZFwiLCBcImNhcmRcIiwgXCJjYXJkXCIpKVxuXG5vcmRlcnMyIDwtIG9yZGVycyAlPiVcbiAgbXV0YXRlKHBheW1lbnRfdHlwZSA9IGMoXCJjYXJkXCIsIFwiY2FzaFwiLCBcImNhc2hcIiwgXCJjYXJkXCIsIFwiY2FyZFwiLCBcImNhc2hcIikpXG5cbiMgam9pbiBieSBvbmUgY29sdW1uc1xuaW5uZXJfam9pbihjdXN0b21lcnMyLCBvcmRlcnMyLCBieSA9IFwiY3VzdG9tZXJfSURcIilcbmBgYCJ9 -->
-<pre class="r"><code># create a new column in both tables
+             c(\this_is_an_id\ = \customer_ID\))</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NSwibmNvbCI6Nywic3VtbWFyeSI6eyJBIHRpYmJsZSI6IjUgeCA3In19LCJyZGYiOiJINHNJQUFBQUFBQUFCbzFUejIvVE1CUjJ1N2FoWmQwcWxRTnd3UWVPVzVRNFRadWRLR0lJVkM2alpWSzdTK1VtWHVNdHNTc25ZZXpHLzdKL2tEdlN3R250TGcwVDhCVG4rZnZlOC92aHZJeFBwMDVyMmdJQTdJRmFwUUwyNm5JTEd1L09iT1FpQUdwVmlTcWdCcHE1L2lhOXVuSmp5SFVnVi8zTkQ3QVdyWWRBNldkS3Z3WmFPcm0vQ3RRYThaREJTVXpUOEM4TVpnUytEWENjS09iSm12bkNieFRlLzBnakxHN2hpTi9pcUpTaGV5WGpKWG00NFRMR05ESjlIdi9iZEhnbE0rREg2ZFE3R1dLK29RRm8vcEpTeXZuU1FYQ1M0cFJ5QnNjY0IwZndmVURaSWhQTDhMODludmNRUE1QaUdwNEsrcFg4YVg5aFcvQURGcElsQW80ZkNmQUtJcWNIUDJlRXNPU1NDSGs5TzE1SHBacU5UK2Q5ZCtEWkdzN0d5UFlHam9hVDh4TVBXVnZyYURMb2U2am9MQkhhaGdURG5HN2NPY2gwclMzcXVhYjFnTnorQXpMdWJNc3lMYlExSXN0RWJxbkN4dlJpTnZDc0xacGQyR2l3ZzV3Q1FtNi9pUHJsRWE0ekhKTkVwVEFVMlU1RG1zemxnOW1jQm9xczVaN2FnZVFUTWNkQklFaWl4N0dUaEhTMW9teFo0dmU1Q0lpWXN5eGVFS0c0cHhzdTVhbWNWT1cyRWp6SS9IVHU4NENVcW13S2ZtUHFTdHR5VmIvTGw1eTRuK1YyL0FnbnVoMU50Z0tjWXZOUzVQVURjRjg2WXZCVlBuL3lVTFc3K1dvN2h5dWlSSFF5bGxjU0hQdGh4cTZQYlN2UHNMWnZwSzMyOWNMZTJPU3NsditRQm1GTE9ibTYrQWd2aUw2T0E5bnl1bU56SlNoTGRTdVNUY3ppdGJWOEhtbG0zUnk0L3cwbElpSzl3d1FBQUE9PSJ9 --&gt;
+
+&lt;div data-pagedtable=&quot;false&quot;&gt;
+  &lt;script data-pagedtable-source type=&quot;application/json&quot;&gt;
+{&quot;columns&quot;:[{&quot;label&quot;:[&quot;this_is_an_id&quot;],&quot;name&quot;:[1],&quot;type&quot;:[&quot;dbl&quot;],&quot;align&quot;:[&quot;right&quot;]},{&quot;label&quot;:[&quot;name&quot;],&quot;name&quot;:[2],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;email_address&quot;],&quot;name&quot;:[3],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;shipping_address&quot;],&quot;name&quot;:[4],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;order_number&quot;],&quot;name&quot;:[5],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;order_total&quot;],&quot;name&quot;:[6],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;product_code&quot;],&quot;name&quot;:[7],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]}],&quot;data&quot;:[{&quot;1&quot;:&quot;1&quot;,&quot;2&quot;:&quot;John Smith&quot;,&quot;3&quot;:&quot;johnsmith@gmail.com&quot;,&quot;4&quot;:&quot;32 Station Road, Edinburgh&quot;,&quot;5&quot;:&quot;KU65781&quot;,&quot;6&quot;:&quot;£32.50&quot;,&quot;7&quot;:&quot;XZY780&quot;},{&quot;1&quot;:&quot;1&quot;,&quot;2&quot;:&quot;John Smith&quot;,&quot;3&quot;:&quot;johnsmith@gmail.com&quot;,&quot;4&quot;:&quot;32 Station Road, Edinburgh&quot;,&quot;5&quot;:&quot;YR21873&quot;,&quot;6&quot;:&quot;£45.00&quot;,&quot;7&quot;:&quot;XYZ127&quot;},{&quot;1&quot;:&quot;2&quot;,&quot;2&quot;:&quot;Jane Adams&quot;,&quot;3&quot;:&quot;janea@gmail.com&quot;,&quot;4&quot;:&quot;42 Park Drive, Edinburgh&quot;,&quot;5&quot;:&quot;SU98201&quot;,&quot;6&quot;:&quot;£56.00&quot;,&quot;7&quot;:&quot;XYZ123&quot;},{&quot;1&quot;:&quot;5&quot;,&quot;2&quot;:&quot;Jane Tow&quot;,&quot;3&quot;:&quot;janet89@aol.com&quot;,&quot;4&quot;:&quot;10 Gardiner Rd, Edinburgh&quot;,&quot;5&quot;:&quot;JS76821&quot;,&quot;6&quot;:&quot;£100.02&quot;,&quot;7&quot;:&quot;XYZ256&quot;},{&quot;1&quot;:&quot;10&quot;,&quot;2&quot;:&quot;Hilary Joyal&quot;,&quot;3&quot;:&quot;NA&quot;,&quot;4&quot;:&quot;234 Queensferry Rd, Edinburgh,&quot;,&quot;5&quot;:&quot;YR28212&quot;,&quot;6&quot;:&quot;£20.25&quot;,&quot;7&quot;:&quot;XYZ262&quot;}],&quot;options&quot;:{&quot;columns&quot;:{&quot;min&quot;:{},&quot;max&quot;:[10],&quot;total&quot;:[7]},&quot;rows&quot;:{&quot;min&quot;:[10],&quot;max&quot;:[10],&quot;total&quot;:[5]},&quot;pages&quot;:{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+
+&lt;!-- rnb-frame-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+joining on two points
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyBjcmVhdGUgYSBuZXcgY29sdW1uIGluIGJvdGggdGFibGVzXG5jdXN0b21lcnMyIDwtIGN1c3RvbWVycyAlPiUgXG4gIG11dGF0ZShwYXltZW50X3R5cGUgPSBjKFxcY2FyZFxcLCBcXGNhc2hcXCwgXFxjYXNoXFwsIFxcY2FyZFxcLCBcXGNhcmRcXCwgXFxjYXJkXFwpKVxuXG5vcmRlcnMyIDwtIG9yZGVycyAlPiVcbiAgbXV0YXRlKHBheW1lbnRfdHlwZSA9IGMoXFxjYXJkXFwsIFxcY2FzaFxcLCBcXGNhc2hcXCwgXFxjYXJkXFwsIFxcY2FyZFxcLCBcXGNhc2hcXCkpXG5cbiMgam9pbiBieSBvbmUgY29sdW1uc1xuaW5uZXJfam9pbihjdXN0b21lcnMyLCBvcmRlcnMyLCBieSA9IFxcY3VzdG9tZXJfSURcXClcbmBgYFxuYGBgclxuXG4jIGpvaW4gYnkgdHdvIGNvbHVtbnNcbmlubmVyX2pvaW4oY3VzdG9tZXJzMiwgb3JkZXJzMiwgYnkgPSBjKFxcY3VzdG9tZXJfSURcXCwgXFxwYXltZW50X3R5cGVcXCkpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+# create a new column in both tables
 customers2 &lt;- customers %&gt;% 
-  mutate(payment_type = c(&quot;card&quot;, &quot;cash&quot;, &quot;cash&quot;, &quot;card&quot;, &quot;card&quot;, &quot;card&quot;))
+  mutate(payment_type = c(\card\, \cash\, \cash\, \card\, \card\, \card\))
 
 orders2 &lt;- orders %&gt;%
-  mutate(payment_type = c(&quot;card&quot;, &quot;cash&quot;, &quot;cash&quot;, &quot;card&quot;, &quot;card&quot;, &quot;cash&quot;))
+  mutate(payment_type = c(\card\, \cash\, \cash\, \card\, \card\, \cash\))
 
 # join by one columns
-inner_join(customers2, orders2, by = &quot;customer_ID&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NSwibmNvbCI6OSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI1IHggOSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJvMVR6Mi9UTUJSMnUvNmdoVzZUeWdHNGtBUEhMVXFjcHMxT0ZGRUVsTXRvbWRUdVVybUoxMlJMN01oeDJIcmpmOWsveUIxcFlMZHhsNFp1WUNueCs3NzMvRDIvSjcvUllHSTFKMDBBd0I2b2xFcGdyeXBNVUh0L2FrSWJBbEFwQzFRQ0ZkQ1ErNDJJYWd0RGduM3hWZC8rQkt1bDlqN0k5dWZaL2dhb2RTampNNkhta1BwRUcwY0I5eDloRU1IYU93OUZTY1k4V1RIZjZIV0duMzBLUXNTVzJwQXVVVmpJMEw0VWVvbVU2eThpRklTNlM2Ti91dzR1UlFhMG0rYk9TUi9STlMwNjhGdXNRczVYRnRUR0hQR0FFbTFFa1hla2ZmQUNNay9ad3YvdmlCY2RxSjBpZHFVTldQQWQvKzEvYVJyYVI4UUVpNWsyMmlId1dvTldSL3VhWWt5U0M4eEVlN2FpamdwM3JyaENiTGVkK0EvR2JHdlV2NXgxN1o1aktqZ2RRZFBwV1FxT3owNGNhR3k4dzNHdjY4QjhzRUJ3SXduNmtxN2RXbEMzalEzcTJMcHhqK3p1UGFyZm1vYWhHM0RqaElZTzdjSU5hNVB6YWM4eE5taDZic0xlRnJKeUNOcmRQT3BDOEdqUDhuMTZ5Slk5MnhxbEtrRVJUakxoUmtZK2RkT0Uwd2l6MmVlQk9pdmpNcnVGNWJ1Y0ljOWpPRkZEY1pqNFFSd0haRkhnOTJPMGpERGhNNzZNc1g2alJvWXlUOGlUTkpwanByS3VPVTY1bUtJc0xHYlVTMTArYzZtSGR3b3VDL1UwR0wzV1ZVMHQ4WlYvaUorWWtWL0Z3dDBRSmFwd1JUWTl4SkYrd1dTdEFOd1ZqdFJwTENkR0hDcTMxMjlrNjNDSkZZaURsTWliZU1ldW41S3JZMU1tV0xuWHE1WFoxWnpkV0tjc0YwZTZoc2xDakpxNmU0am1XUFZvWDFTOEtsaVBXVUM0cWtTd2laN3ZaZE9sb1dKV3RZRzdQOHBFS3lWMEJRQUEifQ== -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["customer_ID"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["email_address"],"name":[3],"type":["chr"],"align":["left"]},{"label":["shipping_address"],"name":[4],"type":["chr"],"align":["left"]},{"label":["payment_type.x"],"name":[5],"type":["chr"],"align":["left"]},{"label":["order_number"],"name":[6],"type":["chr"],"align":["left"]},{"label":["order_total"],"name":[7],"type":["chr"],"align":["left"]},{"label":["product_code"],"name":[8],"type":["chr"],"align":["left"]},{"label":["payment_type.y"],"name":[9],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"John Smith","3":"johnsmith@gmail.com","4":"32 Station Road, Edinburgh","5":"card","6":"KU65781","7":"£32.50","8":"XZY780","9":"card"},{"1":"1","2":"John Smith","3":"johnsmith@gmail.com","4":"32 Station Road, Edinburgh","5":"card","6":"YR21873","7":"£45.00","8":"XYZ127","9":"cash"},{"1":"2","2":"Jane Adams","3":"janea@gmail.com","4":"42 Park Drive, Edinburgh","5":"cash","6":"SU98201","7":"£56.00","8":"XYZ123","9":"cash"},{"1":"5","2":"Jane Tow","3":"janet89@aol.com","4":"10 Gardiner Rd, Edinburgh","5":"card","6":"JS76821","7":"£100.02","8":"XYZ256","9":"cash"},{"1":"10","2":"Hilary Joyal","3":"NA","4":"234 Queensferry Rd, Edinburgh,","5":"card","6":"YR28212","7":"£20.25","8":"XYZ262","9":"card"}],"options":{"columns":{"min":{},"max":[10],"total":[9]},"rows":{"min":[10],"max":[10],"total":[5]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jIGpvaW4gYnkgdHdvIGNvbHVtbnNcbmlubmVyX2pvaW4oY3VzdG9tZXJzMiwgb3JkZXJzMiwgYnkgPSBjKFwiY3VzdG9tZXJfSURcIiwgXCJwYXltZW50X3R5cGVcIikpXG5gYGAifQ== -->
+inner_join(customers2, orders2, by = \customer_ID\)</code></pre>
 <pre class="r"><code>
 # join by two columns
-inner_join(customers2, orders2, by = c(&quot;customer_ID&quot;, &quot;payment_type&quot;))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MywibmNvbCI6OCwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIzIHggOCJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJtVlRUMi9hTUJRM2Z3c1p0SlY2bVhaWkRqdTJFVGlGc3RPWVJxV3R1M1NnU3RBTE1yRkwzQ1oyWkR2YnVPMjc3QXZ1QzZ5ckhXSkt2U2M1ZnU5bi85NGZ2NWZwWkI1NmN3OEFVQVAxU2dYVUdsb0Z6VS9YZlRpQUFOU3IycXFBT21pYi9hZStkYUtWbGw2SGh2TGhEeWhrRE1yOUhiQnl2SFZaRUwwckhqTi9sbElWN3hERWlQOFJvMVNXU09jelRaRFkrRmQ4Z3hLSGYzS3YrZExReCtzVTBTU0llRm9lSGQxclIyZ1BCcUQ5VDR2ajRVMEkvWmxDaW5MbVR6bkNwLzRscG15Vmk3WE42UFU1OUsrUmVQQW5nbjRuLzUrLzlXRjQ3bi9MQ1dIeWpnaWQ2WFRmeTZrVHNCNGhnWjkxR2IvQVg5NDkrSG96SEZ5TSt0YWMzYndmd2Q3T1hFemhDUGJoamdUR0JtNytEbUV3Nk8yc3dURG9QVnV3RjhDQkU2WTV2MTFjakhvN2EzSGJoK0dlQllkdXd4c01wVVNXYmxvbCtDcktwZUlwRWNzdkUxdVV1VmZxWFdKYXNVUVlDeUp0YzQ5bFRMT01zcldEZHpLMFNRbFRTN1hKcklNT0YxZzdaM202SXNMRzNHS0tLejBibGlvNHppTzFqRGdtVHQ1dHdYOEVOdmV1WHRWZitxT240cTliWUpRZ2FRdTBvSWVSUXNHZE1EVUI4T2hRRG5obXBraVRxdVpYYURqa2luQ0FvNXlaVFBCWkZPZnM0YXh2QWhUSFcrbVdlbTFQYjIxRFZ1MFFOMnlUQ0Z0VFp0K3BrYUFWc2E5eHFDc3VDZzR5UVpteWxXaFVCdnV2NWtVOHNVaFJHM2g4QW9vZ1FkZ0NCQUFBIn0= -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["customer_ID"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["email_address"],"name":[3],"type":["chr"],"align":["left"]},{"label":["shipping_address"],"name":[4],"type":["chr"],"align":["left"]},{"label":["payment_type"],"name":[5],"type":["chr"],"align":["left"]},{"label":["order_number"],"name":[6],"type":["chr"],"align":["left"]},{"label":["order_total"],"name":[7],"type":["chr"],"align":["left"]},{"label":["product_code"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"John Smith","3":"johnsmith@gmail.com","4":"32 Station Road, Edinburgh","5":"card","6":"KU65781","7":"£32.50","8":"XZY780"},{"1":"2","2":"Jane Adams","3":"janea@gmail.com","4":"42 Park Drive, Edinburgh","5":"cash","6":"SU98201","7":"£56.00","8":"XYZ123"},{"1":"10","2":"Hilary Joyal","3":"NA","4":"234 Queensferry Rd, Edinburgh,","5":"card","6":"YR28212","7":"£20.25","8":"XYZ262"}],"options":{"columns":{"min":{},"max":[10],"total":[8]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>semi_join</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2VtaV9qb2luKGN1c3RvbWVycywgb3JkZXJzKVxuYGBgIn0= -->
-<pre class="r"><code>semi_join(customers, orders)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiSm9pbmluZywgYnkgPSBcImN1c3RvbWVyX0lEXCJcbiJ9 -->
-<pre><code>Joining, by = &quot;customer_ID&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NCwibmNvbCI6NCwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI0IHggNCJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJtMVN3VTRiTVJDZGhBMDBXd0pJOUVDNTRFT1BzSUlOU1BUVVZFM1Z3Z2tDQjI1bzJEV0p5YTRkMmQ1U2Jud3lIMUJSeGhzYktRc2plV2Y4UEg3elpyeWo0VlUvdm9vQllBbWlWZ3VXT2hUQzhvK3pnL1FvQllqYXRHdEJCRjNuLzFMV0pnVVJyVFhudnoxQmJRUHcvcFAzWHlEWVJwMC9KNGhQMVVTeWkxTFl5U3VDa3JQdk9aYkdJeDlxNUZMZCsvM3FiMUdnZm1DbjZnR0xCdC9tSGZFWlJ6Y1lseWlLSkZPbFAxcS9JeHA4SDdiSFh3ZW81akJBOXo5WmczaTduN0lMaTFZb3lVWUs4MTMyTXhmeXB0TGpJSHpyTUdWbnFLZHNxTVVmL3ZiODg4RSsrNFdhVUs3WjZCMkNIWmIyRDlsNXhiazB0MXhUaHd0WnU0M1pkeVNXM0RSa2Zzd3FZMVhKOWZYSjBFT1J5L054ajd2dXJ6SFBOVGRodmh0bUltWXpJY2V2K0dLaHJsYjNTU2pXbzlWK3BBK042RjlUVVZhZ0NZb0NHT2RvTWJuVlRnVEFjK1BLaXBxNWtkS2x0dnVOT28zTExkMEExaXZwbE9SNzJhU1MwNzNVRmFpUDU5YnpjYlFZdTVMdDhLSWRUN1hNNVpqZUltZ3Y4SVlYZnJOR0hkY05Kek10cEEyZEVHb1NxeXlHdkRoVFJVRHEzdUQ1QmM4OGZrUStBd0FBIn0= -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["customer_ID"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["email_address"],"name":[3],"type":["chr"],"align":["left"]},{"label":["shipping_address"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"John Smith","3":"johnsmith@gmail.com","4":"32 Station Road, Edinburgh"},{"1":"2","2":"Jane Adams","3":"janea@gmail.com","4":"42 Park Drive, Edinburgh"},{"1":"5","2":"Jane Tow","3":"janet89@aol.com","4":"10 Gardiner Rd, Edinburgh"},{"1":"10","2":"Hilary Joyal","3":"NA","4":"234 Queensferry Rd, Edinburgh,"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[4]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>anti_join</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYW50aV9qb2luKGN1c3RvbWVycywgb3JkZXJzKVxuYGBgIn0= -->
-<pre class="r"><code>anti_join(customers, orders)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiSm9pbmluZywgYnkgPSBcImN1c3RvbWVyX0lEXCJcbiJ9 -->
-<pre><code>Joining, by = &quot;customer_ID&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6NCwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIyIHggNCJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJsMVJVVXZETUJDK2R1bGtsYzNCOUwwL3dCVzI0WHZCK1NBb3lQUmhieU5yYXh0c2s1S2txRy8rOHMxTGx3enRRWnJMbCsrN3U2L1pyTGVyY0JzQ3dBQ0k1OEVnd0JTRzl5K0w1ZDBTZ1BoNDhvREF5T3hmeUpwaFFuQk5jUG5KRkxwSUluQmhFTjhLeGh1eHo2V09uaWpQNUxjRlJ4dmFWdEViNWJ6SG5zbUs3cEdYbEVMWGxGVnhLbXA3ZGQyZ0p0YW9XU1RGK2M3SnNlWVJ3M0p2RnN2b21USWV2ZXJiNkNGamZOL0tvdXhaQ1RpdGMyVXJFQXRlcHEzU29zN2w3bkZ0SVdKNHprMXVPdTlvbHNsY0tRdE9WY21haHZIaWpQOXZOSkxpTTNiTnhtYmNIL3pndElmK1JHbEZsWnZJZ1dGR05ZM2ZwUmtDb0MrNUVJMW1ncVBJTjY4UzlNU2U3QUZYTFRlVFpQTzBiUG5IZkdVYWROZW5HTnZjLzVPVFUwdi9hRXNGdHRRdzV3WGo3czhFK0hCNVpROFRkTndaamh2SnVIWk9FRld4RnBvNlhwaUt5aUdkTnpqOEFxNHlaWnlOQWdBQSJ9 -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["customer_ID"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["email_address"],"name":[3],"type":["chr"],"align":["left"]},{"label":["shipping_address"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"4","2":"Robert Landry","3":"rlabdry@hotmail.com","4":"NA"},{"1":"8","2":"Raul Tann","3":"paul.tann1@gmail.com","4":"12 Main St, Edinburgh"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Binding verbs bind_cols</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3RhdHVzZXMgPC0gdGliYmxlKFxuICBzdGF0dXMgPSBjKFwiYWN0aXZlXCIsIFwiYWN0aXZlXCIsIFwiaW5hY3RpdmVcIiwgXCJpbmFjdGl2ZVwiLCBcImFjdGl2ZVwiLCBcImluYWN0aXZlXCIpXG4pIFxuXG5iaW5kX2NvbHMoY3VzdG9tZXJzLCBzdGF0dXNlcylcbmBgYCJ9 -->
-<pre class="r"><code>statuses &lt;- tibble(
-  status = c(&quot;active&quot;, &quot;active&quot;, &quot;inactive&quot;, &quot;inactive&quot;, &quot;active&quot;, &quot;inactive&quot;)
+inner_join(customers2, orders2, by = c(\customer_ID\, \payment_type\))</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NSwibmNvbCI6OSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6IjUgeCA5In19LCJyZGYiOiJINHNJQUFBQUFBQUFCbzFUejIvVE1CUjJ1LzZnaFc2VHlnRzRrQVBITFVxY3BzMU9GRkVFbE10b21kVHVVcm1KMTJSTDdNaHgySHJqZjlrL3lCMXBZTGR4bDRadVlDbngrNzczL0QyL0o3L1JZR0kxSjAwQXdCNm9sRXBncnlwTVVIdC9ha0liQWxBcEMxUUNGZENRKzQySWFndERnbjN4VmQvK0JLdWw5ajdJOXVmWi9nYW9kU2pqTTZIbWtQcEVHMGNCOXg5aEVNSGFPdzlGU2NZOFdUSGY2SFdHbjMwS1FzU1cycEF1VVZqSTBMNFVlb21VNnk4aUZJUzZTNk4vdXc0dVJRYTBtK2JPU1IvUk5TMDY4RnVzUXM1WEZ0VEdIUEdBRW0xRWtYZWtmZkFDTWsvWnd2L3ZpQmNkcUowaWRxVU5XUEFkLysxL2FScmFSOFFFaTVrMjJpSHdXb05XUi91YVlreVNDOHhFZTdhaWpncDNycmhDYkxlZCtBL0diR3ZVdjV4MTdaNWpLamdkUWRQcFdRcU96MDRjYUd5OHczR3Y2OEI4c0VCd0l3bjZrcTdkV2xDM2pRM3EyTHB4ait6dVBhcmZtb2FoRzNEamhJWU83Y0lOYTVQemFjOHhObWg2YnNMZUZySnlDTnJkUE9wQzhHalA4bjE2eUpZOTJ4cWxLa0VSVGpMaFJrWStkZE9FMHdpejJlZUJPaXZqTXJ1RjVidWNJYzlqT0ZGRGNaajRRUndIWkZIZzkyTzBqRERoTTc2TXNYNmpSb1l5VDhpVE5KcGpwckt1T1U2NW1LSXNMR2JVUzEwK2M2bUhkd291Qy9VMEdMM1dWVTB0OFpWL2lKK1lrVi9Gd3QwUUphcHdSVFk5eEpGK3dXU3RBTndWanRScExDZEdIQ3EzMTI5azYzQ0pGWWlEbE1pYmVNZXVuNUtyWTFNbVdMblhxNVhaMVp6ZFdLY3NGMGU2aHNsQ2pKcTZlNGptV1BWb1gxUzhLbGlQV1VDNHFrU3dpWjd2WmRPbG9XSld0WUc3UDhwRUt5VjBCUUFBIn0= --&gt;
+
+&lt;div data-pagedtable=&quot;false&quot;&gt;
+  &lt;script data-pagedtable-source type=&quot;application/json&quot;&gt;
+{&quot;columns&quot;:[{&quot;label&quot;:[&quot;customer_ID&quot;],&quot;name&quot;:[1],&quot;type&quot;:[&quot;dbl&quot;],&quot;align&quot;:[&quot;right&quot;]},{&quot;label&quot;:[&quot;name&quot;],&quot;name&quot;:[2],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;email_address&quot;],&quot;name&quot;:[3],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;shipping_address&quot;],&quot;name&quot;:[4],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;payment_type.x&quot;],&quot;name&quot;:[5],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;order_number&quot;],&quot;name&quot;:[6],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;order_total&quot;],&quot;name&quot;:[7],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;product_code&quot;],&quot;name&quot;:[8],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;payment_type.y&quot;],&quot;name&quot;:[9],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]}],&quot;data&quot;:[{&quot;1&quot;:&quot;1&quot;,&quot;2&quot;:&quot;John Smith&quot;,&quot;3&quot;:&quot;johnsmith@gmail.com&quot;,&quot;4&quot;:&quot;32 Station Road, Edinburgh&quot;,&quot;5&quot;:&quot;card&quot;,&quot;6&quot;:&quot;KU65781&quot;,&quot;7&quot;:&quot;£32.50&quot;,&quot;8&quot;:&quot;XZY780&quot;,&quot;9&quot;:&quot;card&quot;},{&quot;1&quot;:&quot;1&quot;,&quot;2&quot;:&quot;John Smith&quot;,&quot;3&quot;:&quot;johnsmith@gmail.com&quot;,&quot;4&quot;:&quot;32 Station Road, Edinburgh&quot;,&quot;5&quot;:&quot;card&quot;,&quot;6&quot;:&quot;YR21873&quot;,&quot;7&quot;:&quot;£45.00&quot;,&quot;8&quot;:&quot;XYZ127&quot;,&quot;9&quot;:&quot;cash&quot;},{&quot;1&quot;:&quot;2&quot;,&quot;2&quot;:&quot;Jane Adams&quot;,&quot;3&quot;:&quot;janea@gmail.com&quot;,&quot;4&quot;:&quot;42 Park Drive, Edinburgh&quot;,&quot;5&quot;:&quot;cash&quot;,&quot;6&quot;:&quot;SU98201&quot;,&quot;7&quot;:&quot;£56.00&quot;,&quot;8&quot;:&quot;XYZ123&quot;,&quot;9&quot;:&quot;cash&quot;},{&quot;1&quot;:&quot;5&quot;,&quot;2&quot;:&quot;Jane Tow&quot;,&quot;3&quot;:&quot;janet89@aol.com&quot;,&quot;4&quot;:&quot;10 Gardiner Rd, Edinburgh&quot;,&quot;5&quot;:&quot;card&quot;,&quot;6&quot;:&quot;JS76821&quot;,&quot;7&quot;:&quot;£100.02&quot;,&quot;8&quot;:&quot;XYZ256&quot;,&quot;9&quot;:&quot;cash&quot;},{&quot;1&quot;:&quot;10&quot;,&quot;2&quot;:&quot;Hilary Joyal&quot;,&quot;3&quot;:&quot;NA&quot;,&quot;4&quot;:&quot;234 Queensferry Rd, Edinburgh,&quot;,&quot;5&quot;:&quot;card&quot;,&quot;6&quot;:&quot;YR28212&quot;,&quot;7&quot;:&quot;£20.25&quot;,&quot;8&quot;:&quot;XYZ262&quot;,&quot;9&quot;:&quot;card&quot;}],&quot;options&quot;:{&quot;columns&quot;:{&quot;min&quot;:{},&quot;max&quot;:[10],&quot;total&quot;:[9]},&quot;rows&quot;:{&quot;min&quot;:[10],&quot;max&quot;:[10],&quot;total&quot;:[5]},&quot;pages&quot;:{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+
+&lt;!-- rnb-frame-end --&gt;
+
+&lt;!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MywibmNvbCI6OCwic3VtbWFyeSI6eyJBIHRpYmJsZSI6IjMgeCA4In19LCJyZGYiOiJINHNJQUFBQUFBQUFCbVZUVDIvYU1CUTNmd3NadEpWNm1YWlpEanUyRVRpRnN0T1lScVd0dTNTZ1N0QUxNckZMM0NaMlpEdmJ1TzI3N0F2dUM2eXJIV0pLdlNjNWZ1OW4vOTRmdjVmcFpCNTZjdzhBVUFQMVNnWFVHbG9GelUvWGZUaUFBTlNyMnFxQU9taWIvYWUrZGFLVmxsNkhodkxoRHloa0RNcjlIYkJ5dkhWWkVMMHJIak4vbGxJVjd4REVpUDhSbzFTV1NPY3pUWkRZK0ZkOGd4S0hmM0t2K2RMUXgrc1UwU1NJZUZvZUhkMXJSMmdQQnFEOVQ0dmo0VTBJL1psQ2luTG1Uem5DcC80bHBteVZpN1hONlBVNTlLK1JlUEFuZ240bi81Ky85V0Y0N24vTENXSHlqZ2lkNlhUZnk2a1RzQjRoZ1o5MUdiL0FYOTQ5K0hvekhGeU0rdGFjM2J3ZndkN09YRXpoQ1BiaGpnVEdCbTcrRG1FdzZPMnN3VERvUFZ1d0Y4Q0JFNlk1djExY2pIbzdhM0hiaCtHZUJZZHV3eHNNcFVTV2Jsb2wrQ3JLcGVJcEVjc3ZFMXVVdVZmcVhXSmFzVVFZQ3lKdGM0OWxUTE9Nc3JXRGR6SzBTUWxUUzdYSnJJTU9GMWc3WjNtNklzTEczR0tLS3owYmxpbzR6aU8xakRnbVR0NXR3WDhFTnZldVh0VmYrcU9uNHE5YllKUWdhUXUwb0llUlFzR2RNRFVCOE9oUURuaG1wa2lUcXVaWGFEamtpbkNBbzV5WlRQQlpGT2ZzNGF4dkFoVEhXK21XZW0xUGIyMURWdTBRTjJ5VENGdFRadCtwa2FBVnNhOXhxQ3N1Q2c0eVFabXlsV2hVQnZ1djVrVThzVWhSRzNoOEFvb2dRZGdDQkFBQSJ9 --&gt;
+
+&lt;div data-pagedtable=&quot;false&quot;&gt;
+  &lt;script data-pagedtable-source type=&quot;application/json&quot;&gt;
+{&quot;columns&quot;:[{&quot;label&quot;:[&quot;customer_ID&quot;],&quot;name&quot;:[1],&quot;type&quot;:[&quot;dbl&quot;],&quot;align&quot;:[&quot;right&quot;]},{&quot;label&quot;:[&quot;name&quot;],&quot;name&quot;:[2],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;email_address&quot;],&quot;name&quot;:[3],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;shipping_address&quot;],&quot;name&quot;:[4],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;payment_type&quot;],&quot;name&quot;:[5],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;order_number&quot;],&quot;name&quot;:[6],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;order_total&quot;],&quot;name&quot;:[7],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;product_code&quot;],&quot;name&quot;:[8],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]}],&quot;data&quot;:[{&quot;1&quot;:&quot;1&quot;,&quot;2&quot;:&quot;John Smith&quot;,&quot;3&quot;:&quot;johnsmith@gmail.com&quot;,&quot;4&quot;:&quot;32 Station Road, Edinburgh&quot;,&quot;5&quot;:&quot;card&quot;,&quot;6&quot;:&quot;KU65781&quot;,&quot;7&quot;:&quot;£32.50&quot;,&quot;8&quot;:&quot;XZY780&quot;},{&quot;1&quot;:&quot;2&quot;,&quot;2&quot;:&quot;Jane Adams&quot;,&quot;3&quot;:&quot;janea@gmail.com&quot;,&quot;4&quot;:&quot;42 Park Drive, Edinburgh&quot;,&quot;5&quot;:&quot;cash&quot;,&quot;6&quot;:&quot;SU98201&quot;,&quot;7&quot;:&quot;£56.00&quot;,&quot;8&quot;:&quot;XYZ123&quot;},{&quot;1&quot;:&quot;10&quot;,&quot;2&quot;:&quot;Hilary Joyal&quot;,&quot;3&quot;:&quot;NA&quot;,&quot;4&quot;:&quot;234 Queensferry Rd, Edinburgh,&quot;,&quot;5&quot;:&quot;card&quot;,&quot;6&quot;:&quot;YR28212&quot;,&quot;7&quot;:&quot;£20.25&quot;,&quot;8&quot;:&quot;XYZ262&quot;}],&quot;options&quot;:{&quot;columns&quot;:{&quot;min&quot;:{},&quot;max&quot;:[10],&quot;total&quot;:[8]},&quot;rows&quot;:{&quot;min&quot;:[10],&quot;max&quot;:[10],&quot;total&quot;:[3]},&quot;pages&quot;:{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+
+&lt;!-- rnb-frame-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+semi_join 
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuc2VtaV9qb2luKGN1c3RvbWVycywgb3JkZXJzKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+semi_join(customers, orders)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiSm9pbmluZywgYnkgPSBcXGN1c3RvbWVyX0lEXFxcbiJ9 --&gt;
+</code></pre>
+<p>Joining, by = _ID<br />
+</p>
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NCwibmNvbCI6NCwic3VtbWFyeSI6eyJBIHRpYmJsZSI6IjQgeCA0In19LCJyZGYiOiJINHNJQUFBQUFBQUFCbTFTd1U0Yk1SQ2RoQTAwV3dKSTlFQzU0RU9Qc0lJTlNQVFVWRTNWd2drQ0IyNW8yRFdKeWE0ZDJkNVNibnd5SDFCUnhoc2JLUXNqZVdmOFBIN3pacnlqNFZVL3Zvb0JZQW1pVmd1V09oVEM4byt6Zy9Rb0JZamF0R3RCQkYzbi8xTFdKZ1VSclRYbnZ6MUJiUVB3L3BQM1h5RFlScDAvSjRoUDFVU3lpMUxZeVN1Q2tyUHZPWmJHSXg5cTVGTGQrLzNxYjFHZ2ZtQ242Z0dMQnQvbUhmRVpSemNZbHlpS0pGT2xQMXEvSXhwOEg3YkhYd2VvNWpCQTl6OVpnM2k3bjdJTGkxWW95VVlLODEzMk14ZnlwdExqSUh6ck1HVm5xS2RzcU1VZi92Yjg4OEUrKzRXYVVLN1o2QjJDSFpiMkQ5bDV4YmswdDF4VGh3dFp1NDNaZHlTVzNEUmtmc3dxWTFYSjlmWEowRU9SeS9OeGo3dnVyekhQTlRkaHZodG1JbVl6SWNlditHS2hybGIzU1NqV285VitwQStONkY5VFVWYWdDWW9DR09kb01iblZUZ1RBYytQS2lwcTVrZEtsdHZ1Tk9vM0xMZDBBMWl2cGxPUjcyYVNTMDczVUZhaVA1OWJ6Y2JRWXU1THQ4S0lkVDdYTTVaamVJbWd2OElZWGZyTkdIZGNOSnpNdHBBMmRFR29TcXl5R3ZEaFRSVURxM3VENUJjODhma1ErQXdBQSJ9 --&gt;
+
+&lt;div data-pagedtable=&quot;false&quot;&gt;
+  &lt;script data-pagedtable-source type=&quot;application/json&quot;&gt;
+{&quot;columns&quot;:[{&quot;label&quot;:[&quot;customer_ID&quot;],&quot;name&quot;:[1],&quot;type&quot;:[&quot;dbl&quot;],&quot;align&quot;:[&quot;right&quot;]},{&quot;label&quot;:[&quot;name&quot;],&quot;name&quot;:[2],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;email_address&quot;],&quot;name&quot;:[3],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;shipping_address&quot;],&quot;name&quot;:[4],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]}],&quot;data&quot;:[{&quot;1&quot;:&quot;1&quot;,&quot;2&quot;:&quot;John Smith&quot;,&quot;3&quot;:&quot;johnsmith@gmail.com&quot;,&quot;4&quot;:&quot;32 Station Road, Edinburgh&quot;},{&quot;1&quot;:&quot;2&quot;,&quot;2&quot;:&quot;Jane Adams&quot;,&quot;3&quot;:&quot;janea@gmail.com&quot;,&quot;4&quot;:&quot;42 Park Drive, Edinburgh&quot;},{&quot;1&quot;:&quot;5&quot;,&quot;2&quot;:&quot;Jane Tow&quot;,&quot;3&quot;:&quot;janet89@aol.com&quot;,&quot;4&quot;:&quot;10 Gardiner Rd, Edinburgh&quot;},{&quot;1&quot;:&quot;10&quot;,&quot;2&quot;:&quot;Hilary Joyal&quot;,&quot;3&quot;:&quot;NA&quot;,&quot;4&quot;:&quot;234 Queensferry Rd, Edinburgh,&quot;}],&quot;options&quot;:{&quot;columns&quot;:{&quot;min&quot;:{},&quot;max&quot;:[10],&quot;total&quot;:[4]},&quot;rows&quot;:{&quot;min&quot;:[10],&quot;max&quot;:[10],&quot;total&quot;:[4]},&quot;pages&quot;:{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+
+&lt;!-- rnb-frame-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+anti_join
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuYW50aV9qb2luKGN1c3RvbWVycywgb3JkZXJzKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+anti_join(customers, orders)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiSm9pbmluZywgYnkgPSBcXGN1c3RvbWVyX0lEXFxcbiJ9 --&gt;
+</code></pre>
+<p>Joining, by = _ID<br />
+</p>
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6NCwic3VtbWFyeSI6eyJBIHRpYmJsZSI6IjIgeCA0In19LCJyZGYiOiJINHNJQUFBQUFBQUFCbDFSVVV2RE1CQytkdWxrbGMzQjlMMC93QlcyNFh2QitTQW95UFJoYnlOcmF4dHNrNUtrcUcvKzhzMUxsd3p0UVpyTGwrKzd1Ni9ackxlcmNCc0N3QUNJNThFZ3dCU0c5eStMNWQwU2dQaDQ4b0RBeU94ZnlKcGhRbkJOY1BuSkZMcElJbkJoRU44S3hodXh6NldPbmlqUDVMY0ZSeHZhVnRFYjViekhuc21LN3BHWGxFTFhsRlZ4S21wN2RkMmdKdGFvV1NURitjN0pzZVlSdzNKdkZzdm9tVElldmVyYjZDRmpmTi9Lb3V4WkNUaXRjMlVyRUF0ZXBxM1NvczdsN25GdElXSjR6azF1T3U5b2xzbGNLUXRPVmNtYWh2SGlqUDl2TkpMaU0zYk54bWJjSC96Z3RJZitSR2xGbFp2SWdXRkdOWTNmcFJrQ29DKzVFSTFtZ3FQSU42OFM5TVNlN0FGWExUZVRaUE8wYlBuSGZHVWFkTmVuR052Yy81T1RVMHYvYUVzRnR0UXc1d1hqN3M4RStIQjVaUThUZE53Wmpodkp1SFpPRUZXeEZwbzZYcGlLeWlHZE56ajhBcTR5Wlp5TkFnQUEifQ== --&gt;
+
+&lt;div data-pagedtable=&quot;false&quot;&gt;
+  &lt;script data-pagedtable-source type=&quot;application/json&quot;&gt;
+{&quot;columns&quot;:[{&quot;label&quot;:[&quot;customer_ID&quot;],&quot;name&quot;:[1],&quot;type&quot;:[&quot;dbl&quot;],&quot;align&quot;:[&quot;right&quot;]},{&quot;label&quot;:[&quot;name&quot;],&quot;name&quot;:[2],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;email_address&quot;],&quot;name&quot;:[3],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;shipping_address&quot;],&quot;name&quot;:[4],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]}],&quot;data&quot;:[{&quot;1&quot;:&quot;4&quot;,&quot;2&quot;:&quot;Robert Landry&quot;,&quot;3&quot;:&quot;rlabdry@hotmail.com&quot;,&quot;4&quot;:&quot;NA&quot;},{&quot;1&quot;:&quot;8&quot;,&quot;2&quot;:&quot;Raul Tann&quot;,&quot;3&quot;:&quot;paul.tann1@gmail.com&quot;,&quot;4&quot;:&quot;12 Main St, Edinburgh&quot;}],&quot;options&quot;:{&quot;columns&quot;:{&quot;min&quot;:{},&quot;max&quot;:[10],&quot;total&quot;:[4]},&quot;rows&quot;:{&quot;min&quot;:[10],&quot;max&quot;:[10],&quot;total&quot;:[2]},&quot;pages&quot;:{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+
+&lt;!-- rnb-frame-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Binding verbs
+bind_cols
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuc3RhdHVzZXMgPC0gdGliYmxlKFxuICBzdGF0dXMgPSBjKFxcYWN0aXZlXFwsIFxcYWN0aXZlXFwsIFxcaW5hY3RpdmVcXCwgXFxpbmFjdGl2ZVxcLCBcXGFjdGl2ZVxcLCBcXGluYWN0aXZlXFwpXG4pIFxuXG5iaW5kX2NvbHMoY3VzdG9tZXJzLCBzdGF0dXNlcylcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+statuses &lt;- tibble(
+  status = c(\active\, \active\, \inactive\, \inactive\, \active\, \inactive\)
 ) 
 
 bind_cols(customers, statuses)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6NSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI2IHggNSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJuMVRRVy9UTUJSMnV6YXNnVzZUT2lUZ2dnOGN0NGltblFRbmlpZ0NKcEJHdHNOdTAydml0ZDRTTzdJZFJtLzhaTTRjQnMrdGpiS3NZQ2w1ZnQ5N2Z0L25sNWRrZWo0S3owTkN5QmJwdEZwa3E0dGJFcnc3R2NaSE1TR2RObm90MGlFOWE3OWoxZ0EzTm1mSHByMzVTVlpyUXB6ZGMzYmZXZXJzQytLWHpRaGN3ZkJZTGdROUxiaFovRVZBTVBvMmcwSTdwSi9JR1ZPR2ZnYVJxYVVEdDFkcFovTEcrYjBFcXB5ZWdSQU9lUFNSNTZDVzlGZ3VJVyt3RHE2UVZWdlN5YndBbmtlcExGeG85d3Jyd2oxNG9IS1lJZnRrSWMybUUrYlY2d25JT3J4Zm9xRElvS0JoclJvSy9ZMnJvZWZaS0thbkJneVhnaVlTc2dQNlB1TmlWcW01NzhxVGNVeFBRRjNUcWVMZldEM3VLNjd6bmc1ZjBnK2dNTW9VVFRZVWVqeU02UmZnMkhOelAvaWN4cU14L1ZveEp2UWxVOWk5T3lVT0dySURTQTJxMmVodGMvRmYvMS9aZCtldEs2QmcydEYySGZnd3JiU1JCVk1YbjZZTzZ0ZzhQeTdNZHZzQ3Nrd3g3V2RvVHk5NFdYSXhiK0NCeHJaWHVrSGJVL0ltOHRSOWZOby84SVZkL3RYVWwrYWd2VDRQaGhrWWlDNlZsVVRJYmVQSUExbmE3NHlIMnY1SHFoOXVxUWF3V3dtckpEdE1GNVc0UGh4YmdsVjR2ZnB1SDlUMjNUVmwyNCtaYjF6QXhCd0h3MnZIaVdhNWMzYnd4cXNMUjZYaXd2aWJJS29qSXczNHZEQ1Z1VWRXZHlPM2Z3RFk5WjZHUUFRQUFBPT0ifQ== -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["customer_ID"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["email_address"],"name":[3],"type":["chr"],"align":["left"]},{"label":["shipping_address"],"name":[4],"type":["chr"],"align":["left"]},{"label":["status"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"John Smith","3":"johnsmith@gmail.com","4":"32 Station Road, Edinburgh","5":"active"},{"1":"2","2":"Jane Adams","3":"janea@gmail.com","4":"42 Park Drive, Edinburgh","5":"active"},{"1":"4","2":"Robert Landry","3":"rlabdry@hotmail.com","4":"NA","5":"inactive"},{"1":"5","2":"Jane Tow","3":"janet89@aol.com","4":"10 Gardiner Rd, Edinburgh","5":"inactive"},{"1":"8","2":"Raul Tann","3":"paul.tann1@gmail.com","4":"12 Main St, Edinburgh","5":"active"},{"1":"10","2":"Hilary Joyal","3":"NA","4":"234 Queensferry Rd, Edinburgh,","5":"inactive"}],"options":{"columns":{"min":{},"max":[10],"total":[5]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>bind_rows</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGFzdF9jdXN0b21lcnMgPC0gdGliYmxlKFxuICBjdXN0b21lcl9JRCA9IGMoMDIwLCAwMjEpLCBcbiAgbmFtZSA9IGMoXCJEYXZlIEJyb3duXCIsIFwiSmVzcyBCaXNob3BcIiksXG4gIGVtYWlsX2FkZHJlc3MgPSBjKFwiZGJyb3duQGhvdG1haWwuY29tXCIsIFwiamVzc2JAZ21haWwuY29tXCIpLFxuICBzaGlwcGluZ19hZGRyZXNzID0gYyhcIjU3IFBhcmsgVmlldywgTGVpdGhcIiwgXCIxMiBSZWlkIFdheSwgQnJveGJ1cm5cIilcbilcblxuYmluZF9yb3dzKGN1c3RvbWVycywgcGFzdF9jdXN0b21lcnMpXG5gYGAifQ== -->
-<pre class="r"><code>past_customers &lt;- tibble(
-  customer_ID = c(020, 021), 
-  name = c(&quot;Dave Brown&quot;, &quot;Jess Bishop&quot;),
-  email_address = c(&quot;dbrown@hotmail.com&quot;, &quot;jessb@gmail.com&quot;),
-  shipping_address = c(&quot;57 Park View, Leith&quot;, &quot;12 Reid Way, Broxburn&quot;)
-)
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
 
-bind_rows(customers, past_customers)</code></pre>
+&lt;!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6NSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6IjYgeCA1In19LCJyZGYiOiJINHNJQUFBQUFBQUFCbjFUUVcvVE1CUjJ1emFzZ1c2VE9pVGdnZzhjdDRpbW5RUW5paWdDSnBCR3RzTnUwMnZpdGQ0U083SWRSbS84Wk00Y0JzK3RqYktzWUNsNWZ0OTdmdC9ubDVka2VqNEt6ME5DeUJicHRGcGtxNHRiRXJ3N0djWkhNU0dkTm5vdDBpRTlhNzlqMWdBM05tZkhwcjM1U1ZaclFwemRjM2JmV2Vyc0MrS1h6UWhjd2ZCWUxnUTlMYmhaL0VWQU1QbzJnMEk3cEovSUdWT0dmZ2FScWFVRHQxZHBaL0xHK2IwRXFweWVnUkFPZVBTUjU2Q1c5Rmd1SVcrd0RxNlFWVnZTeWJ3QW5rZXBMRnhvOXdycndqMTRvSEtZSWZ0a0ljMm1FK2JWNnduSU9yeGZvcURJb0tCaHJSb0svWTJyb2VmWktLYW5CZ3lYZ2lZU3NnUDZQdU5pVnFtNTc4cVRjVXhQUUYzVHFlTGZXRDN1SzY3em5nNWYwZytnTU1vVVRUWVVlanlNNlJmZzJITnpQL2ljeHFNeC9Wb3hKdlFsVTlpOU95VU9HcklEU0EycTJlaHRjL0ZmLzEvWmQrZXRLNkJnMnRGMkhmZ3dyYlNSQlZNWG42WU82dGc4UHk3TWR2c0Nza3d4N1dkb1R5OTRXWEl4YitDQnhyWlh1a0hiVS9JbTh0UjlmTm8vOElWZC90WFVsK2FndlQ0UGhoa1lpQzZWbFVUSWJlUElBMW5hNzR5SDJ2NUhxaDl1cVFhd1d3bXJKRHRNRjVXNFBoeGJnbFY0dmZwdUg5VDIzVFZsMjQrWmIxekF4QndIdzJ2SGlXYTVjM2J3eHFzTFI2WGl3dmliSUtvakl3MzR2RENWdVVkV2R5TzNmd0RZOVo2R1FBUUFBQT09In0= --&gt;
+
+&lt;div data-pagedtable=&quot;false&quot;&gt;
+  &lt;script data-pagedtable-source type=&quot;application/json&quot;&gt;
+{&quot;columns&quot;:[{&quot;label&quot;:[&quot;customer_ID&quot;],&quot;name&quot;:[1],&quot;type&quot;:[&quot;dbl&quot;],&quot;align&quot;:[&quot;right&quot;]},{&quot;label&quot;:[&quot;name&quot;],&quot;name&quot;:[2],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;email_address&quot;],&quot;name&quot;:[3],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;shipping_address&quot;],&quot;name&quot;:[4],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;status&quot;],&quot;name&quot;:[5],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]}],&quot;data&quot;:[{&quot;1&quot;:&quot;1&quot;,&quot;2&quot;:&quot;John Smith&quot;,&quot;3&quot;:&quot;johnsmith@gmail.com&quot;,&quot;4&quot;:&quot;32 Station Road, Edinburgh&quot;,&quot;5&quot;:&quot;active&quot;},{&quot;1&quot;:&quot;2&quot;,&quot;2&quot;:&quot;Jane Adams&quot;,&quot;3&quot;:&quot;janea@gmail.com&quot;,&quot;4&quot;:&quot;42 Park Drive, Edinburgh&quot;,&quot;5&quot;:&quot;active&quot;},{&quot;1&quot;:&quot;4&quot;,&quot;2&quot;:&quot;Robert Landry&quot;,&quot;3&quot;:&quot;rlabdry@hotmail.com&quot;,&quot;4&quot;:&quot;NA&quot;,&quot;5&quot;:&quot;inactive&quot;},{&quot;1&quot;:&quot;5&quot;,&quot;2&quot;:&quot;Jane Tow&quot;,&quot;3&quot;:&quot;janet89@aol.com&quot;,&quot;4&quot;:&quot;10 Gardiner Rd, Edinburgh&quot;,&quot;5&quot;:&quot;inactive&quot;},{&quot;1&quot;:&quot;8&quot;,&quot;2&quot;:&quot;Raul Tann&quot;,&quot;3&quot;:&quot;paul.tann1@gmail.com&quot;,&quot;4&quot;:&quot;12 Main St, Edinburgh&quot;,&quot;5&quot;:&quot;active&quot;},{&quot;1&quot;:&quot;10&quot;,&quot;2&quot;:&quot;Hilary Joyal&quot;,&quot;3&quot;:&quot;NA&quot;,&quot;4&quot;:&quot;234 Queensferry Rd, Edinburgh,&quot;,&quot;5&quot;:&quot;inactive&quot;}],&quot;options&quot;:{&quot;columns&quot;:{&quot;min&quot;:{},&quot;max&quot;:[10],&quot;total&quot;:[5]},&quot;rows&quot;:{&quot;min&quot;:[10],&quot;max&quot;:[10],&quot;total&quot;:[6]},&quot;pages&quot;:{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+
+&lt;!-- rnb-frame-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+bind_rows
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucGFzdF9jdXN0b21lcnMgPC0gdGliYmxlKFxuICBjdXN0b21lcl9JRCA9IGMoMDIwLCAwMjEpLCBcbiAgbmFtZSA9IGMoXFxEYXZlIEJyb3duXFwsIFxcSmVzcyBCaXNob3BcXCksXG4gIGVtYWlsX2FkZHJlc3MgPSBjKFxcZGJyb3duQGhvdG1haWwuY29tXFwsIFxcamVzc2JAZ21haWwuY29tXFwpLFxuICBzaGlwcGluZ19hZGRyZXNzID0gYyhcXDU3IFBhcmsgVmlld1xuYGBgIn0= --&gt;
+
+```r
+```r
+past_customers &lt;- tibble(
+  customer_ID = c(020, 021), 
+  name = c(\Dave Brown\, \Jess Bishop\),
+  email_address = c(\dbrown@hotmail.com\, \jessb@gmail.com\),
+  shipping_address = c(\57 Park View</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6OCwibmNvbCI6NCwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI4IHggNCJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJtMVR6Vy9UTUJSM3UzUnJDL3NRSFJKd3dRZU9YVVhUVnNDSk1vcUFha2dqbTJDMzZiWHhHbStKSFRuT3V0NzRremx5Mm5odTdhM05hc2w1enU5OS9memVjekE0NjlUUDZvU1FEZUtWU21TamdrZXkrZm00N2ZkOFFyd3kvcFdJUjJwRzNxQlZBdzhlN2gzYzFZOS95WHoxaVpWN1Z1NWJTYTE4WTJYWHloNXh5M2hVYllMNlVFYUNuaVJjUi9jSUNFWS9oWkJrRnRrTzVJZ3BUWTlBaEdwbXdlcmM3RlJPN1g4dGdEeW1weUNFQlo1KzR6R29HUjNLR2NRdTlnQ3VHVDFVY3Vxc25neFpsdEZEbmtVeUxWQnJYQ0sxekREclR4TGdjV3NzRTZ2YXZjVGs4QWh1cUJoR1NMRWZTYjNPUTcvLzBBZTVETytueUxxbGtYVjdLUnJlNWc2WHRYa1dqZ3podFVHUi9HakZjZmtDcnpvK1BkR2d1UlEwa0JBMjZaZVFpMUd1SnE3V0w3bytQUVoxUlFlS1g3TmwvU3FGbCsyMzlDc28xREpGZ3pXQm5yZDkrZ000ZGxJL1ZyNm1mcWRMZithTWlleUNLZXpKU29pbXExN3YzWUxNTDg2bVRYckVIbWJDaEE4WUQrbHZtRFZOLzI3UVV4Um10U0lnWVptdGdlZjZPODR6TFJPbXpyOFBMT1FaT3pkYXpOVHVITUpRWVNrdHVKZEZQRTI1bU56anE0bHEySTZXUzdhTnUvd0hQMWl0ZjBWRzR4Z3l4OGlCOVJBMHRDNlVJVUhJYmNGbFM2YW1YK2hVTnMrdVVuQXVxUUt3bXd2REpEd1lSN200T2pDUHJENVhMOWEyUFZlWHp0NGlaZm5PaHFyWVVKdE1UTERCamp1T01uUHZac2NNb0xsd0sxVmNhSGNUUkxPV2x2cmhmWTFsN0pENTNjanRmOUw2ZUFWdUJBQUEifQ== -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6OCwibmNvbCI6NCwic3VtbWFyeSI6eyJBIHRpYmJsZSI6IjggeCA0In19LCJyZGYiOiJINHNJQUFBQUFBQUFCbTFUelcvVE1CUjN1M1JyQy9zUUhSSnd3UWVPWFVYVFZzQ0pNb3FBYWtnam0yQzM2Ylh4R20rSkhUbk91dDc0a3pseTJuaHU3YTNOYXNsNXp1OTkvZnplY3pBNDY5VFA2b1NRRGVLVlNtU2pna2V5K2ZtNDdmZDhRcnd5L3BXSVIycEczcUJWQXc4ZTdoM2MxWTkveVh6MWlaVjdWdTViU2ExOFkyWFh5aDV4eTNoVWJZTDZVRWFDbmlSY1IvY0lDRVkvaFpCa0Z0a081SWdwVFk5QWhHcG13ZXJjN0ZSTzdYOHRnRHltcHlDRUJaNSs0ekdvR1IzS0djUXU5Z0N1R1QxVWN1cXNuZ3habHRGRG5rVXlMVkJyWENLMXpERHJUeExnY1dzc0U2dmF2Y1RrOEFodXFCaEdTTEVmU2IzT1E3Ly8wQWU1RE8rbnlMcWxrWFY3S1JyZTVnNlh0WGtXamd6aHRVR1IvR2pGY2ZrQ3J6bytQZEdndVJRMGtCQTI2WmVRaTFHdUpxN1dMN28rUFFaMVJRZUtYN05sL1NxRmwrMjM5Q3NvMURKRmd6V0JucmQ5K2dNNGRsSS9WcjZtZnFkTGYrYU1pZXlDS2V6SlNvaW1xMTd2M1lMTUw4Nm1UWHJFSG1iQ2hBOFlEK2x2bURWTi8yN1FVeFJtdFNJZ1labXRnZWY2Tzg0ekxST216cjhQTE9RWk96ZGF6TlR1SE1KUVlTa3R1SmRGUEUyNW1OempxNGxxMkk2V1M3YU51L3dIUDFpdGYwVkc0eGd5eDhpQjlSQTB0QzZVSVVISWJjRmxTNmFtWCtoVU5zK3VVbkF1cVFLd213dkRKRHdZUjdtNE9qQ1ByRDVYTDlhMlBWZVh6dDRpWmZuT2hxcllVSnRNVExEQmpqdU9NblB2WnNjTW9MbHdLMVZjYUhjVFJMT1dsdnJoZlkxbDdKRDUzY2p0ZjlMNmVBVnVCQUFBIn0= -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["customer_ID"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["email_address"],"name":[3],"type":["chr"],"align":["left"]},{"label":["shipping_address"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"John Smith","3":"johnsmith@gmail.com","4":"32 Station Road, Edinburgh"},{"1":"2","2":"Jane Adams","3":"janea@gmail.com","4":"42 Park Drive, Edinburgh"},{"1":"4","2":"Robert Landry","3":"rlabdry@hotmail.com","4":"NA"},{"1":"5","2":"Jane Tow","3":"janet89@aol.com","4":"10 Gardiner Rd, Edinburgh"},{"1":"8","2":"Raul Tann","3":"paul.tann1@gmail.com","4":"12 Main St, Edinburgh"},{"1":"10","2":"Hilary Joyal","3":"NA","4":"234 Queensferry Rd, Edinburgh,"},{"1":"20","2":"Dave Brown","3":"dbrown@hotmail.com","4":"57 Park View, Leith"},{"1":"21","2":"Jess Bishop","3":"jessb@gmail.com","4":"12 Reid Way, Broxburn"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[8]},"pages":{}}}
@@ -476,7 +672,7 @@ bind_rows(customers, past_customers)</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7cn0NCmxpYnJhcnkodGlkeXZlcnNlKQ0KYGBgDQoNCmN1c3RvbWVycyB0YWJsZSANCmBgYHtyfQ0KIyBtYWtlcyBhIHRpYmJsZSh0YWJsZSkNCmN1c3RvbWVycyA8LSB0aWJibGUoDQogIGN1c3RvbWVyX0lEID0gYygwMDEsIDAwMiwgMDA0LCAwMDUsIDAwOCwgMDEwKSwgDQogIG5hbWUgPSBjKCJKb2huIFNtaXRoIiwgIkphbmUgQWRhbXMiLCAiUm9iZXJ0IExhbmRyeSIsICJKYW5lIFRvdyIsICJSYXVsIFRhbm4iLCAiSGlsYXJ5IEpveWFsIiksDQogIGVtYWlsX2FkZHJlc3MgPSBjKCJqb2huc21pdGhAZ21haWwuY29tIiwgImphbmVhQGdtYWlsLmNvbSIsICJybGFiZHJ5QGhvdG1haWwuY29tIiwgImphbmV0ODlAYW9sLmNvbSIsICJwYXVsLnRhbm4xQGdtYWlsLmNvbSIsIE5BKSwNCiAgc2hpcHBpbmdfYWRkcmVzcyA9IGMoIjMyIFN0YXRpb24gUm9hZCwgRWRpbmJ1cmdoIiwgIjQyIFBhcmsgRHJpdmUsIEVkaW5idXJnaCIsIE5BLCAiMTAgR2FyZGluZXIgUmQsIEVkaW5idXJnaCIsICIxMiBNYWluIFN0LCBFZGluYnVyZ2giLCAiIDIzNCBRdWVlbnNmZXJyeSBSZCwgRWRpbmJ1cmdoLCIpDQopDQoNCmN1c3RvbWVycw0KIyBjdXN0b21lcl9JRCBwcmltYXJ5IGtleQ0KYGBgDQoNCm9yZGVycyB0YWJsZQ0KYGBge3J9DQpvcmRlcnMgPC0gdGliYmxlKA0KICBjdXN0b21lcl9JRCA9IGMoMDAxLCAwMDIsIDAwNSwgMDEwLCAwMTIsIDAwMSksIA0KICBvcmRlcl9udW1iZXIgPSBjKCJLVTY1NzgxIiwgIlNVOTgyMDEiLCAiSlM3NjgyMSIsICJZUjI4MjEyIiwgIkpTOTEyMjEiLCJZUjIxODczIiksDQogIG9yZGVyX3RvdGFsID0gYygiwqMzMi41MCIsICLCozU2LjAwIiwgIsKjMTAwLjAyIiwgIsKjMjAuMjUiLCAiwqMzOS41MCIsICLCozQ1LjAwIiksDQogIHByb2R1Y3RfY29kZSA9IGMoIlhaWTc4MCIsICJYWVoxMjMiLCAiWFlaMjU2IiwgIlhZWjI2MiIsICJYWVozNDUiLCAiWFlaMTI3IikNCikNCm9yZGVycw0KDQojIG9yZGVyX251bWJlciBwcmltYXJ5IGtleQ0KIyBjdXN0b21lcl9JRCBmb3JhbmluIGtleQ0KYGBgDQoNCmlubmVyLWpvaW4NCmBgYHtyfQ0KaW5uZXJfam9pbihjdXN0b21lcnMsIG9yZGVycywgYnkgPSAiY3VzdG9tZXJfSUQiKSAjIGRvbid0IG5lZWQgdGhlIGJ5ID0sIHJlYWRzIGJldHRlciANCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIyB0YWtpbmcgb3V0IGJ5ID0gImN1c3RvbWVyX0lEIiBnaXZlcyB0aGUgc2FtZSB0YnV0IGFsc28gZWxscyB5b3UgdGhhdCBpdCdzIGpvaW5lZCBieSAiY3VzdG9tZXJfSUQiDQpgYGANCg0KTGVmdCBqb2luDQpgYGB7cn0NCmxlZnRfam9pbihjdXN0b21lcnMsIG9yZGVycywgYnkgPSAiY3VzdG9tZXJfSUQiKQ0KYGBgDQoNClJpZ2h0IGpvaW4NCmBgYHtyfQ0KcmlnaHRfam9pbihjdXN0b21lcnMsIG9yZGVycywgYnkgPSAiY3VzdG9tZXJfSUQiKQ0KYGBgDQoNCkZ1bGwgam9pbg0KYGBge3J9DQpmdWxsX2pvaW4oY3VzdG9tZXJzLCBvcmRlcnMpDQpgYGANCg0KRGlmZmVybnQgbmFtZSBwcmltYXJ5IGtleSBqb2luDQpgYGB7cn0NCmN1c3RvbWVyc19hZGogPC0gY3VzdG9tZXJzICU+JSANCiAgcmVuYW1lKHRoaXNfaXNfYW5faWQgPSBjdXN0b21lcl9JRCkNCg0KaW5uZXJfam9pbihjdXN0b21lcnNfYWRqLCBvcmRlcnMsIGJ5ID0gDQogICAgICAgICAgICAgYygidGhpc19pc19hbl9pZCIgPSAiY3VzdG9tZXJfSUQiKSkNCmBgYA0KDQpqb2luaW5nIG9uIHR3byBwb2ludHMNCmBgYHtyfQ0KIyBjcmVhdGUgYSBuZXcgY29sdW1uIGluIGJvdGggdGFibGVzDQpjdXN0b21lcnMyIDwtIGN1c3RvbWVycyAlPiUgDQogIG11dGF0ZShwYXltZW50X3R5cGUgPSBjKCJjYXJkIiwgImNhc2giLCAiY2FzaCIsICJjYXJkIiwgImNhcmQiLCAiY2FyZCIpKQ0KDQpvcmRlcnMyIDwtIG9yZGVycyAlPiUNCiAgbXV0YXRlKHBheW1lbnRfdHlwZSA9IGMoImNhcmQiLCAiY2FzaCIsICJjYXNoIiwgImNhcmQiLCAiY2FyZCIsICJjYXNoIikpDQoNCiMgam9pbiBieSBvbmUgY29sdW1ucw0KaW5uZXJfam9pbihjdXN0b21lcnMyLCBvcmRlcnMyLCBieSA9ICJjdXN0b21lcl9JRCIpDQoNCiMgam9pbiBieSB0d28gY29sdW1ucw0KaW5uZXJfam9pbihjdXN0b21lcnMyLCBvcmRlcnMyLCBieSA9IGMoImN1c3RvbWVyX0lEIiwgInBheW1lbnRfdHlwZSIpKQ0KYGBgDQoNCnNlbWlfam9pbiANCmBgYHtyfQ0Kc2VtaV9qb2luKGN1c3RvbWVycywgb3JkZXJzKSAjIHRlbGwgbWUgaW4gUiBjb25zb2xlIEpvaW5pbmcsIGJ5ID0gImN1c3RvbWVyX0lEIg0KIyBzaG93cyBjdXN0b21lcnMgdGhhdCBtYWRlIGF0IGxlYXN0IG9uZSBvcmRlcg0KYGBgDQoNCmFudGlfam9pbg0KYGBge3J9DQphbnRpX2pvaW4oY3VzdG9tZXJzLCBvcmRlcnMpDQojIHNob3dzIGN1c3RvbWVycyB0aGF0IGhhdmUgbm90IG1hZGUgYXQgbGVhc3Qgb25lIG9yZGVyDQpgYGANCg0KQmluZGluZyB2ZXJicw0KYmluZF9jb2xzDQpgYGB7cn0NCnN0YXR1c2VzIDwtIHRpYmJsZSgNCiAgc3RhdHVzID0gYygiYWN0aXZlIiwgImFjdGl2ZSIsICJpbmFjdGl2ZSIsICJpbmFjdGl2ZSIsICJhY3RpdmUiLCAiaW5hY3RpdmUiKQ0KKSANCg0KYmluZF9jb2xzKGN1c3RvbWVycywgc3RhdHVzZXMpDQpgYGANCg0KYmluZF9yb3dzDQpgYGB7cn0NCnBhc3RfY3VzdG9tZXJzIDwtIHRpYmJsZSgNCiAgY3VzdG9tZXJfSUQgPSBjKDAyMCwgMDIxKSwgDQogIG5hbWUgPSBjKCJEYXZlIEJyb3duIiwgIkplc3MgQmlzaG9wIiksDQogIGVtYWlsX2FkZHJlc3MgPSBjKCJkYnJvd25AaG90bWFpbC5jb20iLCAiamVzc2JAZ21haWwuY29tIiksDQogIHNoaXBwaW5nX2FkZHJlc3MgPSBjKCI1NyBQYXJrIFZpZXcsIExlaXRoIiwgIjEyIFJlaWQgV2F5LCBCcm94YnVybiIpDQopDQoNCmJpbmRfcm93cyhjdXN0b21lcnMsIHBhc3RfY3VzdG9tZXJzKQ0KYGBgDQoNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7cn0NCmxpYnJhcnkodGlkeXZlcnNlKQ0KYGBgDQoNCmN1c3RvbWVycyB0YWJsZSANCmBgYHtyfQ0KIyBtYWtlcyBhIHRpYmJsZSh0YWJsZSkNCmN1c3RvbWVycyA8LSB0aWJibGUoDQogIGN1c3RvbWVyX0lEID0gYygwMDEsIDAwMiwgMDA0LCAwMDUsIDAwOCwgMDEwKSwgDQogIG5hbWUgPSBjKCJKb2huIFNtaXRoIiwgIkphbmUgQWRhbXMiLCAiUm9iZXJ0IExhbmRyeSIsICJKYW5lIFRvdyIsICJSYXVsIFRhbm4iLCAiSGlsYXJ5IEpveWFsIiksDQogIGVtYWlsX2FkZHJlc3MgPSBjKCJqb2huc21pdGhAZ21haWwuY29tIiwgImphbmVhQGdtYWlsLmNvbSIsICJybGFiZHJ5QGhvdG1haWwuY29tIiwgImphbmV0ODlAYW9sLmNvbSIsICJwYXVsLnRhbm4xQGdtYWlsLmNvbSIsIE5BKSwNCiAgc2hpcHBpbmdfYWRkcmVzcyA9IGMoIjMyIFN0YXRpb24gUm9hZCwgRWRpbmJ1cmdoIiwgIjQyIFBhcmsgRHJpdmUsIEVkaW5idXJnaCIsIE5BLCAiMTAgR2FyZGluZXIgUmQsIEVkaW5idXJnaCIsICIxMiBNYWluIFN0LCBFZGluYnVyZ2giLCAiIDIzNCBRdWVlbnNmZXJyeSBSZCwgRWRpbmJ1cmdoLCIpDQopDQoNCmN1c3RvbWVycw0KIyBjdXN0b21lcl9JRCBwcmltYXJ5IGtleQ0KYGBgDQoNCm9yZGVycyB0YWJsZQ0KYGBge3J9DQpvcmRlcnMgPC0gdGliYmxlKA0KICBjdXN0b21lcl9JRCA9IGMoMDAxLCAwMDIsIDAwNSwgMDEwLCAwMTIsIDAwMSksIA0KICBvcmRlcl9udW1iZXIgPSBjKCJLVTY1NzgxIiwgIlNVOTgyMDEiLCAiSlM3NjgyMSIsICJZUjI4MjEyIiwgIkpTOTEyMjEiLCJZUjIxODczIiksDQogIG9yZGVyX3RvdGFsID0gYygiwqMzMi41MCIsICLCozU2LjAwIiwgIsKjMTAwLjAyIiwgIsKjMjAuMjUiLCAiwqMzOS41MCIsICLCozQ1LjAwIiksDQogIHByb2R1Y3RfY29kZSA9IGMoIlhaWTc4MCIsICJYWVoxMjMiLCAiWFlaMjU2IiwgIlhZWjI2MiIsICJYWVozNDUiLCAiWFlaMTI3IikNCikNCm9yZGVycw0KDQojIG9yZGVyX251bWJlciBwcmltYXJ5IGtleQ0KIyBjdXN0b21lcl9JRCBmb3JhbmluIGtleQ0KYGBgDQoNCmlubmVyLWpvaW4NCmBgYHtyfQ0KaW5uZXJfam9pbihjdXN0b21lcnMsIG9yZGVycywgYnkgPSAiY3VzdG9tZXJfSUQiKSAjIGRvbid0IG5lZWQgdGhlIGJ5ID0sIHJlYWRzIGJldHRlciANCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIyB0YWtpbmcgb3V0IGJ5ID0gImN1c3RvbWVyX0lEIiBnaXZlcyB0aGUgc2FtZSBidXQgYWxzbyBlbGxzIHlvdSB0aGF0IGl0J3Mgam9pbmVkIGJ5ICJjdXN0b21lcl9JRCINCmBgYA0KDQpMZWZ0IGpvaW4NCmBgYHtyfQ0KbGVmdF9qb2luKGN1c3RvbWVycywgb3JkZXJzLCBieSA9ICJjdXN0b21lcl9JRCIpDQpgYGANCg0KUmlnaHQgam9pbg0KYGBge3J9DQpyaWdodF9qb2luKGN1c3RvbWVycywgb3JkZXJzLCBieSA9ICJjdXN0b21lcl9JRCIpDQpgYGANCg0KRnVsbCBqb2luDQpgYGB7cn0NCmZ1bGxfam9pbihjdXN0b21lcnMsIG9yZGVycykNCmBgYA0KDQpEaWZmZXJudCBuYW1lIHByaW1hcnkga2V5IGpvaW4NCmBgYHtyfQ0KY3VzdG9tZXJzX2FkaiA8LSBjdXN0b21lcnMgJT4lIA0KICByZW5hbWUodGhpc19pc19hbl9pZCA9IGN1c3RvbWVyX0lEKQ0KDQppbm5lcl9qb2luKGN1c3RvbWVyc19hZGosIG9yZGVycywgYnkgPSANCiAgICAgICAgICAgICBjKCJ0aGlzX2lzX2FuX2lkIiA9ICJjdXN0b21lcl9JRCIpKQ0KYGBgDQoNCmpvaW5pbmcgb24gdHdvIHBvaW50cw0KYGBge3J9DQojIGNyZWF0ZSBhIG5ldyBjb2x1bW4gaW4gYm90aCB0YWJsZXMNCmN1c3RvbWVyczIgPC0gY3VzdG9tZXJzICU+JSANCiAgbXV0YXRlKHBheW1lbnRfdHlwZSA9IGMoImNhcmQiLCAiY2FzaCIsICJjYXNoIiwgImNhcmQiLCAiY2FyZCIsICJjYXJkIikpDQoNCm9yZGVyczIgPC0gb3JkZXJzICU+JQ0KICBtdXRhdGUocGF5bWVudF90eXBlID0gYygiY2FyZCIsICJjYXNoIiwgImNhc2giLCAiY2FyZCIsICJjYXJkIiwgImNhc2giKSkNCg0KIyBqb2luIGJ5IG9uZSBjb2x1bW5zDQppbm5lcl9qb2luKGN1c3RvbWVyczIsIG9yZGVyczIsIGJ5ID0gImN1c3RvbWVyX0lEIikNCg0KIyBqb2luIGJ5IHR3byBjb2x1bW5zDQppbm5lcl9qb2luKGN1c3RvbWVyczIsIG9yZGVyczIsIGJ5ID0gYygiY3VzdG9tZXJfSUQiLCAicGF5bWVudF90eXBlIikpDQpgYGANCg0Kc2VtaV9qb2luIA0KYGBge3J9DQpzZW1pX2pvaW4oY3VzdG9tZXJzLCBvcmRlcnMpICMgdGVsbCBtZSBpbiBSIGNvbnNvbGUgSm9pbmluZywgYnkgPSAiY3VzdG9tZXJfSUQiDQojIHNob3dzIGN1c3RvbWVycyB0aGF0IG1hZGUgYXQgbGVhc3Qgb25lIG9yZGVyDQpgYGANCg0KYW50aV9qb2luDQpgYGB7cn0NCmFudGlfam9pbihjdXN0b21lcnMsIG9yZGVycykNCiMgc2hvd3MgY3VzdG9tZXJzIHRoYXQgaGF2ZSBub3QgbWFkZSBhdCBsZWFzdCBvbmUgb3JkZXINCmBgYA0KDQpCaW5kaW5nIHZlcmJzDQpiaW5kX2NvbHMNCmBgYHtyfQ0Kc3RhdHVzZXMgPC0gdGliYmxlKA0KICBzdGF0dXMgPSBjKCJhY3RpdmUiLCAiYWN0aXZlIiwgImluYWN0aXZlIiwgImluYWN0aXZlIiwgImFjdGl2ZSIsICJpbmFjdGl2ZSIpDQopIA0KDQpiaW5kX2NvbHMoY3VzdG9tZXJzLCBzdGF0dXNlcykNCmBgYA0KDQpiaW5kX3Jvd3MNCmBgYHtyfQ0KcGFzdF9jdXN0b21lcnMgPC0gdGliYmxlKA0KICBjdXN0b21lcl9JRCA9IGMoMDIwLCAwMjEpLCANCiAgbmFtZSA9IGMoIkRhdmUgQnJvd24iLCAiSmVzcyBCaXNob3AiKSwNCiAgZW1haWxfYWRkcmVzcyA9IGMoImRicm93bkBob3RtYWlsLmNvbSIsICJqZXNzYkBnbWFpbC5jb20iKSwNCiAgc2hpcHBpbmdfYWRkcmVzcyA9IGMoIjU3IFBhcmsgVmlldywgTGVpdGgiLCAiMTIgUmVpZCBXYXksIEJyb3hidXJuIikNCikNCg0KYmluZF9yb3dzKGN1c3RvbWVycywgcGFzdF9jdXN0b21lcnMpDQpgYGANCg0K</div>
 
 
 
