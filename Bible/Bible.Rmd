@@ -21,6 +21,10 @@ knitr::opts_chunk$set(echo = TRUE, fig.align = 'center')
 
   `summarise(avg_mass_fell = mean(mass_in_g))`
 
+### Floor rounds down
+
+  `floor()`
+
 ### Count
   
   `summarise(count = n())`
@@ -28,6 +32,10 @@ knitr::opts_chunk$set(echo = TRUE, fig.align = 'center')
 ### Sum Count
 
   `summarise(count = sum(is.na(data1)))`
+  
+  `summarise(count = sum(total_sighting, na.rm = TRUE))`
+  if there's a N/A in the count it will come back N/A, 
+  na.rm = removes any N/A
   
 ## Filter
 
@@ -100,3 +108,10 @@ Will split one string into many part ie on each space
 formats the result, nsall is how many after the decimal mark, big.mark lets you 
 put in , ie 1,000,000, decimal.mark lets you change the . to say
 `format(nsmall = 2, big.mark= ",", decimal.mark = ".")`
+
+
+### upper lower case in regex 
+
+(?i) starts case-insensitive mode
+
+(?-i) turns off case-insensitive mode
