@@ -115,3 +115,43 @@ put in , ie 1,000,000, decimal.mark lets you change the . to say
 (?i) starts case-insensitive mode
 
 (?-i) turns off case-insensitive mode
+
+
+## From dirty data chat
+
+### Case when
+
+Case when takes the arguments:
+A sequence of two-sided formulas. The left hand side (LHS) determines which values match this case. The right hand side (RHS) provides the replacement value.
+The LHS must evaluate to a logical vector. The RHS does not need to be logical, but all RHSs must evaluate to the same type of vector.
+So we write: LHS ~ RHS, and R understands this as a "formula". In terms of evaluation (running code) this is different from across(.cols, .fns = ~some_function(args)), as in that case we are using the ~ to prevent the immediate evaluation of the function (as it would throw an error)
+
+### On checking whats diffrents in df's
+
+Love your function Ricardo amazing work! Someone beat you to it I’m afraid tho, check out janitor::compare_df_cols()
+:r_spin:
+1
+:sweat_smile:
+1
+
+3 replies
+
+Ricardo  7 minutes ago
+What was the one you used again Louise? Was it this one?
+
+Malcolm  3 minutes ago
+setdiff() this is what I've found from google
+
+David  2 minutes ago
+I think setdiff() and intersect() are the two functions I used to compare columns when I first did this task. Think they're base R. janitor is probably a good way to go
+
+### `names_prefix =`
+
+Noticed in tasks one you were trying to clean the event name when they were still variables. You can do a little cleaning on the names with names_prefix =
+decathalon %>% 
+  pivot_longer(
+    x100m:x1500m,
+    names_to = "event",
+    values_to = "value",
+    names_prefix = "x")
+It wouldn’t really work too well here as you had other events that didn’t start with “x”, but good to know
