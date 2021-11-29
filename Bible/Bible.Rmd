@@ -133,7 +133,9 @@ put in , ie 1,000,000, decimal.mark lets you change the . to say
 
 (?-i) turns off case-insensitive mode
 
+### seq()
 
+`seq(13)` is the same as 1:13
 
 ## From dirty data chat
 

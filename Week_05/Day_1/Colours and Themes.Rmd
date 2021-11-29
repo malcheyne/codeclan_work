@@ -1,0 +1,120 @@
+---
+title: "Colours and Themes"
+output: html_notebook
+---
+```{r}
+library(tidyverse)
+library(ggplot2)
+```
+
+
+```{r}
+pets <- read_csv("clean_data/pets.csv")
+
+```
+
+
+
+```{r}
+ggplot(pets, mapping = aes(weight, age)) +
+  geom_point(colour = "#3333cc")
+```
+
+```{r}
+ggplot(pets, mapping = aes(weight, age)) +
+  geom_point(colour = "#aa88FF")
+```
+
+```{r}
+ggplot(pets) + 
+  aes(x = age, y = weight, colour = sleep) + 
+  geom_point()
+```
+
+```{r}
+ggplot(pets, mapping = aes(weight, age, colour = sleep)) +
+  geom_point() +
+  scale_colour_gradient(low = "gray0", high = "gray100")
+```
+
+### Task Can you change the colour scale to something else (either using an RBG colour or pre-defined)?
+```{r}
+ggplot(pets, mapping = aes(weight, age, colour = sleep)) +
+  geom_point() +
+  scale_color_gradient(low = "red",  high = "blue")
+
+ggplot(pets, mapping = aes(weight, age, colour = sleep)) +
+  geom_point() +
+  scale_color_gradient2(midpoint = 15, low = "red",  high = "blue", mid = "white")
+```
+
+```{r}
+students <- read_csv("clean_data/students.csv")
+```
+
+```{r}
+students %>%
+  mutate(school_year = factor(school_year, 
+                              levels = c("Year 7", "Year 8", 
+                                          "Year 9", "Year 10", 
+                                          "Year 11", "Year 12"))) %>% 
+  ggplot(mapping = aes(x = school_year, fill = superpower)) +
+  geom_bar() +
+  scale_fill_manual(
+    values = c("Fly" = "coral",
+      "Freeze time" = "seagreen",
+      "Invisibility" = "orange",
+      "Telepathy" = "red"
+      )
+  )
+```
+worth having a look at
+```{r}
+install.packages('colourpicker')
+my_palette <- colourpicker::colourPicker()
+```
+
+
+
+```{r}
+ggplot(pets, aes(weight, age, colour = sleep)) +
+  geom_point() +
+  scale_color_distiller(palette = "RdPu")
+```
+
+good for colour blind
+```{r}
+ggplot(pets, aes(weight, age, colour = sleep)) +
+  geom_point() +
+  scale_color_distiller(palette = "PiYG")
+```
+
+```{r}
+ggplot(students) +
+  aes(x = school_year, fill = superpower) +
+  geom_bar() +
+  scale_fill_brewer(palette = "Dark2")
+```
+see factor levels are alphabetical order above
+```{r}
+students <- students %>%
+  mutate(school_year = factor(school_year, levels = c("Year 7", "Year 8", "Year 9", "Year 10", "Year 11", "Year 12")))
+
+ggplot(students) +
+  aes(x = school_year, fill = superpower) +
+  geom_bar() +
+  scale_fill_brewer(palette = "Dark2")
+```
+
+
+### Task Change the colour scheme of the students plot to a colour-blind friendly Color Brewer palette. 
+```{r}
+ggplot(students) +
+  aes(x = school_year, fill = superpower) +
+  geom_bar() +
+  scale_fill_brewer(palette = "Paired")
+```
+
+
+
+
