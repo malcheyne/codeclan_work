@@ -31,9 +31,9 @@ Gives a deeper help file, use packages window and click on the ie ggplot2
   `floor()`
 
 ### Count
-  
+
   `summarise(count = n())`
-  
+
 Can you the count on it's own, saves grouping and ungrouping the data
 ```{r}
 count_data <- students %>%
@@ -44,16 +44,16 @@ count_data <- students %>%
 count_data <- students %>%
   count(superpower, school_year)
 ```
-  
-  
+
+
 ### Sum Count
 
   `summarise(count = sum(is.na(data1)))`
-  
+
   `summarise(count = sum(total_sighting, na.rm = TRUE))`
-  if there's a N/A in the count it will come back N/A, 
+  if there's a N/A in the count it will come back N/A,
   na.rm = removes any N/A
-  
+
 ## Filter
 
 ### For NA
@@ -63,11 +63,11 @@ count_data <- students %>%
 ### For Chr
 
   `filter(first_name == "Mary")`
-  
+
 ### For Dbl
 
   `filter(year > 1999)`
-  
+
 ## Reanme
 
   `rename(mass_in_g = mass (g))`
@@ -100,21 +100,21 @@ Turns into Lower case
   `str_to_lower()`
 
 ### Title
- 
+
 Makes the frist letter Upper case
   `str_to_title()`
 
 ### Sentence
- 
+
 
   `str_to_sentence()`
-  
+
 ## Substring
 
-Can pick out a part of the string, 1 is the start -1 is the end 
-  `str_sub(start = 1, end = 5)` 
+Can pick out a part of the string, 1 is the start -1 is the end
+  `str_sub(start = 1, end = 5)`
   `str_sub(-5, -1)`
-  
+
 ### Split
 
 Will split one string into many part ie on each space
@@ -122,22 +122,78 @@ Will split one string into many part ie on each space
 
 ### Format
 
-formats the result, nsall is how many after the decimal mark, big.mark lets you 
+formats the result, nsall is how many after the decimal mark, big.mark lets you
 put in , ie 1,000,000, decimal.mark lets you change the . to say
 `format(nsmall = 2, big.mark= ",", decimal.mark = ".")`
 
 
-### upper lower case in regex 
+### upper lower case in regex
 
 (?i) starts case-insensitive mode
 
 (?-i) turns off case-insensitive mode
 
 
-# ggplot2
 
-`geom_bar` will automatically summaries the y axis for you. if if you don't have a aggregated ie counted use `geom_bar`. saves you needing to `group_by` and `summarise()` 
-count_data <- students %>%
-  count(superpower, school_year)
+## From dirty data chat
 
-`geom_col` will need you give it the y axis, if you have a aggregated ie counted use `geom_col`
+### Case when
+
+Case when takes the arguments:
+A sequence of two-sided formulas. The left hand side (LHS) determines which values match this case. The right hand side (RHS) provides the replacement value.
+The LHS must evaluate to a logical vector. The RHS does not need to be logical, but all RHSs must evaluate to the same type of vector.
+So we write: LHS ~ RHS, and R understands this as a "formula". In terms of evaluation (running code) this is different from across(.cols, .fns = ~some_function(args)), as in that case we are using the ~ to prevent the immediate evaluation of the function (as it would throw an error)
+
+### On checking whats diffrents in df's
+
+Love your function Ricardo amazing work! Someone beat you to it I’m afraid tho, check out janitor::compare_df_cols()
+:r_spin:
+1
+:sweat_smile:
+1
+
+3 replies
+
+Ricardo  7 minutes ago
+What was the one you used again Louise? Was it this one?
+
+Malcolm  3 minutes ago
+setdiff() this is what I've found from google
+
+David  2 minutes ago
+I think setdiff() and intersect() are the two functions I used to compare columns when I first did this task. Think they're base R. janitor is probably a good way to go
+
+
+
+### `names_prefix =`
+
+Noticed in tasks one you were trying to clean the event name when they were still variables. You can do a little cleaning on the names with names_prefix =
+decathalon %>%
+  pivot_longer(
+    x100m:x1500m,
+    names_to = "event",
+    values_to = "value",
+    names_prefix = "x")
+It wouldn’t really work too well here as you had other events that didn’t start with “x”, but good to know
+
+```{r}
+library(magrittr)
+library(dplyr)
+
+# across, of a function with no arguments
+iris %>%
+  summarise(across(where(is.numeric), mean))
+
+# will throw error
+iris %>%
+  summarise(across(where(is.numeric), mean(.x, na.rm = TRUE)))
+
+# it's trying to run this:
+mean(.x, .na.rm = TRUE)
+
+
+# we need to delay the 'immediate evaluation' (running). so we use
+# tilde:
+iris %>%
+  summarise(across(where(is.numeric), ~mean(.x, na.rm = TRUE)))
+```
