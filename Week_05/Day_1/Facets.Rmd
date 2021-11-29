@@ -1,0 +1,143 @@
+---
+title: "Facets"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+
+chick_weight <- clean_names(ChickWeight)
+
+ggplot(chick_weight) + 
+  aes(x = time, y = weight, group = chick, colour = diet) +
+  geom_line() +
+  geom_smooth(aes(group = diet), colour = "black")
+```
+
+
+```{r}
+ggplot(chick_weight) + 
+  aes(x = time, y = weight, group = chick, colour = diet) +
+  geom_line() +
+  geom_smooth(aes(group = diet), colour = "black") +
+  facet_wrap(~ diet)
+```
+
+
+```{r}
+ggplot(chick_weight) + 
+  aes(x = time, y = weight, group = chick, colour = diet) +
+  geom_line() +
+  geom_smooth(aes(group = diet), colour = "black") +
+  facet_wrap(~ diet, nrow = 1)
+```
+
+```{r}
+benefits <- read_csv("clean_data/benefits.csv")
+```
+
+
+### Task Use geom_histogram to create a histogram showing the number of unemployed by age. Then facet the graph based on biological sex.
+```{r}
+ggplot(benefits) +
+  geom_histogram(aes(x = age, fill = sex)) +
+  facet_wrap(~sex, ncol = 2)
+```
+
+
+```{r}
+ggplot(benefits) +
+  geom_histogram(aes(x = age, fill = sex), col = "white") +
+  facet_wrap(~sex, ncol = 2)
+```
+
+```{r}
+ggplot(benefits) + 
+geom_histogram(aes(x = age, fill = sex), col = "white", alpha = 0.5, position = 'identity') #+ 
+#facet_wrap( ~ sex, ncol = 1)
+```
+
+
+```{r}
+ggplot(benefits) + 
+geom_histogram(aes(x = age, fill = sex), col = "white", alpha = 0.5)
+```
+
+
+```{r}
+ggplot(benefits) + 
+  geom_histogram(aes(x = age, fill = sex), col = "white") + 
+  facet_wrap(married ~ sex)
+
+ggplot(benefits) + 
+  geom_histogram(aes(x = age, fill = sex), col = "white") + 
+  facet_grid(married ~ sex)
+```
+
+
+```{r}
+benefits %>% 
+  mutate(married_sex = case_when(married == 'yes' ~ paste0('Married\n ', sex),
+                                 married == 'no' ~ paste0('Unmarried ', sex))) %>% 
+ggplot() + 
+  geom_histogram(aes(x = age, fill = sex), col = "white",
+                 show.legend = FALSE) + 
+  # geom_text(aes(60, 150, label = married_sex), hjust = 1) +
+  facet_wrap(~ married_sex)
+```
+
+```{r}
+benefits %>% 
+  mutate(married_sex = case_when(married == 'yes' ~ paste0('Married ', sex),
+                                 married == 'no' ~ paste0('Unmarried ', sex))) %>% 
+ggplot() + 
+  geom_histogram(aes(x = age, fill = sex), col = "white",
+                 show.legend = FALSE) + 
+   geom_text(aes(60, 150, label = married_sex), hjust = 1) +
+  facet_wrap(~ married_sex) +
+  theme(strip.text.x = element_blank())
+```
+
+### Task Use the same dataset, but base the facet_grid() on marital status (married) and if the individual has children (dkids).
+```{r}
+benefits %>% 
+  ggplot() +
+  geom_histogram(aes(x = age, fill = sex), col = "white") +
+  facet_grid(married ~ dkids)
+  
+```
+
+### Extension: can you improve the way that the facets are labled.
+```{r}
+benefits %>% 
+  ggplot() +
+  geom_histogram(aes(x = age, fill = sex), col = "white") +
+  facet_grid(married ~ dkids, labeller = "label_both")
+```
+
+Louise's work
+```{r}
+ggplot(benefits) +
+  geom_bar(aes(x = married, fill = dkids), col = "white") +
+  facet_grid(married ~ dkids)
+```
+
+```{r}
+students <-  read_csv("clean_data/students.csv")
+```
+
+```{r}
+students %>% 
+  ggplot(aes(reaction_time)) +
+  geom_histogram()
+```
+
+gives us a warning `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+```{r}
+students %>% 
+  ggplot(aes(reaction_time)) +
+  geom_histogram(bins = 10)
+```
+

@@ -15,6 +15,11 @@ knitr::opts_chunk$set(echo = TRUE, fig.align = 'center')
 
 # Tidyverse
 
+### Vignettes
+
+Gives a deeper help file, use packages window and click on the ie ggplot2
+
+
 ## Summarise
 
 ### Summarise in new column
@@ -28,6 +33,18 @@ knitr::opts_chunk$set(echo = TRUE, fig.align = 'center')
 ### Count
   
   `summarise(count = n())`
+  
+Can you the count on it's own, saves grouping and ungrouping the data
+```{r}
+count_data <- students %>%
+  group_by(superpower, school_year) %>%
+  summarize(n = n()) %>%
+  ungroup()
+
+count_data <- students %>%
+  count(superpower, school_year)
+```
+  
   
 ### Sum Count
 
@@ -115,3 +132,12 @@ put in , ie 1,000,000, decimal.mark lets you change the . to say
 (?i) starts case-insensitive mode
 
 (?-i) turns off case-insensitive mode
+
+
+# ggplot2
+
+`geom_bar` will automatically summaries the y axis for you. if if you don't have a aggregated ie counted use `geom_bar`. saves you needing to `group_by` and `summarise()` 
+count_data <- students %>%
+  count(superpower, school_year)
+
+`geom_col` will need you give it the y axis, if you have a aggregated ie counted use `geom_col`
