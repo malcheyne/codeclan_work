@@ -1,0 +1,217 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+```
+
+
+```{r}
+ggplot(students) +
+  geom_bar(aes(x = superpower))
+```
+
+```{r}
+olympics_overall_medals <- read_csv("clean_data/olympics_overall_medals.csv")
+```
+
+```{r}
+top_10 <- olympics_overall_medals %>%
+  filter(season == "Summer", medal == "Gold") %>%
+  arrange(desc(count)) %>%
+  top_n(10)
+
+top_10
+```
+### Task Create an informative plot that plots the count of medals by team. Write down an explanation of what the plot shows.
+
+
+```{r}
+ggplot(top_10) +
+  geom_col(aes(x = team, y = count, fill = team)) + 
+  xlab("Countries") +
+  ylab("Num. of Medals") +
+  ggtitle("Top 10 Counties with the most Golds")
+
+ggplot(top_10) +
+  geom_col(aes(x = count, y = team, fill = team)) + 
+  xlab("Countries") +
+  ylab("Num. of Medals") +
+  ggtitle("Top 10 Counties with the most Golds")
+```
+
+```{r}
+ggplot(olympics_overall_medals) +
+  geom_bar(aes(x = team, fill = team, stat='identity')) + 
+  xlab("Countries") +
+  ylab("Num. of Medals") +
+  ggtitle("Top 10 Counties with the most Golds")
+```
+
+
+```{r}
+library(janitor)
+```
+
+```{r}
+chick_weight <- clean_names(ChickWeight)
+
+head(chick_weight)
+```
+
+```{r}
+ggplot(chick_weight) +
+  geom_line(
+    aes(x = time, y = weight, group = chick, colour = diet))
+```
+
+
+```{r}
+# lines first then points
+ggplot(chick_weight) +
+  geom_line(aes(x = time, y = weight, group = chick, colour = diet)) +
+  geom_point(aes(x = time, y = weight, colour = diet))
+
+# points first then lines
+ggplot(chick_weight) +
+  geom_point(aes(x = time, y = weight, colour = diet)) +
+  geom_line(aes(x = time, y = weight, group = chick, colour = diet)) 
+  
+
+```
+
+```{r}
+ggplot(chick_weight) +
+  geom_line(
+    aes(x = time, y = weight, group = chick, colour = diet),
+    alpha = 0.25
+  ) +
+  geom_point(
+    aes(x = time, y = weight, colour = diet),
+    alpha = 0.5
+  ) +
+  geom_smooth(
+    aes(x = time, y = weight, group = diet), colour = "blue")
+
+```
+
+can write it as below if only using the global data, makes it netter 
+```{r}
+ggplot(chick_weight,
+       aes(x = time, y = weight,
+           group = chick, colour = diet)) +
+  geom_line() +
+  geom_point() +
+  geom_smooth(aes(group = diet), colour = "black") +
+  labs(colour = "DIET")
+```
+
+
+```{r}
+ggplot(chick_weight) +
+  geom_line(
+    aes(x = time, y = weight, group = chick, colour = diet),
+    alpha = 0.25
+  ) +
+  geom_point(
+    aes(x = time, y = weight, colour = diet),
+    alpha = 0.5
+  ) +
+  geom_smooth(
+    aes(x = time, y = weight), colour = "blue")
+  
+```
+
+```{r}
+students <-  read_csv("clean_data/students.csv")
+```
+
+### Task
+### Use geom_point to make a scatter graph, with the height of students on the x-axis and their reaction time of the y axis.
+```{r}
+ggplot(students) +
+  geom_point(
+    aes(x = height_cm, y = reaction_time)
+  )
+```
+
+### Make all the points blue. For geom_bar, the colour of the bar is controlled by fill, but for geom_point the colour of the points are controlled by colour.
+```{r}
+ggplot(students) +
+  geom_point(
+    aes(x = height_cm, y = reaction_time), colour = "blue")
+  
+```
+
+
+### Make the colour of the points depend on the superpower the student wishes they had.
+```{r}
+ggplot(students) +
+  geom_point(aes(x = height_cm, y = reaction_time, colour = superpower))
+```
+
+
+### Write down what the graph tells you overall.
+There doesn’t seem to be much of a relationship between height and reaction type.
+
+
+```{r}
+pets <- read_csv("clean_data/pets.csv")
+```
+### Task
+### We want age of the x-axis and weight on the y axis
+```{r}
+ggplot(pets) + 
+  aes(x = age, y = weight)
+```
+
+### We want the points the be different colours depending on the gender of the pet
+```{r}
+ggplot(pets) + 
+  aes(x = age, y = weight) +
+  geom_point(aes(colour = sex))
+```
+
+### We want different shapes depending on the type of animal
+```{r}
+ggplot(pets) + 
+  aes(x = age, y = weight) +
+  geom_point(aes(colour = sex, shape = animal))
+```
+
+### We want all the points to be bigger than normal (size 4).
+```{r}
+ggplot(pets) + 
+  aes(x = age, y = weight) +
+  geom_point(aes(colour = sex, shape = animal), size = 4)
+```
+
+### We also want labels with the pets names next to every point.
+```{r}
+ggplot(pets) + 
+  aes(x = age, y = weight) +
+  geom_point(aes(colour = sex, shape = animal), size = 4) +
+  geom_text(
+    aes(label = name),
+    nudge_x = 0.5,
+    nudge_y = 0.1,
+  )
+```
+
+can use `hjust` to have the names move in towards the middle 
+```{r}
+
+
+ggplot(pets) + 
+  aes(x = age, y = weight) +
+  geom_point(aes(colour = sex, shape = animal), size = 4) +
+  geom_text(
+    aes(label = name),
+    hjust ="inward"
+  )
+
+```
+

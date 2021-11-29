@@ -15,6 +15,11 @@ knitr::opts_chunk$set(echo = TRUE, fig.align = 'center')
 
 # Tidyverse
 
+### Vignettes
+
+Gives a deeper help file, use packages window and click on the ie ggplot2
+
+
 ## Summarise
 
 ### Summarise in new column
@@ -26,17 +31,29 @@ knitr::opts_chunk$set(echo = TRUE, fig.align = 'center')
   `floor()`
 
 ### Count
-  
+
   `summarise(count = n())`
-  
+
+Can you the count on it's own, saves grouping and ungrouping the data
+```{r}
+count_data <- students %>%
+  group_by(superpower, school_year) %>%
+  summarize(n = n()) %>%
+  ungroup()
+
+count_data <- students %>%
+  count(superpower, school_year)
+```
+
+
 ### Sum Count
 
   `summarise(count = sum(is.na(data1)))`
-  
+
   `summarise(count = sum(total_sighting, na.rm = TRUE))`
-  if there's a N/A in the count it will come back N/A, 
+  if there's a N/A in the count it will come back N/A,
   na.rm = removes any N/A
-  
+
 ## Filter
 
 ### For NA
@@ -46,11 +63,11 @@ knitr::opts_chunk$set(echo = TRUE, fig.align = 'center')
 ### For Chr
 
   `filter(first_name == "Mary")`
-  
+
 ### For Dbl
 
   `filter(year > 1999)`
-  
+
 ## Reanme
 
   `rename(mass_in_g = mass (g))`
@@ -83,21 +100,21 @@ Turns into Lower case
   `str_to_lower()`
 
 ### Title
- 
+
 Makes the frist letter Upper case
   `str_to_title()`
 
 ### Sentence
- 
+
 
   `str_to_sentence()`
-  
+
 ## Substring
 
-Can pick out a part of the string, 1 is the start -1 is the end 
-  `str_sub(start = 1, end = 5)` 
+Can pick out a part of the string, 1 is the start -1 is the end
+  `str_sub(start = 1, end = 5)`
   `str_sub(-5, -1)`
-  
+
 ### Split
 
 Will split one string into many part ie on each space
@@ -105,17 +122,20 @@ Will split one string into many part ie on each space
 
 ### Format
 
-formats the result, nsall is how many after the decimal mark, big.mark lets you 
+formats the result, nsall is how many after the decimal mark, big.mark lets you
 put in , ie 1,000,000, decimal.mark lets you change the . to say
 `format(nsmall = 2, big.mark= ",", decimal.mark = ".")`
 
 
-### upper lower case in regex 
+### upper lower case in regex
 
 (?i) starts case-insensitive mode
 
 (?-i) turns off case-insensitive mode
 
+### seq()
+
+`seq(13)` is the same as 1:13
 
 ## From dirty data chat
 
@@ -152,7 +172,7 @@ I think setdiff() and intersect() are the two functions I used to compare column
 ### `names_prefix =`
 
 Noticed in tasks one you were trying to clean the event name when they were still variables. You can do a little cleaning on the names with names_prefix =
-decathalon %>% 
+decathalon %>%
   pivot_longer(
     x100m:x1500m,
     names_to = "event",
@@ -165,20 +185,19 @@ library(magrittr)
 library(dplyr)
 
 # across, of a function with no arguments
-iris %>% 
+iris %>%
   summarise(across(where(is.numeric), mean))
 
 # will throw error
-iris %>% 
+iris %>%
   summarise(across(where(is.numeric), mean(.x, na.rm = TRUE)))
 
 # it's trying to run this:
 mean(.x, .na.rm = TRUE)
 
 
-# we need to delay the 'immediate evaluation' (running). so we use 
+# we need to delay the 'immediate evaluation' (running). so we use
 # tilde:
-iris %>% 
+iris %>%
   summarise(across(where(is.numeric), ~mean(.x, na.rm = TRUE)))
 ```
-

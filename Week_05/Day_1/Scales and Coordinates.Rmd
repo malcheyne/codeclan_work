@@ -1,0 +1,171 @@
+---
+title: "Scales and Coordinates"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+```
+
+
+```{r}
+pets <- read_csv("clean_data/pets.csv")
+
+ggplot(pets) +
+  aes(age, weight, colour = sex) +
+  geom_point()
+```
+
+```{r}
+ggplot(data = pets, mapping = aes(x = age, y = weight, colour = sex)) +
+  geom_point() +
+  scale_x_continuous(breaks = 1:13) +
+  scale_y_continuous(breaks = c(5, 7, 9, 11))
+```
+
+```{r}
+ggplot(data = pets, mapping = aes(x = age, y = weight, colour = sex)) +
+  geom_point() +
+  scale_x_continuous(breaks = c(2, 4, 6, 8, 10, 12)) +
+  scale_y_continuous(breaks = c(5, 7, 9, 11))
+```
+
+```{r}
+ggplot(pets) +
+  aes(age, weight, colour = sex) +
+  geom_point() +
+  scale_x_continuous(
+    breaks = 1:13,
+    limits = c(1, 8)
+    )
+
+
+```
+
+```{r}
+d <- data.frame(x = c(1:5, 10, 5:1),
+                y = c(1:5, 10, 4:1, 1)) 
+
+# with limits
+
+d %>% 
+  ggplot(aes(x, y)) +
+  geom_path() +
+  scale_x_continuous(breaks = 1:13, limits = c(1, 8))
+
+# without limits
+
+d %>% 
+  ggplot(aes(x, y)) +
+  geom_path() +
+  scale_x_continuous(breaks = 1:13)
+
+# 
+
+d %>% 
+  ggplot(aes(x, y)) +
+  geom_path() +
+  coord_cartesian(xlim = c(1, 8))
+```
+
+# Task Eliminate the animals who weigh more than 8kg from the plot.
+```{r}
+ggplot(pets) +
+  aes(age, weight, colour = sex) +
+  geom_point() +
+  scale_x_continuous(
+    breaks = 1:13,
+    limits = c(1, 8)
+    ) +
+  scale_y_continuous(
+    breaks = c(2, 4, 6, 8),
+    limits = c(1, 8))
+```
+
+# 5 Flipping a plot
+
+```{r}
+ggplot(pets, mapping = aes(x = animal, fill = sex)) +
+  geom_bar() +
+  coord_flip()
+
+
+```
+
+same as above, on a bigger plots may 
+```{r}
+ggplot(pets, mapping = aes(x = animal, fill = sex)) +
+  geom_bar()
+
+ggplot(pets, mapping = aes(y = animal, fill = sex)) +
+  geom_bar()
+```
+
+factor are unordered for plotting best to keep it that way
+
+```{r}
+monthly_sales <- read_csv("clean_data/monthly_sales.csv")
+
+monthly_sales <- monthly_sales %>%
+  mutate(month = factor(month, levels = c("Jan", "Feb", "March", "April"))) 
+
+ggplot(monthly_sales) +
+  aes(x = branch, y = sales, fill = month) +
+  geom_col(position = "dodge") +
+  coord_flip()
+```
+
+
+taking out the mutate means the data in factor is unordered so will shown in alphabetical order 
+```{r}
+monthly_sales <- read_csv("clean_data/monthly_sales.csv")
+
+# monthly_sales <- monthly_sales %>%
+#   mutate(month = factor(month, levels = c("Jan", "Feb", "March", "April"))) 
+
+ggplot(monthly_sales) +
+  aes(x = branch, y = sales, fill = month) +
+  geom_col(position = "dodge") +
+  coord_flip()
+```
+
+
+```{r}
+monthly_sales %>%
+  mutate(month = factor(month, levels = c("Jan", "Feb", "March", "April")),
+         sales_thousands = sales/1000) %>%
+ggplot() +
+  aes(x = branch, y = sales_thousands, fill = month) +
+  geom_col(position = "dodge") +
+  ylab("Sales (1000 units)") +
+  coord_flip()
+```
+
+```{r}
+monthly_sales %>%
+  mutate(month = factor(month, levels = c("Jan", "Feb", "March", "April")),
+         sales_thousands = sales/1000) %>%
+ggplot() +
+  aes(x = branch, y = sales, fill = month) +
+  geom_col(position = "dodge") +
+  scale_y_continuous(labels = scales::comma) +
+  coord_flip()
+```
+
+
+```{r}
+pets_update <- pets %>% 
+  add_row(age = c(5, 70), weight = c(40, 14), sex = c('M', 'F'))
+ggplot(pets_update) +
+  aes(age, weight, colour = sex) +
+  geom_point() +
+    # scale_y_continuous(trans = "log10", name = "log(weight)") +
+    scale_x_continuous(trans = "log10", name = "log(height)") +
+  geom_point(mapping = aes(x, y), colour = 'blue',
+             data = tibble(x = c(2, 11, 15, 20), y = c(5, 5, 5, 5), sex = c(NA)))
+```
+
+
