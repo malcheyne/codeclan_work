@@ -1,0 +1,160 @@
+---
+title: "Making Effective Plots"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+
+total_sales <- read_csv("clean_data/total_sales.csv")
+
+ggplot(total_sales) +
+  aes(x = branch, y = sales) +
+  geom_col() +
+  coord_flip()
+```
+ggplot will always plot alphabetical order, with out the `cood_flip()` it start with Ed. 
+
+
+
+
+```{r}
+ggplot(total_sales) +
+  aes(x = reorder(branch, sales), y = sales) +
+  geom_col() +
+  coord_flip()
+```
+
+```{r}
+ggplot(total_sales) +
+  aes(x = reorder(branch, desc(sales)), y = sales) +
+  geom_col() +
+  coord_flip()
+```
+
+```{r}
+ggplot(total_sales) +
+  aes(x = reorder(branch, desc(sales)), y = sales, fill = branch ==  "Edinburgh") +
+  geom_col() +
+  scale_fill_manual(values = c('grey40', 'red'), guide = "none") +  # first colour is for FALSE, 2nd is TRUE
+  coord_flip()
+```
+
+
+
+```{r}
+total_sales_annot <- total_sales %>%
+  mutate(label_text = ifelse(branch == "Edinburgh", "Edinburgh branch has 620K sales", NA))
+
+ggplot(total_sales_annot) +
+  aes(x = reorder(branch,sales), y = sales, fill = branch == "Edinburgh") +
+  geom_col() +
+  scale_fill_manual(values = c("grey60","darkgreen"), guide = "none") + 
+  coord_flip() + 
+  geom_text(aes(label = label_text), color ="darkgreen", size =4, hjust=-0.1)
+```
+
+
+### Task Suppose we’re doing a comparison between January and April now. We want to understand which branches are improving. For this we can look in the dataset monthly_sales. The variable difference_from_january has each month’s sales differences from January.
+
+```{r}
+monthly_sales <- read_csv("clean_data/monthly_sales.csv") %>%
+  mutate(month = factor(month, levels = c("Jan", "Feb", "March", "April"))) 
+
+head(monthly_sales)
+```
+
+```{r}
+ggplot(monthly_sales) +
+  aes(x = branch, y = sales, fill = month) +
+  geom_col(position = "dodge") +
+  coord_flip()
+```
+
+```{r}
+ggplot(monthly_sales) +
+  aes(x = branch, y = sales, fill = month %in% c("Jan", "April")) +
+  geom_col(position = "dodge") +
+  labs(
+    title = "Branch Sales",
+      subtitle = "comparison between January and April"
+  ) +
+  coord_flip()
+```
+### Class workout of my code
+```{r}
+test <- monthly_sales %>%
+  filter(month %in% c("Jan","April"))
+
+ggplot(test) +
+  aes(x = branch, y = sales, fill = month) +
+  geom_col(position = "dodge") +
+  labs(
+    title = "Branch Sales",
+      subtitle = "comparison between January and April"
+  ) +
+  coord_flip()
+```
+
+### Example answer 
+```{r}
+monthly_sales_april <- monthly_sales %>%
+  filter(month == "April") 
+
+min_max <-max(abs(monthly_sales_april$difference_from_jan))
+  
+
+ggplot(monthly_sales_april) +
+  aes(
+    x = reorder(branch, difference_from_jan),
+    y = difference_from_jan,
+    fill = difference_from_jan > 0
+  ) +
+  geom_col() +
+  ylim(-min_max, min_max) +
+    labs(y = "Difference in sales", x = "Branch location", title = "Sales differences between January and April") + 
+  scale_fill_manual(values = c("tomato", "seagreen"), name = "", labels = c("decrease", "increase")) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+### Task Here is the same information as our first barchart, shown in a line chart.
+```{r}
+ggplot(monthly_sales) +
+  aes(x = month, y = sales, group = branch, colour = branch) +
+  geom_line() 
+```
+### 
+####    Q1. Which graph is superior for comparing sales growth between branches?
+      The line graph is superior - the grouped bar chart requires greater mental work to identify which bars belong to the same branch. They are colour coded, but we have too many colours and it’s no longer popping out.
+      
+####    Q2. Which graph is superior for comparing sales in April between branches?
+      Both are fit for purpose here, but neither is notably better at this. More generally the line chart seems as good or better than the grouped bar plot for this data for the applications that occur to me.
+      
+####    Q3. A colleague proposes using the grouped bar chart but changing the order of branches between months so they are ordered by sales numbers in that month. Comment on this suggestion.
+      In contrast to the previous example, this sounds like a bad idea. It’s hard enough to compare a branch’s performance between months - mixing up the order of the bars sounds like a recipe for confusion.
+      
+####    Q4. A senior manager suspects the proportion of sales arising from Northern offices (Edinburgh, Glasgow, Leeds, Manchester) are growing relative to southern offices. Produce a visualisation that speaks to this.
+
+```{r}
+library(scales) 
+
+monthly_sales_region <- monthly_sales %>%
+  mutate(northern = branch %in% c("Edinburgh", "Glasgow", "Leeds", "Manchester"))
+
+ggplot(monthly_sales_region) +
+  aes(x = month, y = sales, group = branch, colour = northern) +
+  geom_line() +
+  scale_y_continuous(labels = comma) #avoid scientific notation of y values
+```
+### Bit of a class work around
+```{r}
+ggplot(monthly_sales_region) +
+  aes(x = month, y = sales, group = branch, colour = northern) +
+  geom_line() +
+  scale_y_continuous(labels = comma) + 
+  scale_color_discrete(name = "Region", labels = c("South", "North"))
+```
+
+
+
