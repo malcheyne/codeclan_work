@@ -127,6 +127,10 @@ put in , ie 1,000,000, decimal.mark lets you change the . to say
 `format(nsmall = 2, big.mark= ",", decimal.mark = ".")`
 
 
+### Regix
+
+`can[a]*[^e]`
+
 ### upper lower case in regex
 
 (?i) starts case-insensitive mode
@@ -165,9 +169,7 @@ setdiff() this is what I've found from google
 David  2 minutes ago
 I think setdiff() and intersect() are the two functions I used to compare columns when I first did this task. Think they're base R. janitor is probably a good way to go
 
-### Regix
 
-`can[a]*[^e]`
 
 ### `names_prefix =`
 
