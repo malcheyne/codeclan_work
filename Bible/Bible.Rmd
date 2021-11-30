@@ -165,7 +165,9 @@ setdiff() this is what I've found from google
 David  2 minutes ago
 I think setdiff() and intersect() are the two functions I used to compare columns when I first did this task. Think they're base R. janitor is probably a good way to go
 
+### Regix
 
+`can[a]*[^e]`
 
 ### `names_prefix =`
 
