@@ -137,8 +137,8 @@ d20x5_outcomes <- read_csv("lab_data/d20x5_outcomes.csv")
 
 ```{r}
 d20_outcomes %>% 
-  ggplot(aes(outcome), fill = outcome) + 
-  geom_bar() +
+  ggplot(aes(outcome)) + 
+  geom_bar(fill = "Blue") +
   scale_x_continuous(breaks = seq(0, 20, 2)) +
   labs(title = "\n d20 test \n",
        x = "\n Outcome of a d20 \n",
@@ -159,6 +159,14 @@ d20x5_outcomes %>%
   ggplot(aes(outcome)) + 
   geom_density(alpha = 0.9, colour = "green")
   # geom_bar()
+```
+
+### Class work out
+```{r}
+ggplot(d20x5_outcomes) +
+  aes(x = outcome) +
+  geom_histogram(aes(y = ..density..), bins = 20, col = "white") +
+  geom_density()
 ```
 
 

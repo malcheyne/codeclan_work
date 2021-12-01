@@ -203,3 +203,6 @@ mean(.x, .na.rm = TRUE)
 iris %>%
   summarise(across(where(is.numeric), ~mean(.x, na.rm = TRUE)))
 ```
+
+
+../ same a `here()` but only one folder up
