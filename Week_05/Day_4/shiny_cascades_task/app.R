@@ -25,7 +25,7 @@ ui <- fluidPage(
                          choices = unique(nyc_dogs$borough))
       ),
       # choose which breed of dog
-      column(2,  
+      column(3,  
              selectInput("breed_input",
                          "Which Breed ",
                          choices = unique(nyc_dogs$breed))
