@@ -169,6 +169,21 @@ ggplot(d20x5_outcomes) +
   geom_density()
 ```
 
+### Chirs sujestion
+```{r}
+d20x5_outcomes %>% 
+  ggplot(aes(x = salary)) +
+  geom_histogram(aes(y = ..density..), col = "white", bins = 25) +
+  stat_function(
+    fun = dnorm, 
+    args = list(
+      mean = d20x5_outcomes$mean, 
+      sd = d20x5_outcomes$sd
+    ),
+    col = "red"
+  )
+```
+
 
 ### Composition
 
