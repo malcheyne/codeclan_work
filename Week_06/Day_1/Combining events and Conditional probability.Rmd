@@ -1,0 +1,159 @@
+---
+title: "Combining events and Conditional probability"
+output: html_notebook
+---
+
+```{r}
+library(prob)
+library(tidyverse)
+```
+
+
+# Calculating the complement of an event
+
+The probability of $A^{c}$, $\textrm{prob}(A^c)$ is simply equal to $1-\textrm{prob}(A)$ since an event **has to either occur or not occur**, so 
+
+$$\textrm{prob}(A)+\textrm{prob}(A^c) = 1$$.
+
+
+```{r}
+s_four_coins <- tosscoin(4) %>% 
+  mutate(row = row_number())
+
+s_four_coins
+```
+
+
+```{r}
+s_four_coins <- s_four_coins %>% 
+  mutate(num_heads = rowSums(. == "H"))
+
+s_four_coins
+```
+
+```{r}
+s_at_least_two_heads <- s_four_coins %>% 
+  filter(num_heads >= 2)
+
+prob_two_plus_heads <- nrow(s_at_least_two_heads) / nrow(s_four_coins)
+
+prob_two_plus_heads
+
+# get the observations where there are less than 2 heads
+# s_at_least_two_heads <- s_four_coins %>% 
+#   filter(num_heads < 2)
+
+# calculate the probability
+# prob_less_two <- nrow(s_less_than_two_heads) / nrow(s_four_coins)
+# prob_less_two
+```
+
+# AND combinations
+
+In probability theory, we call this the **intersection** $\cap$ of the two event spaces.
+$$(A \cap B) = \{3,4\}$$
+
+### Task - 5 mins
+
+Given our four coin tossing example from above, what is the probability of tossing at least one head and at least one tail?
+
+    To do this, you’ll need to add a num_tails column to s_four_coins
+    Then think about filtering to satisfy the two conditions
+```{r}
+s_four_coins <- s_four_coins %>% 
+  mutate(num_tails = rowSums(. == "T"))
+
+s_four_coins
+```
+
+```{r}
+s_four_coins %>% 
+  filter(num_heads > 0 &
+           num_tails > 0) 
+```
+
+```{r}
+s_four_coins %>% 
+  filter(num_heads > 0 &
+           num_tails > 0) %>% 
+  summarise(prob = n() / nrow(s_four_coins))
+```
+
+```{r}
+# gives the same as using &
+s_four_coins %>% 
+  filter(num_heads > 0,
+           num_tails > 0)
+```
+
+# OR combinations
+
+In probability theory, this involves taking the **union** of the two event spaces:
+
+$$(A \cup B) = \{2,4,5,6\}$$
+
+```{r}
+# create our sample space: two die rolls
+s_two_dice <- rolldie(2)
+
+# now filter down to cases where X1 is even or X2 is 5
+s_two_dice %>% 
+  filter(X1 %% 2 == 0 | X2 == 5) %>% 
+  summarise(prob = n() / nrow(s_two_dice))
+```
+
+### Optional Task - 10 mins
+
+Let's check the addition law for ourselves. Calculate probabilities for each event below:
+
+* $\textrm{first_die_even}$
+* $\textrm{second_die_5}$
+* $\textrm{first_die_even AND second_die_5}$
+
+Then use these probabilities in the expression from above
+
+$$\textrm{prob}(A \cup B) = \textrm{prob}(A) + \textrm{prob}(B) - \textrm{prob}(A \cap B)$$
+
+and check you get the same probability for $\textrm{prob}(\textrm{first_die_even OR second_die_5})$ as we obtained from the last block of code.
+
+<details>
+<summary>**Hint**</summary>
+$$
+\begin{multline}
+\textrm{prob}(\textrm{first_die_even OR second_die_5}) = \\ 
+\textrm{prob}(\textrm{first_die_even}) + \textrm{prob}(\textrm{second_die_5}) \\
+- \textrm{prob}(\textrm{first_die_even AND second_die_5}) 
+\end{multline}
+$$
+
+```{r}
+first_die_even <- s_two_dice %>%
+  filter(X1 %% 2 == 0) %>% 
+  summarise(prob = n() / nrow(s_two_dice)) %>% 
+  pull()
+
+second_die_5 <- s_two_dice %>% 
+  filter(X2 == 5) %>% 
+  summarise(prob = n() / nrow(s_two_dice)) %>% 
+  pull()
+
+both_con <- s_two_dice %>% 
+  filter(X1 %% 2 == 0 & X2 == 5) %>% 
+  summarise(prob = n() / nrow(s_two_dice)) %>% 
+  pull()
+
+pr_union <- first_die_even + second_die_5 - both_con 
+
+# pull() takes the tibble df and makes it a value to use in the sum above
+```
+
+
+# Conditional probability
+
+
+
+
+
+
+
+
