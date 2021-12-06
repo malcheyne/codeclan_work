@@ -1,0 +1,231 @@
+---
+title: "Core definitions and Counting rules"
+output: html_notebook
+---
+
+# Core definitions
+
+### Task - 5 mins Two dice are rolled, leading to a sample space:
+
+Stwo-dice={(1,1),(1,2),(1,3),(1,4)...,(6,4),(6,5),(6,6)}
+.
+
+
+Write out the set of outcomes corresponding to the event that the total of the two dice is 7.
+
+Hint: You want to write out all possible combinations of dice rolls that would add up to 7
+
+(1,6), (2,5), (3,4), (4,3), (5,2), (6,1)
+
+
+```{r}
+library(prob)
+library(tidyverse)
+```
+
+
+```{r}
+# sample space for roll of two dice
+s_two_dice <- rolldie(2)
+s_two_dice
+```
+
+```{r}
+# event space for roll of a total of seven
+s_sum_equals_seven <- s_two_dice %>%
+  filter(X1 + X2 == 7)
+
+# how large is the event space?
+s_sum_equals_seven %>%
+  summarise(size_of_event_space = n())
+
+s_sum_equals_seven
+```
+
+random variables X1 and X2 use caps, wacth out when cleaning data
+
+```{r}
+s_two_dice <- s_two_dice %>%
+  mutate(total = X1 + X2)
+s_two_dice
+```
+
+```{r}
+s_two_dice %>% 
+  count(total)
+```
+
+
+### Task - 5 mins
+
+Add your own random variable to s_two_dice, and then use your new random variable to define an event space. Some suggestions:
+
+    random variable: first_die_even, event: first_die_even == TRUE
+    random variable: die2_minus_die1, event: die2_minus_die1 == -2
+    random variable: differ_by_two, event: differ_by_two == FALSE
+
+
+```{r}
+s_two_dice <- s_two_dice %>%
+  mutate(first_die_even = X1 %% 2 == 0) %>%
+  mutate(die2_minus_die1 = )
+
+
+s_two_dice
+```
+
+# Counting rules
+
+```{r}
+# get all possible combos of 2 die rolls
+s <- rolldie(2)
+
+# find when the two separate die rolls total 7
+total_seven <- s %>%
+  filter(X1 + X2 == 7)
+
+total_seven
+```
+
+```{r}
+# number of outcomes / total number of options
+prob_total_seven <- nrow(total_seven) / nrow(s)
+prob_total_seven
+```
+
+### What is the probability of getting heads on a coin toss and a 6 on a die throw?
+
+```{r}
+# set up one roll of a dice
+s_die <- rolldie(1)
+
+# set up one toin coss
+s_coin <- tosscoin(1)
+
+# merge them together
+s_total <- merge(s_coin, s_die)
+
+#how many outcomes for our question?
+head_six <- s_total %>%
+  dplyr::filter(toss1 == "H", X1 == 6)
+
+# calculate the probability
+prob_head_six <- nrow(head_six) / nrow(s_total)
+prob_head_six
+```
+
+```{r}
+?intersect()
+# Finds the comming columns 
+
+intersect(names(s_coin), names(s_total))
+# "toss1" is comming between the both
+```
+
+
+## Permutations
+
+The permutations counting rule formula is as follows:
+$$^NP_r = \frac{N!}{(N-r)!}$$
+
+We could say this in plain language as:
+
+‘The number of permutations of N things taken r at a time’
+
+```{r}
+library(gtools)
+```
+
+```{r}
+# create vector of choices contains ten employees, n = 10. 
+employees <- c("Alice", "Bob", "Carole", "David", "Elaine", 
+               "Fred", "Gabra", "Hua", "Inigo", "Hugo")
+
+# Choose three at a time, r = 3
+# Don't replace an employee once chosen: repeats.allowed = FALSE
+seniors <- as_tibble(permutations(n = 10, 
+                                  r = 3, 
+                                  v = employees, 
+                                  repeats.allowed = FALSE))
+
+# n	Size of the source vector
+# 
+# r	Size of the target vectors
+# 
+# v	Source vector. Defaults to 1:n
+
+# repeats.allowed = is defaulted to FALSE
+
+# rename the variables in seniors to something better
+seniors <- seniors %>%
+  rename(
+    CEO = V1,
+    CTO = V2,
+    COO = V3
+  )
+
+# let's see what the seniors matrix looks like
+seniors
+```
+
+### What is the probability of Alice being selected as CEO and Bob being selected as CTO, if the selection process is random?
+```{r}
+# first get the event space
+alice_CEO_bob_CTO <- seniors %>%
+  filter(CEO == "Alice", CTO == "Bob")
+alice_CEO_bob_CTO
+```
+
+```{r}
+# then calculate the prob
+prob <- nrow(alice_CEO_bob_CTO) / nrow(seniors)
+prob
+
+# makes it 8/270 which is 1/90 odds
+```
+
+
+## Combinations
+
+We can find the total number of combinations using the following formula:
+
+$$^NC_r = \binom{N}{r} = \frac{N!}{r! \times(N-r)!}$$
+"N choose r" is how some stats people say Combinations, so the function is choose()
+
+```{r}
+# use the choose() function instead, which just computes the number of choices from 50 numbers, drawn in lots of 6
+num_draws <- choose(50, 6)
+num_draws
+```
+
+### Task - 5 mins
+
+Use the combinations() function in gtools for this task (don’t try to do it manually). I have five flavours of ice cream to choose from:
+
+flavours <- c("vanilla", "chocolate", "raspberry", "strawberry", "pistachio") 
+
+and a bowl that can hold three scoops. How many different variations in bowls of ice cream can I have assuming:
+
+    Each scoop must be a different flavour
+    I can repeat flavours if I wish?
+
+```{r}
+flavours <- c("vanilla", "chocolate", "raspberry", "strawberry", "pistachio") 
+```
+
+```{r}
+as_tibble(combinations(n = 5,
+                       r = 3,
+                       v = flavours,
+                       repeats.allowed = FALSE))
+
+```
+
+```{r}
+as_tibble(combinations(n = 5,
+                       r = 3,
+                       v = flavours,
+                       repeats.allowed = TRUE))
+```
+
+
