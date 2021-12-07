@@ -1,0 +1,71 @@
+---
+title: "Distributions - measures of spread"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(skimr)
+```
+
+```{r}
+jobs <- read_csv("data/TyrellCorpJobs.csv") %>% 
+  clean_names()
+jobs
+```
+
+# Measures of spread
+
+## Range
+
+range = max_value - min_value
+
+spread=max. value_min. - value
+
+
+range of salaries is just the max salary - min salary
+```{r}
+jobs %>% 
+  summarise(max = max(salary),
+            min = min(salary),
+            range = max(salary) - min(salary))
+
+# n.b. R has a range function - it returns max and min but dosn't coulate the diff
+```
+
+```{r}
+range(jobs$salary)
+```
+
+```{r}
+diff(range(jobs$salary))
+```
+
+
+```{r}
+jobs %>% 
+  ggplot() +
+  geom_histogram(aes(x = salary),
+                 col = "white", bins = 25)
+```
+
+```{r}
+# separating position
+jobs %>% 
+  ggplot() +
+  geom_histogram(aes(x = salary),
+                 col = "white", bins = 25) +
+  facet_wrap(~position)
+```
+
+```{r}
+jobs %>% 
+  group_by(position) %>% 
+  summarise(range = diff(range(salary)))
+```
+
+A potential problem (with using the range as a measure of spread): it is very strongly affected by outliers.
+
+## Quartiles and interquartile range
+
