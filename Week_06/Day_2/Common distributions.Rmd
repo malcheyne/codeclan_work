@@ -1,0 +1,90 @@
+---
+title: "Common distributions"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+```
+
+
+```{r}
+dice <- tibble(
+    x = 1:6,
+    f_x = replicate(6, 1/6)
+  ) %>%
+  mutate(F_x = cumsum(f_x))
+
+dice %>%
+  ggplot(aes(x = x, y = F_x)) +
+  geom_step() +
+  xlab("number rolled on die") + ylab("probability") +
+  scale_x_continuous(breaks = 1:6) +
+  scale_y_continuous(breaks = seq(0, 1, 0.1)) +
+  ylim(0, 1) 
+```
+
+
+```{r}
+three_norms <- tibble(
+  x =  seq(0, 20, 0.1),
+  f1_x = dnorm(x = x, mean = 10, sd = 1), 
+  f2_x = dnorm(x = x, mean = 10, sd = 2),
+  f3_x = dnorm(x = x, mean = 10, sd = 3)
+)
+
+three_norms %>%
+  ggplot() +
+  geom_line(aes(x = x, y = f2_x), col = "black")
+```
+
+```{r}
+three_norms %>%
+  ggplot() +
+  geom_line(aes(x = x, y = f1_x), col = "black") +
+  geom_line(aes(x = x, y = f2_x), col = "red") +
+  geom_line(aes(x = x, y = f3_x), col = "blue")
+```
+
+```{r}
+three_norms_mk1 <- tibble(
+  x =  seq(0, 20, 0.1),
+  f1_x = dnorm(x = x, mean = 12, sd = 4), 
+  f2_x = dnorm(x = x, mean = 12, sd = 5),
+  f3_x = dnorm(x = x, mean = 12, sd = 7)
+)
+
+three_norms %>%
+  ggplot() +
+  geom_line(aes(x = x, y = f2_x), col = "black")
+```
+```{r}
+three_norms_mk1 %>%
+  ggplot() +
+  geom_line(aes(x = x, y = f1_x), col = "black") +
+  geom_line(aes(x = x, y = f2_x), col = "red") +
+  geom_line(aes(x = x, y = f3_x), col = "blue")
+```
+
+
+```{r}
+z = seq(from = -4, to = 4, by = 0.01)
+  
+z
+```
+
+
+```{r}
+f_z = dnorm(x = z)
+
+head(f_z)
+```
+```{r}
+tail(f_z)
+```
+
+```{r}
+plot(f_z, typ = 'l')
+```
+

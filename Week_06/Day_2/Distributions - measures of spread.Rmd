@@ -67,5 +67,152 @@ jobs %>%
 
 A potential problem (with using the range as a measure of spread): it is very strongly affected by outliers.
 
-## Quartiles and interquartile range
+## Quartiles and the Interquartile Range
 
+Q1: the value splitting the distribution such
+that 25% data below, 75% above
+Q2: "" "" "" such that 50% data below 50% above - the median
+Q3: "" "" "" such that 75% data below 25% above
+--|--|--|--
+```{r}
+# quartiles for the jobs data
+jobs %>% 
+  group_by(position) %>% 
+  summarise(
+    Q1 = quantile(salary, 0.25),
+    Q2 = quantile(salary, 0.5),
+    Q3 = quantile(salary, 0.75)
+  )
+```
+```{r}
+iqr <- jobs %>% 
+  group_by(position) %>% 
+  summarise(
+    Q1 = quantile(salary, 0.25),
+    Q2 = quantile(salary, 0.5),
+    Q3 = quantile(salary, 0.75)
+  ) %>% 
+  pivot_longer(Q1:Q3, names_to = "fencepost", values_to = "value")
+jobs %>% 
+  ggplot() +
+  geom_histogram(aes(x = salary), col = "white", bins = 25) +
+  geom_vline(xintercept = iqr$value, linetype = "dashed", colour = "red") +
+  facet_wrap(~position)
+```
+## The Interquartile Range
+The range between the fenceposts Q3 and Q1
+```{r}
+jobs %>% 
+  group_by(position) %>% 
+  summarise(
+    Q1 = quantile(salary, 0.25),
+    Q2 = quantile(salary, 0.5),
+    Q3 = quantile(salary, 0.75),
+    IQR = Q3 - Q1,
+    # R also has an IQR function:
+    IQR_fun = IQR(salary)
+  )
+```
+
+# The five figure summary
+
+min, Q1, Q2, Q3, max
+```{r}
+summary(jobs$salary)
+```
+We wanted accounting and management to be grouped
+though
+```{r}
+library(skimr)
+```
+`skim()` is a more sophisticated summary
+```{r}
+ffs <- jobs %>% 
+  select(-x1) %>% 
+  group_by(position) %>% 
+  skim()
+```
+```{r}
+ffs$numeric.hist
+```
+
+## Box Plots
+
+An excellent statistical diagnostic tool
+box plots / hinge plots / box and whisker / tukey 
+```{r}
+jobs %>% 
+  ggplot() +
+  aes(x = salary, y = position) +
+  stat_boxplot(geom = "errorbar", width = 0.5) +
+  geom_boxplot()
+```
+- a more rigourous definition of what an outlier is
+whiskers are typically positioned 1.5 times the IQR above and below Q3 and Q1 respectively. Any points that lie outside of that range are outliers
+
+## Skew in box plots:
+
+What does skew look like on a box plot?
+```{r}
+heavily_right_skewed <- read_csv("data/heavily_right_skewed.csv")
+```
+```{r}
+heavily_right_skewed %>% 
+  ggplot() +
+  geom_boxplot(aes(x = x))
+```
+```{r}
+heavily_right_skewed %>% 
+  ggplot() +
+  geom_histogram(aes(x=x), colour = "white", bins = 30)
+```
+```{r}
+library(e1071)
+```
+```{r}
+jobs %>% 
+  group_by(position) %>% 
+  summarise(skewness = skewness(salary, type = 1))
+```
+break - 5 mins
+Aside
+- remove outliers from the data (potentially dangerous)
+- get where Q1 and Q3 are
+- get interquartile range
+- calculate distance to whisker (1.5*IQR)
+- filter values above Q3 + 1.5IQR, values below Q1 - 1.5IQR
+
+# Variance
+
+- a single measure of spread
+variance = how far each value is from the mean
+variance of a sample = $s^2$
+sHow to calc variance step by step:
+1. get the difference between each value and the mean - squared
+2. sum them
+3. divide by the total number of values - 1
+How to calc variance in R:
+`var()`
+```{r}
+jobs %>% 
+  group_by(position) %>% 
+  summarise(variance = var(salary))
+```
+dollars squared doesn't mean a lot to me. How many pounds is that worth?
+
+## Standard Deviation
+
+- a more interpretable single measure of spread of the data
+to go from variance to st. dev all we do is take
+the square root
+```{r}
+jobs %>% 
+  group_by(position) %>% 
+  summarise(mean = mean(salary),
+            # david proving R works as expected
+            st_dev = sqrt(var(salary)),
+            sd = sd(salary)) 
+```
+so... if you come and work for TyrellCorp in
+Accounting, you can expect to earn 34,115 +/- 2400
+Management, you can expect to earn 51,000 +/- 11000
