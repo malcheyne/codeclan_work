@@ -1,0 +1,196 @@
+---
+title: "Sampling distributions"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+```
+```{r}
+telco <- read_csv("data/telecomms_churn.csv")
+```
+```{r}
+telco <- clean_names(telco)
+
+glimpse(telco)
+```
+not real world as we wouldn't have this much data, this is for example for later
+```{r}
+summary_pop <- telco %>% 
+  summarise(mean_monthly_charges = mean(monthly_charges),
+            mean_tenure = mean(tenure),
+            prop_churn = sum(churn == "Yes") / n()
+  ) 
+summary_pop
+```
+
+
+```{r}
+telco %>% 
+  ggplot() +
+  aes(x = monthly_charges) +
+  geom_histogram(col = "white", fill = "steel blue", alpha = 0.7)
+```
+
+```{r}
+telco %>% 
+  ggplot() +
+  aes(x = tenure) +
+  geom_histogram(col = "white", fill = "steel blue", alpha = 0.7)
+```
+
+```{r}
+telco %>% 
+  ggplot() +
+  aes(x = churn) +
+  geom_bar(col = "white", fill = "steel blue", alpha = 0.7)
+```
+
+```{r}
+library(infer)
+```
+
+```{r}
+sample_200 <- telco %>% 
+  rep_sample_n(size = 200, reps = 1)
+
+sample_200
+```
+
+```{r}
+groups(sample_200)
+```
+
+```{r}
+summary_sample <- sample_200 %>% 
+  ungroup() %>% 
+  summarise(mean_monthly_charges = mean(monthly_charges),
+            mean_tenure = mean(tenure),
+            prop_churn = sum(churn == "Yes") / n()
+  ) 
+
+summary_sample
+```
+not real world as we wouldn't have this much data, this is for example from above
+```{r}
+summary_sample - summary_pop
+```
+
+# 3 Central limit theorem
+
+resampling 
+
+```{r}
+rep_sample_200 <- telco %>%
+  rep_sample_n(size = 200, reps = 5000) %>%
+  summarise(
+    mean_monthly_charges = mean(monthly_charges), 
+    mean_tenure = mean(tenure),
+    prop_churn = sum(churn == "Yes") / n()
+  ) 
+
+rep_sample_200
+```
+
+sampling distributions 
+```{r}
+# here ..density.. tells ggplot to use the probability density rather than count
+# in the histogram
+monthly_charges_plot <- rep_sample_200 %>%
+  ggplot(aes(x = mean_monthly_charges)) + 
+  geom_histogram(col = "white", fill = "steel blue", alpha = 0.7) +
+  labs(x = "mean monthly_charges from each sample")
+
+monthly_charges_plot
+```
+
+Task - 5 mins
+
+Plot similar visualisations of the mean_tenure and prop_churn sampling distributions also held in rep_sample_200
+
+```{r}
+prop_churn_plot <- rep_sample_200 %>%
+  ggplot(aes(x = prop_churn)) + 
+  geom_histogram(col = "white", fill = "steel blue", alpha = 0.7) +
+  labs(x = "mean prop_churn from each sample")
+
+prop_churn_plot
+```
+```{r}
+tenure_plot <- rep_sample_200 %>%
+  ggplot(aes(x = mean_tenure)) + 
+  geom_histogram(col = "white", fill = "steel blue", alpha = 0.7) +
+  labs(x = "mean tenure from each sample")
+
+tenure_plot
+```
+
+# 6 Putting it all together: sampling distributions, standard errors and probabilities
+
+Imagine we repeatedly draw lots of 200-observation samples from the telco population. Given what we now know about sampling mean(monthly_charges), what proportion `same as probailaty` of these samples will have a mean(monthly_charges) in the range from 60 to 70 Euros?
+
+
+```{r}
+library(fastGraph)
+```
+standard errors for the three sampling distributions
+```{r}
+std_errs <- rep_sample_200 %>% 
+  summarise(se_mean_monthly = sd(mean_monthly_charges),
+            se_mean_tenure = sd(mean_tenure),
+            se_prop_churn = sd(prop_churn)
+            )
+
+std_errs
+```
+
+
+```{r}
+# we need the mean(mean_monthly_charges) to center the curve
+# and the sample_size = 200 standard error in the mean to give the curve width
+# shadeDist can shade regions on a prob dist and report probability
+# parm1 is mean
+# parm2 is sd
+shadeDist(
+  xshade = c(60, 70), 
+  lower.tail = FALSE, 
+  ddist = "dnorm", 
+  parm1 = mean(rep_sample_200$mean_monthly_charges), 
+  parm2 = std_errs$se_mean_monthly_charges, 
+  xlab = "mean_monthly_charges"
+)
+```
+
+```{r}
+rep_sample_200 %>% 
+  filter(mean_monthly_charges >= 60, 
+         mean_monthly_charges <= 70) %>% 
+  summarise(prop = n()/ nrow(rep_sample_200))
+```
+
+So the probabilities (proportions) calculated both ways are very similar! But which of these methods is better? **The second is preferable**, as it doesn’t make any assumption that the sampling distribution is normal. We’ll use resampling methods like this throughout the rest of the week.
+
+
+### Task - 10 mins
+Try creating either a shaded normal plot or use the filtering method to answer this question:
+
+What proportion of 200-observation samples of tenure will have a mean(tenure) in the range 30 to 35 months? 
+
+
+```{r}
+rep_sample_200 %>% 
+  filter(mean_tenure >= 30, 
+         mean_tenure <= 35) %>% 
+  summarise(prop = n()/ nrow(rep_sample_200))
+
+shadeDist(
+  xshade = c(30, 35), 
+  lower.tail = FALSE, 
+  ddist = "dnorm", 
+  parm1 = mean(rep_sample_200$mean_tenure), 
+  parm2 = std_errs$se_mean_tenure, 
+  xlab = "mean_tenure"
+)
+```
+

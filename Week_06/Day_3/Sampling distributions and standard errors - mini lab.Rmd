@@ -1,0 +1,171 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(infer)
+library(fastGraph)
+```
+
+### Q1
+Load and explore the data held in heart.csv. A data dictionary is also available.
+```{r}
+heart <- read_csv("data/heart.csv")
+```
+
+```{r}
+glimpse(heart)
+```
+
+### Q2
+Plot a histogram and/or boxplot for thalach (maximum heart rate achieved in stress testing). How normal is the distribution?
+```{r}
+heart %>% 
+  ggplot() +
+  aes(x = thalach) +
+  geom_histogram(col = "white", fill = "steel blue", alpha = 0.7) 
+  
+```
+
+### Q3
+Also plot a barplot of exang (whether the patient displayed exercise induced angina)
+
+```{r}
+heart %>% 
+  ggplot() +
+  aes(x = exang) +
+  geom_bar(col = "white", fill = "steel blue", alpha = 0.7)
+```
+
+### Q4
+Now calculate population parameters: what is the mean thalach in the population. What proportion of patients have exercise induced angina (exang)?
+
+```{r}
+pop_param <- heart %>% 
+  summarise(mean_thalach = mean(thalach),
+            prop_exang = sum(exang == 1) / n()
+  )
+
+pop_param
+```
+
+### Q5
+Now take a single sample of 50-patients from the population and calculate point estimates for mean `thalach` and proportion of `exang` from this sample (let’s call these `mean_thalach` and prop_exang going forward).
+[Hint - use `rep_sample_n()` from the `infer` package to do this]
+```{r}
+sample_50 <- heart %>% 
+  rep_sample_n(size = 50, reps= 1)
+
+summ_sample_50 <- sample_50 %>% 
+  ungroup() %>% 
+  summarise(mean_thalach = mean(thalach),
+            prop_exang = sum(exang == 1) / n()
+  )
+
+summ_sample_50
+```
+
+
+
+### Q6
+What are the sampling errors of these point estimates?
+[Hint - remember a sampling error is defined as the difference between a point estimate drawn from a sample, and a population parameter]
+```{r}
+sampling_errors <- summ_sample_50 - pop_param
+
+sampling_errors
+```
+
+### Q7
+Now we’re going to repeatedly sample 50-patients from the population and build up sampling distributions for the mean_thalach and prop_exang point estimates. Take 5000 samples and store the sampling distributions in a variable rep_sample_50.
+[Hint - again, use rep_sample_n() to do this.]
+```{r}
+resample_50 <- heart %>% 
+  rep_sample_n(size = 50, reps= 5000)
+
+rep_sample_50 <- resample_50 %>% 
+  #ungroup() %>% 
+  summarise(mean_thalach = mean(thalach),
+            prop_exang = mean(exang)
+  )
+
+head(rep_sample_50)
+```
+
+### Q8
+Visualise the sampling distributions of `mean_thalach` and `prop_exang` as histograms. How normal do the sampling distributions look?
+```{r}
+mean_thalach_plot <-  rep_sample_50 %>% 
+  ggplot(aes(x = mean_thalach)) +
+  geom_histogram(col = "black", fill = "red", alpha = 0.7) +
+  labs(x = "mean thalach")
+
+mean_thalach_plot
+```
+
+```{r}
+prop_exang_plot <-  rep_sample_50 %>% 
+  ggplot(aes(x = prop_exang)) +
+  geom_histogram(col = "black", fill = "red", alpha = 0.7) +
+  labs(x = "proportion of exang")
+
+prop_exang_plot
+```
+
+### Q9 
+Obtain standard errors of the sampling distribution of mean_thalach and prop_exang directly as the standard deviations of the sampling distributions held in rep_sample_50
+```{r}
+stand_error <- rep_sample_50 %>% 
+  summarise(se_mean_thalach = sd(mean_thalach),
+            se_prop_exang = sd(prop_exang)
+  )
+
+stand_error
+```
+
+### Q10
+Repeat steps 7. and 9. (omitting step 8.) once more with samples of size 100-patients, and again with samples of size 200-patients. How do the standard errors of mean_thalach and prop_exang change as sample size increases? Does the uncertainty in the calculated statistics increase or decrease as sample size increases?
+[Hint - it’s OK to copy, paste and alter code to do this!]
+```{r}
+resample_100 <- heart %>% 
+  rep_sample_n(size = 100, reps= 5000)
+
+rep_sample_100 <- resample_100 %>% 
+  #ungroup() %>% 
+  summarise(mean_thalach = mean(thalach),
+            prop_exang = mean(exang)
+  )
+
+rep_sample_100
+
+stand_error_100 <- rep_sample_100 %>% 
+  summarise(se_mean_thalach = sd(mean_thalach),
+            se_prop_exang = sd(prop_exang)
+  )
+
+stand_error_100
+```
+```{r}
+resample_200 <- heart %>% 
+  rep_sample_n(size = 200, reps= 5000)
+
+rep_sample_200 <- resample_200 %>% 
+  #ungroup() %>% 
+  summarise(mean_thalach = mean(thalach),
+            prop_exang = mean(exang)
+  )
+
+rep_sample_200
+
+stand_error_200 <- rep_sample_200 %>% 
+  summarise(se_mean_thalach = sd(mean_thalach),
+            se_prop_exang = sd(prop_exang)
+  )
+
+stand_error_200
+```
+
+
