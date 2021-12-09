@@ -1,0 +1,179 @@
+---
+title: "One-sample hypothesis tests - proportions"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(infer)
+```
+
+```{r}
+books_tidy <- read_csv("data/books.csv") %>% 
+  clean_names() %>% 
+  filter(!is.na(average_rating)) %>% 
+  rename(num_pages = number_num_pages) %>% 
+  glimpse()
+```
+# 3 Hypothesis tests for proportions
+
+Say we want to answer the following question:
+
+“Does the proportion of books in the Goodreads database that lack text reviews differ significantly from 7%
+?”
+
+
+First let’s load in the data and do a bit of tidying (same as the last lesson):
+
+```{r}
+books_tidy %>% 
+  group_by(text_reviews_count) %>% 
+  summarise(prop = n() / nrow(books_tidy)) %>% 
+  filter(text_reviews_count == 0)
+```
+### Jamie offshot
+```{r}
+observed_stat <- books_tidy %>% 
+  group_by(text_reviews_count) %>% 
+  summarise(prop = n() / nrow(books_tidy)) %>% 
+  filter(text_reviews_count == 0) %>% 
+  pull()
+```
+
+
+
+In the sample the proportion of books without text reviews is 6.45%. This is slightly less than 7%, but we want to know if this difference from 7% is statistically significant or might be due to sampling variation.
+
+
+```{r}
+books_tidy_prop <- books_tidy %>% 
+  mutate(text_reviews_flag = if_else(text_reviews_count > 0,
+                                     "text_review",
+                                     "no_text_review"))
+
+head(books_tidy_prop)
+```
+
+```{r}
+null_distribution <- books_tidy_prop %>%
+  specify(response = text_reviews_flag, 
+          success = "no_text_review") %>% 
+  hypothesize(null = "point", p = 0.07) %>%
+  generate(reps = 5000, type = "simulate") %>%
+  calculate(stat = "prop") #we specify that the stat is proportion (in the last lesson it was mean)
+
+head(null_distribution)
+```
+
+```{r}
+null_distribution %>%
+  visualise(bins = 30)
+```
+
+```{r}
+observed_stat <- books_tidy_prop %>% 
+  specify(response = text_reviews_flag, 
+          success = "no_text_review") %>% 
+  calculate(stat = "prop")
+
+observed_stat
+```
+
+```{r}
+null_distribution %>%
+  visualise(bins = 30) + #remembering that it is a '+' here not '%>%' because using ggplot functionality to visualise
+  shade_p_value(obs_stat = observed_stat, direction = "both") #it is a two-sided test as the alternative is whether the proportion is different in either left or left direction
+```
+
+```{r}
+p_value <- null_distribution %>% 
+  get_p_value(obs_stat = observed_stat,
+              direction = "both")
+
+p_value
+```
+
+### Task - 15 mins
+
+Let’s say you work for a publishing company and you want to use the Goodreads database to provide insight for future investment. Your CEO has decided they want to invest in French language books, if there is compelling evidence that there is a lack of such books in the marker. Based on their experience of the industry, they have decided that if the proportion of books published in French is less than 1.5%
+
+then they will invest in publishing more.
+
+The hypothesis test corresponding to this business question is
+
+H0
+: πFrench=0.015
+Ha: πFrench<0.015
+
+
+Let’s say answering this question is very important to the business because it will be used to justify investment, so we want to be ‘stricter’ and perform a more ‘conservative’ test. This is because, if we reject H0
+, we will be investing money, and so it will be more costly to make a type-I error (a false positive, i.e. we conclude that the proportion of books that are French is less than 1.5%
+
+even though it is not in reality), than a type-II error (a false negative).
+
+We would do this by decreasing our significance level α
+for the test. By decreasing α we reject H0
+
+less often and need to have very strong evidence to do so.
+
+So, we will test this hypothesis at a significance level of α=0.01
+
+```{r}
+books_tidy %>% 
+  group_by(language_code) %>% 
+  summarise(count = nrow(language_code))
+
+french_prop <- books_tidy %>% 
+  mutate(french = if_else(language_code %in% "fre", "french", "not_french"))
+
+french_null <- french_prop %>% 
+  specify(response = french,
+          success = "french") %>% 
+  hypothesise(null = "point", p = 0.015) %>% 
+  generate(reps = 5000, type = "draw") %>% 
+  calculate(stat = "prop")
+
+french_null
+  
+```
+
+
+
+```{r}
+french_stat <- french_prop %>% 
+  specify(response = french,
+          success = "french") %>% 
+  calculate(stat = "prop")
+
+french_stat
+```
+
+As it wants "less than 1.5%" means it want to use left
+
+H0 = ... is "both
+H0 > ... is "right"
+H0 < ... is "left"
+
+
+```{r}
+french_null %>% 
+  visualise(bins = 30) +
+  shade_p_value(obs_stat = french_stat, direction = "left")
+```
+
+```{r}
+french_p <- french_null %>% 
+  get_p_value(obs_stat = french_stat, direction = "left")
+
+french_p
+```
+Since our p-value is greater than α=0.01 we fail to reject H0. There is not enough evidence to say that the proportion of books in French is less than 1.5%. Therefore this would be used as evidence against investing in publishing books in French (according to our CEO’s logic anyway!). Recall again that we do not accept H0, we just fail to reject it. We aren’t saying that H0 is true, it may well be false, but we don’t have enough evidence to say so
+
+
+### 4 Recap
+
+
+How do we calculate the null distribution for a one-sample proportion test
+Answer
+We simulate the scenario if H0 is true, i.e. the probability of ‘success’ is set to π0. We add up the number of ‘successes’ from a number of random ‘success’/‘fail’ flips equal to the number of rows in the dataset and use this to calculate a simulated ‘success’ proportion. We repeat this a given number of times (say 10,000 times) and the resulting 10,000 proportions form the null distribution.

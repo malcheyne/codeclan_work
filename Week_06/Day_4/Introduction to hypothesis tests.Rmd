@@ -133,4 +133,37 @@ p_value
 ```
 
 
+# 11 Recap
 
+
+    What are the components of a hypothesis test?
+    Answer
+        Significance level α
+
+Null hypothesis $H_0$
+Alternative hypothesis $H_a$
+p
+
+        -value
+
+
+    When we compare the p
+
+-value with α, what are the two possible outcomes of a hypothesis test?
+Answer
+
+    p-value≤α
+
+. Reject H0 and accept Ha. We have strong enough evidence that H0
+is incorrect.
+p-value>α
+. Fail to reject $H_0$. We do not have strong enough evidence to say that $H_0$
+
+        is incorrect, but we can’t really say that it’s correct either.
+
+
+    Compared to calculating a confidence interval, what extra steps do we add in the infer workflow for a hypothesis test?
+    Answer
+    We add in a hypothesis() call, and finally visualise the p
+
+-value on the null distribution with shade_p_value(). 

@@ -1,0 +1,95 @@
+---
+title: "Two-sample hypothesis tests"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(infer)
+```
+
+```{r}
+nice <- read_csv("data/nice.csv")%>% 
+  clean_names()
+algarve <- read_csv("data/algarve.csv") %>% 
+  clean_names()
+```
+
+```{r}
+apart_prices <- bind_rows(nice,algarve, 
+                          .id = "location") %>% 
+  mutate(location = if_else(location == "1", 
+                            "nice", 
+                            "algarve")) %>% 
+  select(-x1)
+
+
+head(apart_prices)
+```
+
+```{r}
+apart_prices %>% 
+  group_by(location) %>% 
+  summarise(n = n())
+```
+
+```{r}
+apart_prices %>% 
+  ggplot(aes(y = price, x = location)) +
+  geom_boxplot()
+```
+
+```{r}
+null_distribution <- apart_prices %>% 
+  specify(price ~ location) %>% #it is the relationship between price and location we are testing. This can also be written like specify(response = price, explanatory = location) 
+  hypothesize(null = "independence") %>% #the null hypothesis is there is no relationship i.e. they are independent
+  generate(reps = 1000, 
+           type = "permute") %>% 
+  calculate(stat = "diff in means", 
+            order = c("algarve", 
+                      "nice")) #our sample stat is mean of algarve minus mean of nice, so this is the order we specify in the calculate step
+
+head(null_distribution)
+```
+
+Step by step, this does the following:
+
+    Selects the data we want to use
+
+    The syntax price ~ location in the specify() call says that we are testing whether price varies with location, so just read the tilde ~ as ‘varies with’. We could also write this as specify(response = price, explanatory = location)
+
+    When using the infer functions for the hypothesize() step, it is the hypothesize(null = 'independence) line that selects a permutation test. If we didn’t specify that generate(type = "permute") it would use type=permute by default as this is how it carries out a test for independence between two variables.
+
+    It generates a distribution of 1000 samples
+
+    It calculates the difference between the mean of the algarve and nice samples.
+
+
+```{r}
+observed_stat <- apart_prices %>% 
+  specify(price ~ location) %>% 
+  calculate(stat = "diff in means", 
+            order = c("algarve", 
+                      "nice"))
+  
+observed_stat
+```
+
+```{r}
+null_distribution %>%
+  visualise() +
+  shade_pvalue(obs_stat = observed_stat, 
+               direction = "right")
+```
+
+```{r}
+p_value <- null_distribution %>%
+  get_p_value(obs_stat = observed_stat, 
+              direction = "right")
+
+p_value
+```
+
+
+
