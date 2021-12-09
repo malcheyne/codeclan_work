@@ -248,6 +248,14 @@ results %>%
   summarise(sum(popn_param_in_ci))
 ```
 
+#### Chris help
+```{r}
+results %>% 
+  mutate(popn_param_in_ci = 
+           ((ames_summ_pop$mean_sale_price <= upper) & (ames_summ_pop$mean_sale_price >= lower))) %>% 
+  summarise(sum(popn_param_in_ci))
+```
+
 <br>
 
 

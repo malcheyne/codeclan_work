@@ -1,0 +1,136 @@
+---
+title: "Introduction to hypothesis tests"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(infer)
+```
+```{r}
+books <- read_csv("data/books.csv") %>% 
+  clean_names()
+```
+
+```{r}
+books_tidy <- books %>% 
+  filter(!is.na(average_rating)) %>% 
+  rename(num_page = number_num_pages)
+
+glimpse(books_tidy)
+```
+
+```{r}
+books_tidy %>% 
+  ggplot(aes(x = average_rating)) +
+  geom_histogram(col = "white")
+```
+
+```{r}
+books_tidy %>% 
+  ggplot(aes(x = average_rating)) +
+  geom_boxplot()
+```
+
+Again, remember here, if we had data for the population (i.e. the 2020 Goodreads database) then we wouldn't need to perform a hypothesis test. We could just look at descriptive statistics i.e. calculate the population mean from this full database and see how it compares to 3.93. But we have only a sample of the population, so we have to use inferential techniques to make predictions about the population. 
+
+We frame this question in terms of two competing hypotheses:
+
+* $H_0$: (the **null** hypothesis, pronounced 'H naught') - the current mean `average_rating` **is the same as** the mean `average_rating` in 2016.
+
+* $H_a$: (the **alternative** hypothesis) - the current mean `average_rating` **is different from** the mean `average_rating` in 2016.
+
+Note that we frame the question in **two mutually exclusive and exhaustive** hypotheses. Only one of them can be true: either the null hypothesis or the alternative hypothesis (**exclusive**), but it **must** be one or the other: there's no 'third option' (**exhaustive**). 
+
+<br>
+<div class='emphasis'>
+* Typically, the null hypothesis represents a skeptical or conservative stance: the position of 'business as usual', 'no change', 'nothing interesting is happening' etc. 
+* The alternative hypothesis is usually the dynamic stance: the position that 'something is different', 'things have changed' etc.
+</div>
+<br>
+
+We can write our two hypotheses more mathematically as:
+
+<br>
+<center>
+$H_0$: $\mu_{\textrm{average_rating}} = 3.93$<br>
+$H_a$: $\mu_{\textrm{average_rating}} \ne 3.93$
+</center>
+
+When we're writing hypotheses mathematically, you'll often see:
+
+* a population mean represented as $\mu$
+* a population proportion represented as $\pi$
+
+This is general - we tend to use Greek letters for population parameters (e.g. $\mu$, $\pi$, $\sigma$ etc), and Latin letters for sample statistics (e.g. $\bar{x}$, $p$, $s$ etc). 
+
+Let's see what the current `mean(average_rating)` is, this will be our observed statistic! When writing the observed statistic mathematically you'll often see:
+
+* a sample mean represented as $\bar{x}$
+* a sample proportion represented as $p$
+
+```{r}
+observed_stat <- books_tidy %>% 
+  summarise(mean_rating = mean(average_rating))
+
+observed_stat
+```
+
+# 6.1 Calculate the null sampling distribution
+
+Let’s generate the null sampling distribution, i.e. the sampling distribution we would expect if H0
+were true. You’ll see that this just involves one extra line of code!
+
+```{r}
+# add in extra step: hypothesize()
+# "point" and "mu" tell `infer` to centre the null distribution at 3.93
+# because this is our null hypothesis: that the mean average_rating is 3.93
+null_distribution <- books_tidy %>%
+  specify(response = average_rating) %>%
+  hypothesise(null = "point", mu = 3.93) %>%
+  generate(reps = 10000, type = "bootstrap") %>%
+  calculate(stat = "mean")
+```
+
+```{r}
+null_distribution %>%
+  visualise(bins = 30)
+```
+##6.2 Visualise the observed statistic
+
+```{r}
+observed_stat
+```
+
+```{r}
+null_distribution %>% 
+  visualise(bins = 30) +
+  shade_p_value(obs_stat = 
+                observed_stat$mean_rating, 
+                direction = "both"
+  )
+```
+
+<br>
+<div class='emphasis'>
+Just as best practice is to choose an $\alpha$ value **before** you see the data, you should also set your alternative hypothesis **before** you see the data. Resist the urge to change your alternative hypothesis after seeing the data! 
+
+If you're not sure whether to choose a one-tailed or two-tailed test, select two-tailed, as it's a more difficult test to pass and is therefore the more skeptical option.
+</div>
+<br>
+
+
+### 6.3 Calculate p-value
+
+```{r}
+p_value <- null_distribution %>% 
+  get_p_value(obs_stat = 
+              observed_stat$mean_rating,
+              direction = "both")
+
+p_value
+```
+
+
+
