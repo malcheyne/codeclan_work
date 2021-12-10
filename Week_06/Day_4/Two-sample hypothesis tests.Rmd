@@ -91,5 +91,250 @@ p_value <- null_distribution %>%
 p_value
 ```
 
+### Task - 10 mins
+
+We have two more datasets for similar apartment lets in Corfu and Florence. Frame and perform an independent two-sample test to answer the following question:
+
+‘On average, is the price of 2-bedroom, 14-day holiday apartment lets in Florence significantly lower than that of comparable lets in Corfu?’
+
+
+    Choose α
+
+and frame your hypotheses before you see the data
+You will need to format your data in a combined, tidy dataset prior to performing the test
+
+```{r}
+corfu <- read_csv("data/corfu.csv") %>% 
+  clean_names()
+
+florence <- read_csv("data/florence.csv") %>% 
+  clean_names()
+```
+
+H0: μprice(Corfu)−μprice(Florence)=0
+Ha: μprice(Corfu)−μprice(Florence)<0
+
+conventional significance level α=0.05 and write our hypotheses
+
+N.B. I've done this the wrong way around - should have done 
+
+Ha: μprice(Florence)−μprice(Corfu)<0
+
+Ending up doing 
+
+Ha: μprice(Corfu)−μprice(Florence)>0
+
+
+```{r}
+flo_cor <- bind_rows(corfu, 
+                     florence, 
+                     .id = "location") %>% 
+            mutate(location = if_else(location == "1", 
+                                      "corfu", 
+                                      "florence")) %>% 
+  select(-x1)
+
+head(flo_cor)
+tail(flo_cor)
+```
+
+```{r}
+flo_cor %>% 
+  group_by(location) %>% 
+  summarise(n = n())
+```
+
+```{r}
+flo_cor %>% 
+  ggplot(aes(y = price, x = location)) +
+  geom_boxplot()
+```
+Florence significantly higher than that of comparable lets in Corfu from the boxgraphm, so will fail to reject H0
+
+
+```{r}
+flo_cor_null <- flo_cor %>%
+  specify(price ~ location) %>% 
+  hypothesise(null = "independence") %>% 
+  generate(reps = 1000, 
+           type = "permute") %>% 
+  calculate(stat = "diff in means", 
+            order = c("corfu", 
+                      "florence"))
+
+head(flo_cor_null)
+```
+
+```{r}
+stat_flo_cor <- flo_cor %>% 
+  specify(price ~ location) %>%
+  calculate(stat = "diff in means", 
+            order = c("corfu", "florence"))
+  
+stat_flo_cor
+```
+
+```{r}
+flo_cor_null %>% 
+   visualise() +
+  shade_p_value(obs_stat = stat_flo_cor, 
+                direction = "left")
+```
+
+```{r}
+p_value <- flo_cor_null %>%
+  get_p_value(obs_stat = stat_flo_cor, 
+              direction = "left")
+
+p_value
+```
+
+The p-value very close to 1, which is above α=0.05, so we fail to reject H0: there is no significant evidence that the prices of lets in Florence are lower than those in Corfu. Let’s boxplot the prices by location for further insight.
+
+
+# 4 Paired (aka dependent) samples
+
+```{r}
+books <- read_csv("data/ucla_textbooks_f18.csv")
+```
+
+```{r}
+glimpse(books)
+```
+
+```{r}
+books_diff <- books %>% 
+  mutate(diff_new = bookstore_new - amazon_new) %>% 
+  filter(!is.na(diff_new))
+
+books_diff %>% 
+  ggplot(aes(x = diff_new)) +
+  geom_histogram(col = "white")
+```
+
+t looks like for many of the books the price difference is centred around zero but there are some significant outliers towards the right.
+
+Let’s set up our hypotheses:
+
+H0: μdiff_new=0
+Ha: μdiff_new≠0 (!= 0)
+
+```{r}
+books_null <-  books_diff %>% 
+  specify(response = diff_new) %>% 
+  hypothesise(null = "point", mu = 0) %>% 
+  generate(reps = 10000, type = "bootstrap") %>% 
+  calculate(stat = "mean")
+```
+
+```{r}
+head(books_null)
+```
+
+```{r}
+books_stat <- books_diff %>% 
+  specify(response = diff_new) %>% 
+  calculate(stat = "mean")
+
+books_stat
+```
+
+```{r}
+books_null %>%
+  visualise() +
+  shade_p_value(obs_stat = books_stat, 
+                direction = "both")
+```
+
+```{r}
+book_p <- books_null %>% 
+  get_p_value(obs_stat = books_stat, 
+              direction = "both")
+
+book_p
+```
+
+### Task - 10 mins
+
+Frame and perform a paired hypothesis test to answer the following question:
+
+‘On average, are the prices of used course texts lower on Amazon than at the campus bookstore?’
+
+
+Hints:
+
+    It will help to start with a clear definition: diff_used = bookstore_used - amazon_used or diff_used = amazon_used - bookstore_used
+    This will be a one-tailed test, so frame your hypotheses appropriately.
+    
+    
+```{r}
+diff_books <- books %>% 
+  mutate(diff_used = bookstore_used - amazon_used) %>% 
+  filter(!is.na(diff_used))
+
+diff_books %>% 
+  ggplot(aes(x = diff_used)) +
+  geom_histogram(col = "white")
+```
+
+#######
+
+
+# 5 Testing differences in proportions
+
+```{r}
+poll <-  read_csv("data/election_data.csv")
+```
+```{r}
+head(poll)
+```
+
+```{r}
+ggplot(poll, aes(x = vote, 
+                 fill = gender)) +
+  geom_bar(position = "fill") +
+  coord_flip()
+```
+
+```{r}
+poll_stat <- poll %>% 
+  specify(gender ~ vote, 
+          success = "woman") %>% 
+  calculate(stat = "diff in props", 
+            order = c("obama", 
+                      "romney"))
+
+poll_stat
+```
+
+```{r}
+poll_null <- poll %>% 
+  specify(gender ~ vote, 
+          success = "woman") %>% 
+  hypothesise(null = "independence") %>% 
+  generate(reps = 1000, 
+           type = "permute") %>% 
+  calculate(stat = "diff in props", 
+            order = c("obama", 
+                      "romney"))
+
+head(poll_null)
+```
+
+```{r}
+poll_null %>% 
+  visualise() +
+  shade_p_value(obs_stat = poll_stat,
+                direction = "both")
+```
+
+```{r}
+poll_p_value <- poll_null %>%
+  get_p_value(obs_stat = poll_stat, 
+              direction = "both")
+
+poll_p_value
+```
+
 
 
