@@ -206,3 +206,9 @@ iris %>%
 
 
 ../ same a `here()` but only one folder up
+
+
+
+## lubridate
+
+### `today()`
