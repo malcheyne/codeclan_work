@@ -1,0 +1,218 @@
+---
+title: "Using dates and times"
+output: html_notebook
+---
+
+- formatting them in programming can be tricky
+- lots of different ways to enter them
+- tricky data format to work with
+
+ISO 8601 format
+
+
+
+### Task - 5 mins 
+Take a few minutes and read about IS0 8601 standard, as we will be working with it a lot today. Answer the following questions:
+
+    What order does ISO standard follow? (e.g. year to second, second to year…)
+    What is the minimum number of digits you can have in a year? Why is this?
+As a minimum, a four-digit year [YYYY] to avoid the year 2000 problem.
+    
+    What clock system do the times use?
+uses the 24-hour clock system.
+    
+    How many time formats does ISO standard have?
+6
+    
+    What timezone are time and dates automatically represented in?
+UTC universal coodinated time GMT
+    
+    How are combined date-times represented?
+2021-12-13T10:13
+
+
+
+```{r}
+library(lubridate)
+```
+
+```{r}
+bday <- "09-01-2021" 
+
+class(bday)
+```
+
+```{r}
+bday_change <- dmy(bday)
+
+class(bday_change)
+```
+
+```{r}
+mdy("January 9th, 2021")
+```
+
+
+```{r}
+library(tidyverse)
+
+netflix <- read_csv("data/netflix.csv")
+```
+
+```{r}
+glimpse(netflix)
+```
+
+### Task - 5 mins
+
+Change the column date_added from character to a date, using either dmy, mdy or ymd.
+
+```{r}
+netflix <- netflix %>% 
+  mutate(date_added = mdy(date_added))
+
+netflix
+```
+
+```{r}
+netflix <- netflix %>% 
+  mutate(day = day(date_added),
+         month = month(date_added, 
+                       label = TRUE, abbr = FALSE),
+         year = year(date_added)
+  )
+
+netflix
+
+```
+
+
+### Task - 5 mins
+
+Add a column weekday, which is the day of the week the title was added. We want this as the abbreviated day of the week i.e. Mon, Tue etc.
+
+```{r}
+netflix %>% 
+  mutate(weekday = weekdays(date_added, 
+                             abbr = TRUE))
+```
+
+
+```{r}
+netflix <- netflix %>% 
+  mutate(made_date = make_datetime(year, month, day))
+
+head(netflix)
+```
+
+### Task - 5 mins
+
+Look up how the make_datetime function works. Redo your column, but add a time onto it as well. You can pick what time you add - try out a few combinations to see how it’s working. Don’t worry about time zones for now.
+```{r}
+netflix %>% 
+  mutate(time = make_datetime(year, month, day, tz = "UTC"))
+```
+johny work
+```{r}
+netflix <- netflix %>%
+  mutate(made_date = make_datetime(year, month, day, hour = 12, min = 12, sec = 15, tz = "EST" ))
+
+head(netflix) %>% 
+  select(made_date) %>% # just shows the date and time
+  pull() # shows the "EST"
+```
+
+# 9 Calculating time spans
+
+- Difftime: a datetime object that represents days
+- Period: represent a timespan like weeks, months and days
+- Duration: represent an exact number of seconds
+
+### Difftime
+
+Calculate how many days a movie/tv show has been released for
+```{r}
+netflix <- netflix %>% 
+  mutate(time_diff = today() - date_added) %>% 
+  select(time_diff, date_added) %>% 
+  head()
+```
+
+### Periods :
+
+```{r}
+netflix %>% 
+  mutate(time_period = as.period(today() - date_added)) %>% 
+  select(time_period, date_added) %>% 
+  head()
+```
+
+```{r}
+netflix %>% 
+  mutate(time_period = as.period(today() - date_added),
+         time_years = as.numeric(time_period, "years"),
+         time_hours = as.numeric(time_period, "hours")
+  ) %>% 
+  select(time_period, time_years, time_hours, date_added) %>% 
+  head()
+```
+
+```{r}
+netflix <- netflix %>%
+  mutate(time_period  = as.period(today() - date_added), 
+         time_years   = as.numeric(time_period, "years"),
+         time_hours   = as.numeric(time_period, "hours"),
+         time_minutes = as.numeric(time_period, "minutes"),
+         time_seconds = as.numeric(time_period, "seconds"))
+
+netflix %>%
+  select(starts_with("time_") )
+```
+
+Netflix  promotes releases on their web app for 2 weeks before the show is released, and then takes them down after 4 months.
+```{r}
+netflix <- netflix %>%
+  mutate(promo_date = date_added - weeks(2),
+         removal_date = date_added + months(4))
+
+netflix %>%
+  select(date_added, promo_date, removal_date)
+```
+
+### Durations
+
+```{r}
+netflix <- netflix %>%
+  mutate(time_duration  = as.duration(today() - date_added))
+
+netflix %>%
+  select(starts_with("time_") ) %>%
+  head()
+```
+
+```{r}
+ymd(20100110) + years(1)
+```
+
+```{r}
+ymd(20100110) + dyears(1)
+```
+
+```{r}
+ymd_hms("2023-09-13 10:22:01", tz = "Atlantic/Faeroe")
+```
+
+`forcetz` : add a time zone, doesn't change date/time
+`with_tz` : figures out what date and time would be if you were in that time zone
+```{r}
+#netflix <- 
+  netflix %>%
+  mutate(
+         date_tz_1 = force_tz(date_added, tzone = "Asia/Singapore"),
+         date_tz_2 = with_tz(date_added, tzone = "Asia/Singapore")
+  ) %>% 
+  select(date_added, date_tz_1, date_tz_2)
+```
+
+
+
