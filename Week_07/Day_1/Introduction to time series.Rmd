@@ -203,4 +203,3 @@ holidays %>%
   gg_subseries(Trips)
 ```
 
-
