@@ -26,6 +26,7 @@ key_vars(nyc_bikes)
 ```
 
 ```{r}
+library(tidyverse)
 vic_elec %>% 
   select(Demand, Temperature)
 
@@ -81,7 +82,7 @@ Make the same plot, but for monthly aggregated data
 
 ```{r}
 vic_elec %>%
-  mutate(month = month(Date)) %>% 
+  mutate(month = lubridate::month(Date)) %>% 
   index_by(month) %>% 
   summarise(mean_temp = mean(Temperature)) %>% 
   ggplot(aes(x = month, y = mean_temp)) +
@@ -90,7 +91,7 @@ vic_elec %>%
 
 ```{r}
 vic_elec %>%
-  mutate(month = month(Date, label = TRUE)) %>% 
+  mutate(month = lubridate::month(Date, label = TRUE)) %>% 
   index_by(month) %>% 
   summarise(mean_temp = mean(Temperature)) %>% 
   ggplot(aes(x = month, y = mean_temp)) +
@@ -98,5 +99,108 @@ vic_elec %>%
   geom_line(group = 1)
 ```
 
+```{r}
+library(slider)
+```
+
+```{r}
+elec_rolling <- vic_elec %>% 
+  mutate(
+    temp_moving_avg = slide_dbl(
+      .x = Temperature, 
+      .f = ~ mean(., na.rm = TRUE),
+      .before = 1000,
+      .after = 1000
+    )
+  )
+
+elec_rolling
+```
+
+```{r}
+ggplot(elec_rolling) + 
+  geom_line(aes(x = Date, y = Temperature), colour = "grey") + 
+  geom_line(aes(x = Date, y = temp_moving_avg), colour = "red")
+```
+
+### Task - 5 mins
+
+The slide_dbl() function makes a number of arguments available, so let’s play around with them a little!
+
+    Try setting .before and .after to 100. How does the plot change?
+    What happens if you set .complete = TRUE?
+
+```{r}
+vic_elec %>% 
+  mutate(
+    temp_moving_avg = slide_dbl(
+      .x = Temperature, 
+      .f = ~ mean(., na.rm = TRUE),
+      .before = 100,
+      .after = 100
+    )
+  ) %>% 
+  ggplot() + 
+  geom_line(aes(x = Date, 
+                y = Temperature), 
+            colour = "grey") + 
+  geom_line(aes(x = Date, 
+                y = temp_moving_avg), 
+            colour = "red")
+```
+
+```{r}
+vic_elec %>% 
+  mutate(
+    temp_moving_avg = slide_dbl(
+      .x = Temperature, 
+      .f = ~ mean(., na.rm = TRUE),
+      .before = 1000,
+      .after = 1000, 
+      .complete = TRUE
+    )
+  ) %>% 
+  ggplot() + 
+  geom_line(aes(x = Date, 
+                y = Temperature), 
+            colour = "grey") + 
+  geom_line(aes(x = Date, 
+                y = temp_moving_avg), 
+            colour = "red")
+```
+
+# 4 feasts
+
+```{r}
+index(tourism)
+key_vars(tourism)
+```
+
+```{r}
+holidays <- tourism %>%
+  filter(Purpose %in% c("Holiday","Business")) %>%
+  group_by(State) %>%
+  summarise(Trips = sum(Trips))
+
+holidays
+```
+
+```{r}
+holidays %>% 
+  autoplot(Trips) + 
+  xlab("Year")
+```
+
+```{r}
+holidays %>%
+  filter(State %in% c("Queensland", "New South Wales", "Victoria")) %>%
+  gg_season(Trips)
+```
+
+```{r}
+holidays %>%
+  filter(State %in% c("Queensland", "New South Wales", "Victoria")) %>%
+  gg_subseries(Trips)
+```
 
 
