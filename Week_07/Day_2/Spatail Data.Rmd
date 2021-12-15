@@ -1,0 +1,511 @@
+---
+title: "Spatail Data"
+output: html_notebook
+---
+
+
+#  Spatail Data
+
+What do you think spatial data looks like?
+What do you think a spatail data vis looks like?
+Can you find any exaample online?
+
+
+- map-able data
+
+spatial (geospatial) data - data about 
+
+
+
+How are spatial data represented?
+
+spatial data are specail - while encoding as numbers (double) - these numbers actually have special meaning
+
+spatial vectors (non R-specific)
+
+3 main types
+
+- Point (1, 4) train station locations, wells
+
+- Line (Line string) ((1, 4), (4, 5)) roads 
+
+- Polygon  ((1, 4), (4, 5), ....) council areas, lakes
+
+
+# Spatial Data in R
+
+sometimes we just get given dataframes with lat-long colums
+
+another option is to load in shapefiles
+
+```{r}
+library(sf) #  sf = simple fratures
+library(tidyverse)
+
+```
+
+a feature = a gometry
+```{r}
+north_carolina <- st_read(system.file("shape/nc.shp", 
+                                      package = "sf"))
+```
+
+```{r}
+north_carolina %>% 
+  as.tibble()
+```
+
+```{r}
+nc_geo <- st_geometry(north_carolina)
+```
+
+```{r}
+nc_geo[[1]]
+```
+
+```{r}
+class(north_carolina)
+```
+it's a dataframe with geometries
+
+# Plotting Geometries
+
+```{r}
+plot(north_carolina["AREA"])
+```
+
+`st_as_sf()` - convert non-sf objects (that include geometries) into sf objects
+
+```{r}
+# subset the county 
+plot(north_carolina[1,1])
+```
+
+### Task - 5 mins
+
+Have a look through some of the variables within your north_carolina dataset, and see if you can create a spatial plot using the techniques above.
+
+```{r}
+plot(north_carolina[3, 3, 1, 1])
+```
+
+```{r}
+plot(north_carolina["PERIMETER"])
+```
+
+```{r}
+plot(north_carolina[c(1, 2, 12), "AREA"])
+```
+
+# ggplot and sf
+
+`geom_sf()`
+
+```{r}
+ north_carolina %>% 
+  ggplot() +
+  geom_sf(aes(fill = SID74), colour = "black") +
+  theme_bw()
+```
+
+### Task : 5 mins
+
+Try your hand at plotting another feature from the north_carolina dataset. What does it tell you?
+```{r}
+ north_carolina %>% 
+  ggplot() +
+  geom_sf(aes(fill = NWBIR74), colour = "yellow") +
+  theme_gray()
+```
+
+```{r}
+north_carolina %>% 
+  ggplot() +
+  geom_sf(aes(fill = BIR74), colour = "red", size = 0.1) +
+  scale_fill_continuous(type = "viridis") +
+  theme_classic()
+```
+
+```{r}
+library(rgeos)
+library(rnaturalearth)
+library(rnaturalearthdata)
+```
+
+Using rnaturalearth package we can inport bou
+
+```{r}
+world <- ne_countries(scale = "medium", returnclass = "sf")
+class(world)
+```
+
+```{r}
+view(world)
+head(world, 1)
+```
+
+```{r}
+world %>% 
+  as.tibble() %>% 
+  head(5)
+```
+
+okay so we've got the data, now we can plot it
+
+```{r}
+world %>% 
+  ggplot() +
+  geom_sf() +
+  labs(x = "longitude", y = "latitude", title = "World map")
+```
+
+We can plot actual data now
+
+```{r}
+world %>% 
+  ggplot() +
+  geom_sf(aes(fill = pop_est)) +
+  scale_fill_viridis_c()
+```
+
+### Task - 5 mins
+
+Recap your knowledge from ggplot week, and set your geom_sf aesthetic to be filled with the estimated gdp (gdp_md_est variable). Extra points if you make your map colour blind friendly!
+
+What does your plot tell you? What does it tell you compared to the population?
+
+```{r}
+world %>% 
+  ggplot() +
+  geom_sf(aes(fill = gdp_md_est)) +
+  scale_fill_viridis_c(option = "plasma", trans = "sqrt")
+```
+
+```{r}
+world %>% 
+  ggplot() +
+  geom_sf(aes(fill = continent)) 
+```
+
+```{r}
+world %>% 
+  filter(continent != "Antarctica") %>% 
+  ggplot() +
+  geom_sf(aes(fill = continent)) 
+```
+
+# 4.3 Subsetting simple features
+
+What if we only care about one particular country? We can subset the data as we would in tidyverse:
+
+```{r}
+country_italy <- world %>% 
+  filter(name == "Italy")
+```
+
+```{r}
+country_italy %>% 
+  ggplot() +
+  geom_sf() +
+  labs(x = "Longitude", y = "Latitude", title = "Italia")
+```
+
+```{r}
+country_scot <- world %>% 
+  filter(name == "Scotland") 
+  
+```
+
+```{r}
+country_scot %>% 
+  ggplot() +
+  geom_sf() +
+  labs(x = "Longitude", y = "Latitude", title = "Scotland")
+```
+
+```{r}
+country_uk <- world %>% 
+  filter(name == "United Kingdom") 
+```
+
+```{r}
+country_uk %>% 
+  ggplot() +
+  geom_sf() +
+  labs(x = "Longitude", y = "Latitude", title = "UK")
+```
+
+# Zooming in on particular parts of the world
+
+- we can subset our graph by limiting the x and y range using `coord_sf()`
+- ggplot
+
+```{r}
+world %>% 
+  ggplot() +
+  geom_sf() +
+  coord_sf(xlim = c(-102.15, -74.12), ylim = c(7.65, 33.97), expand = FALSE)
+```
+
+
+```{r}
+ggplot(data = world) +
+    geom_sf(aes(fill = pop_est)) +
+    coord_sf(xlim = c(-102.15, -74.12), ylim = c(7.65, 33.97), expand = FALSE)
+```
+
+Add informative lables
+
+- we need to tell ggplot where to put the lables
+- we need to calculate where we want to put the labels
+(centre of each feature)
+- we need to calculate the centres (centroids)
+
+```{r}
+world %>% 
+  mutate(centre = st_centroid(st_make_valid(geometry))) %>% 
+  ds_tibble() %>% 
+  select(name, centre)
+```
+
+```{r}
+world_centre <- world %>% 
+  mutate(centre = st_centroid(st_make_valid(geometry))) %>% 
+  mutate(lat = st_coordinates(centre)[,1],
+         long = st_coordinates(centre)[,2])
+```
+
+```{r}
+# plot these, along side our zoomed in 
+ggplot(data = world_centre) +
+geom_sf(fill ="grey") +
+ geom_text(aes(x = lat , 
+               y = long, 
+               label = name), 
+           color = "darkblue", 
+           fontface = "bold", 
+           check_overlap = TRUE) +
+coord_sf(xlim = c(-102.15, -74.12), 
+         ylim = c(7.65, 33.97), 
+         expand = FALSE)
+```
+
+we can add additionla information using annotate
+
+- add one that says: Gulf of Mexico
+
+```{r}
+# the annotate function can be used to add a single character string at a specific location, as demonstrated here to add the Gulf of Mexico. 
+ggplot(data = world_centre) +
+geom_sf(fill ="grey") +
+ geom_text(aes(x = lat , y = long, 
+               label = name), 
+           color = "darkblue", 
+           fontface = "bold", 
+           check_overlap = TRUE) +
+annotate(geom = "text", x = -90, y = 26, 
+         label = "Gulf of Mexico", 
+         fontface = "italic", 
+         color = "grey22", 
+         size = 6) +
+coord_sf(xlim = c(-102.15, -74.12), 
+         ylim = c(7.65, 33.97), 
+         expand = FALSE)
+```
+
+### Task - 10 mins
+
+Have a play around with the plot above, and see what changing parameters does, what using different variables does, what else you can plot, etc
+
+```{r}
+ggplot(data = world_centre) +
+geom_sf(fill ="grey") +
+ geom_text(aes(x = lat , y = long, 
+               label = name), 
+           color = "darkblue", 
+           fontface = "bold", 
+           check_overlap = TRUE) +
+  annotate(geom = "point", x = -88, y = 28, 
+           label = "Mad Dog field", 
+           fontface = "italic", 
+           color = "black", 
+           size = 4) +
+  annotate(geom = "text", x = -88, y = 27, 
+           label = "Mad Dog field", 
+           fontface = "italic", 
+           color = "black", 
+           size = 4) +
+  annotate(geom = "point", x = -88, y = 30, 
+           label = "moblile", 
+           fontface = "italic", 
+           color = "black", 
+           size = 4) +
+  annotate(geom = "text", x = -88, y = 29.5, 
+           label = "Moblile", 
+           fontface = "italic", 
+           color = "black", 
+           size = 4) +
+  annotate(geom = "text", x = -90, y = 24, 
+           label = "Gulf of Mexico", 
+           fontface = "italic", 
+           color = "grey22", 
+           size = 6) +
+  coord_sf(xlim = c(-102.15, -74.12), 
+           ylim = c(7.65, 33.97), 
+           expand = FALSE)
+```
+
+
+
+projectioon; wgs84 (1984)
+
+####Louise work
+```{r}
+world_centre %>%
+  ggplot() +
+  geom_sf(aes(fill = income_grp)) +
+  geom_text(aes(x = lat, y = long, label = name), colour = "black",
+            fontface = "bold", check_overlap = TRUE, size = 3) +
+  annotate(geom = "text", x = -90, y = 26, label = "Gulf of Mexico", size = 3,
+           fontface = "italic")+
+  coord_sf(xlim = c(-110.15, -60.12), ylim = c(2.65, 50.97), expand = TRUE) +
+  labs(x = "Latitude",
+       y = "Longitude",
+       fill = "OECD Income group")
+```
+
+#### Ricardo work
+```{r}
+world_centre %>% 
+  ggplot() +
+  geom_sf(aes(fill = name), show.legend = F) +
+  geom_text(aes(lat, long, label = name), size = 2.5) +
+  annotate(geom = "text", x = -90, y = 26, label = "Gulf of Mexico",
+           size = 4, fontface = "italic",
+           check_overlap = TRUE) +
+  coord_sf(xlim = c(-110, -60), ylim = c(8, 35), expand = T) +
+  theme_minimal() 
+```
+
+
+```{r}
+world_centre %>% 
+  ggplot() +
+  geom_sf(aes(fill = name), show.legend = F) +
+  geom_text(aes(lat, long, label = name), size = 2.5) +
+  annotate(geom = "text", x = 5, y = 57.5, label = "North Sea",
+           size = 4, fontface = "italic",
+           check_overlap = TRUE) +
+  coord_sf(xlim = c(02, 010), ylim = c(56, 63), expand = T) +
+  theme_minimal()
+```
+
+
+```{r}
+library(leaflet)
+```
+
+```{r}
+leaflet() %>% 
+  addTiles() %>% #basemap
+  addMarkers(lng = 174.768, lat = -36.852, popup = "The birth place of R")
+```
+
+That was our first leaflet
+
+get some spatial data from the web
+- turn it into a format R can work with
+- visualise it using leaflet
+
+```{r}
+library(jsonlite)
+```
+```{r}
+colarado_data_url <- "https://data.colorado.gov/resource/j5pc-4t32.json?&county=BOULDER"
+```
+
+
+```{r}
+head(readLines(colarado_data_url))
+```
+
+jsonlite package has a lot of functions to help work with json data
+
+json is like a list of lists in R - sometimes we need to recursively sift through to extract the relevant data
+
+```{r}
+water_data_df <- fromJSON(colarado_data_url) %>%
+  # remove the nested data frame 'location' column to unnest the latitude and longitudes using 'flatten' from jsonlite
+  jsonlite::flatten(recursive = TRUE) 
+```
+
+```{r}
+water_data_df_clean %>% 
+  select(-location.needs_recoding) %>% 
+  mutate(across(starts_with("location"), as.numeric) %>% 
+  filter(!is.na(location.latitude), !is.na(location.latitude)))
+```
+
+
+
+```{r}
+# turn columns to numeric and remove NA values
+water_data_df_clean <- water_data_df %>%
+  mutate_at(vars(amount, location.latitude, location.longitude), as.numeric) %>%
+  filter(!is.na(location.latitude))
+
+# create leaflet map
+leaflet(water_data_df_clean) %>%
+  addTiles() %>%
+  addCircleMarkers(lng = ~location.longitude,
+                   lat = ~location.latitude)
+```
+
+- incidences of surface water in abd around Boulder Coloardo
+
+
+```{r}
+leaflet(water_data_df_clean) %>%
+  addTiles() %>%
+  addCircleMarkers(lng = ~location.longitude,
+                   lat = ~location.latitude,
+                   radius = ~ sqrt(amount)/100)
+```
+
+
+```{r}
+leaflet(water_data_df_clean) %>%
+  addTiles() %>%  
+  addMarkers(lng = ~location.longitude,
+                   lat = ~location.latitude)
+```
+
+we can add clustering options
+
+```{r}
+leaflet(water_data_df_clean) %>%
+  addTiles() %>%  
+  addMarkers(lng = ~location.longitude,
+                   lat = ~location.latitude,
+             clusterOptions = markerClusterOptions())
+```
+
+# Leaflet in Shiny
+
+```{r}
+library(leaflet)
+library(CodeClanData)
+```
+
+```{r}
+leaflet(whisky) %>% 
+  addTiles() %>%
+  addCircleMarkers(lat = ~Longitude, lng = ~Latitude, popup = ~Distillery)
+```
+
+
+
+
+
+
+
