@@ -1,0 +1,33 @@
+@Malcolm, I just checked out the patchwork package, and yep you can combine legends really easily.
+The code looks something like
+p1 + p2 + plot_layout(guides = "collect")
+
+
+Patchwork is a really nice package by the way for composing multiple plots
+
+
+
+plot <- eventReactive(your$input, {
+  if nrow(data) == 0 {
+    p <- ggplot() +
+      geom_text(...)
+  } else {
+    p <- ggplot() +
+      ...
+  }
+  return(p)
+})
+
+output$plot <- renderPlot(p())
+
+
+Professor Google says:
+What is an episode NHS?
+A Consultant Episode (Hospital Provider) is the time a PATIENT spends in the continuous care of one CONSULTANT using Hospital Site or Care Home bed(s) of one Health Care Provider or, in the case of shared care, in the care of two or more CONSULTANTS.
+
+David  9:59 AM
+I think LengthOfX refers to the total number of days for X. From what I can gather online https://www.nssdiscovery.scot.nhs.uk/support/docs/Discovery-Hospital-Spell-Analysis-Dashboard-Guidance.pdf they record an episode start date and end date, presumably they do the same for spells. AverageLengthOfX would be the average number of days of X. Spells can contain several episodes.
+
+David  10:17 AM
+https://publichealthscotland.scot/media/9394/specialty-stays-methodology-sep2021.pdf
+The examples at the end are useful, I think, for seeing the difference between "episodes" and "spells"
