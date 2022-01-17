@@ -1,0 +1,203 @@
+---
+title: "Regression diagnostics"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(modelr)
+```
+
+
+```{r}
+height <- c(176, 164, 181, 168, 195, 185, 166, 180, 188, 174)
+weight <- c(82, 65, 85, 76, 90, 92, 68, 83, 94, 74 )
+sample <- tibble(
+  weight,
+  height
+)
+```
+
+
+```{r}
+model <- lm(height ~ weight, data = sample)
+summary(model)
+```
+
+
+```{r}
+boxplot(resid(model))
+
+summary(model)
+```
+
+```{r}
+library(broom)
+library(janitor)
+
+summary(model)
+
+tidy_output <- tidy(model)
+tidy_output
+
+glance_output <- glance(model)
+glance_output
+```
+$$\sigma_{xy} = \frac{\sum_i{(x_i-\mu_x) \times (y_i-\mu_y)}}{N}$$
+because it's a sample uses 
+
+$$\sigma_{xy} = \frac{\sum_i{(x_i-\mu_x) \times (y_i-\mu_y)}}{N-1}$$ 
+```{r}
+# what `lm()` is doing
+
+x_dev <- sample$weight - mean(sample$weight)
+y_dev <- sample$height - mean(sample$height)
+
+top <- sum(x_dev * y_dev) / 9
+bottom <- sum(x_dev^2 / 9)
+model
+
+top / bottom
+
+
+```
+
+ x_dev = $${(x_i-\mu_x)}$$ 
+ 
+ y_dev = $${(y_i-\mu_y)}$$
+
+ top = $$\sigma_{xy} = \frac{\sum{(x_i-\mu_x) \times (y_i-\mu_y)}}{N-1}$$ 
+ 
+bottom = $$\sigma_{xy} = \frac{\sum{(x_i-\mu_x)^2 }}{N-1}$$ 
+
+```{r}
+# simple way of doing it
+
+cov(sample$weight, sample$height) /
+var(sample$weight)
+```
+
+
+```{r}
+new_model <- lm(height ~ weight, sample)
+
+new_model
+```
+
+```{r}
+hist(resid(model))
+```
+
+
+```{r}
+library(ggfortify)
+autoplot(model)
+```
+
+```{r}
+getAnywhere(autoplot())
+```
+
+```{r}
+getAnywhere(autoplot.lm)
+```
+
+
+```{r}
+apropos("lm")
+```
+
+```{r}
+help("lm")
+```
+
+
+Task - 15 mins
+
+We provide two data sets: distribution_1.csv and distribution_2.csv. Fitting a simple linear regression to each of these distributions leads to problems with the residuals for two different reasons. See if you can identify the problem in each case!
+
+    Load the data set.
+    Fit a simple linear regression taking y as the outcome and x as the explanatory variable, saving the model object.
+    Check the diagnostic plots for the model object and identify the main problem you see with the residuals (use the autoplot() function).
+    Finally, plot the data and overlay the best fit line (use add_predictions() to add a pred column to the data set, and then plot via geom_point() and geom_line()). Does this plot help you interpret the problem you found in the residuals?
+
+
+```{r}
+distribution_1 <- read_csv("data/distribution_1.csv")
+
+distribution_2 <- read_csv("data/distribution_2.csv")
+```
+
+
+```{r}
+model_dis_1 <- lm(y ~ x, data = distribution_1)
+
+model_dis_2 <- lm(y ~ x, data = distribution_2)
+
+```
+
+```{r}
+autoplot(model_dis_1)
+```
+
+```{r}
+autoplot(model_dis_2)
+```
+
+```{r}
+distribution_1 <- distribution_1 %>% 
+  add_predictions(model_dis_1)
+
+distribution_1 %>% 
+  ggplot(aes(x = x)) +
+  geom_point(aes(y = y)) +
+  geom_line(aes(y = pred), col = "red")
+```
+
+```{r}
+distribution_2 <- distribution_2 %>% 
+  add_predictions(model_dis_2)
+
+distribution_2 %>% 
+  ggplot(aes(x = x)) +
+  geom_point(aes(y = y)) +
+  geom_line(aes(y = pred), col = "red")
+```
+
+
+```{r}
+library(infer)
+```
+
+
+```{r}
+# specify regression formula
+# stat = "slope" extracts the regression coefficient
+bootstrap_distribution_slope <- distribution_2 %>%
+  specify(formula = y ~ x) %>%
+  generate(reps = 10000, type = "bootstrap") %>%
+  calculate(stat = "slope")
+
+slope_ci95 <- bootstrap_distribution_slope %>%
+  get_ci(level = 0.95, type = "percentile")
+slope_ci95
+```
+
+```{r}
+bootstrap_distribution_slope %>%
+  visualise(bins = 30) +
+  shade_ci(endpoints = slope_ci95)
+```
+
+
+```{r}
+
+
+# set conf.int = TRUE and conf.level to get a CI
+clean_names(tidy(model_dis_2, conf.int = TRUE, conf.level = 0.95))
+```
+
+
+
+*the order of (x ~ y) (y ~ x) matters*

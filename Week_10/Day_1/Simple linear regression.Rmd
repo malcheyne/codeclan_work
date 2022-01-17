@@ -1,0 +1,163 @@
+---
+title: "Simple linear regression"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+```
+
+
+```{r}
+sample <- tibble(
+  height = c(176, 164, 181, 168, 195, 185, 166, 180, 188, 174),
+  weight = c(82, 65, 85, 76, 90, 92, 68, 83, 94, 74 )
+)
+```
+
+$$\widehat{y} = b_0 + b_1 \times x$$
+where, by convention
+
+* $\widehat{y}$ is used to indicate a **fitted** $y$-value (outcome)
+* we label the **intercept** $b_0$
+* we label the **slope** $b_1$. Sometimes we might label the slope as $b_\textrm{<name>}$ where $\textrm{<name>}$ is the explanatory variable, e.g. $b_{\textrm{weight}}$
+
+So in our case, we would fit an equation of the form
+
+$$\widehat{height} = b_0 + b_{\textrm{weight}} \times \textrm{weight} $$
+
+Let's see some sample data that we might want to fit
+```{r}
+sample %>% 
+  ggplot(aes(weight, height)) +
+  geom_point()
+```
+
+```{r}
+line <- function(x, b0, b1) {
+  b0 + x * b1
+}
+
+sample <- sample %>% 
+  mutate(fit_height = line(weight, b0 = 95, b1 = 1))
+
+sample %>% 
+  ggplot(aes(weight, height)) +
+  geom_point() +
+  geom_point(aes(y = fit_height), shape = 1) +
+  geom_abline(slope = 1, intercept = 95, col = "red") +
+  geom_segment(aes(xend = weight, yend = fit_height), alpha = 0.5)
+
+```
+
+We also show the *residuals* as vertical line segments.
+
+A *residual* is the difference between a fitted outcome value and an actual outcome value. These are also sometimes called *errors*, but ‘residuals’ is better, as the term ‘error’ gets used everywhere in statistics!
+
+```{r}
+
+# see for the point options 
+?points
+```
+
+
+
+
+```{r}
+sample <- sample %>% 
+  mutate(residuals = height - fit_height)
+
+sample
+```
+
+
+Now, when we **fit** the linear model to the data, we vary $b_0$ and $b_{\textrm{weight}}$ to make the residuals **as small as possible**. Don't worry too much about how we do this in practice: R essentially does it for us using some fancy matrix algebra! It's more important to understand the concept than the technical detail.
+</div>
+
+```{r}
+sample %>% 
+  summarise(sum_residuals = sum(residuals))
+```
+
+```{r}
+sample <- sample %>% 
+  mutate(sq_residual = residuals^2)
+sample
+```
+
+```{r}
+sample %>% 
+  summarise(sum_sq_residual = sum(sq_residual))
+```
+
+```{r}
+?lm
+```
+
+
+```{r}
+class(sample$weight)
+class(~ weight)
+```
+
+```{r}
+sample
+
+new_model <- lm(height ~ weight, sample)
+new_model
+```
+
+```{r}
+fitted(new_model)
+```
+
+```{r}
+predict_at <- data.frame(weight = 78)
+
+predict(new_model, newdata = predict_at)
+```
+
+
+```{r}
+library(modelr)
+
+sample <- sample %>%
+  select(-c(fit_height, residuals, sq_residual)) %>%
+  add_predictions(new_model) %>%
+  add_residuals(new_model)
+sample
+
+
+```
+
+```{r}
+sample %>%
+  ggplot(aes(x = weight)) +
+  geom_point(aes(y = height)) +
+  geom_line(aes(y = pred), col = "red")
+```
+
+
+
+
+```{r}
+weights_predict <- tibble(
+  weight = 50:120
+)
+
+weights_predict %>%
+  add_predictions(new_model)
+```
+
+
+The regression coefficient $b_1$ (more specifically, $b_{\textrm{weight}}$ in our case) links the outcome and explanatory variables in the following way. 
+
+<br>
+<center>
+**A $1$ unit increase in explanatory variable value changes the outcome variable value by an amount equal to $b_1$**.
+</center
+<br>
+<br>
+So, in our case, a $1$kg increase in `weight` changes the predicted `height` by $0.9336$cm
+
