@@ -1,0 +1,164 @@
+---
+title: "Correlation"
+output: html_notebook
+---
+
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(CodeClanData)
+library(ggplot2)
+```
+
+
+Let’s get to know the correlation coefficient a little better. I would say let’s get to know Pearson better, but, like Galton and Fisher, he was a social Darwinist and eugenicist, so let’s not! Unfortunately many early eminent statisticians held awful views…
+    Play around with the following function (which generates a bivariate distribution with noise). Pass in the noise and gradient values in the table below.
+    Get a sense for the \(r\) values of various distributions.
+
+
+```{r}
+noisy_bivariate <- function(noise = 1, gradient = 1){
+  x <- runif(n = 200, min = 0, max = 10)
+  y <- gradient * x + 10
+  y_scatter <- noise * 4 * rnorm(n = 200)
+  y <- y + y_scatter
+  data = tibble(x, y)
+
+  r <- round(cor(x, y), 4)
+  title <- paste(
+    "noise = ", noise,
+    ", gradient = ", gradient,
+    ", r = ", r
+  )
+  
+  data %>%
+    ggplot(aes(x = x, y = y)) +
+    geom_point() +
+    xlim(0, 10) +
+    ylim(min(c(min(y), 0)), max(c(max(y), 10))) +
+    ggtitle(title)
+  
+}
+noisy_bivariate(noise = 1, gradient = -1)
+```
+
+```{r}
+cor(mtcars$wt, mtcars$mpg)
+```
+
+We’ve seen that the sign of r
+
+has a simple meaning, but what about its magnitude? J. D. Evans (1996) suggests the following scale
+magnitude of rxy
+	strength of correlation
+0 	none
+0.01 - 0.19 	very weak
+0.20 - 0.39 	weak
+0.40 - 0.59 	moderate
+0.60 - 0.79 	strong
+0.80 - 0.99 	very strong
+1 	perfect
+
+Let’s calculate the correlation coefficient for the wt and mpg variables in mtcars:
+
+```{r}
+mtcars %>%
+  summarise(cor(mpg, wt))
+
+cor(mtcars$wt, mtcars$mpg)
+
+# don't matter the order both the same
+```
+
+Finally, a word of warning! The correlation coefficient is a blunt instrument: we can run cor() on any bivariate dataset and get a number out, regardless of what the real trend (if any) is in the data.
+
+We should always visualise data before trusting summary statistics like the correlation coefficient! 
+
+
+```{r}
+head(anscombe, 3)
+
+cor(anscombe$x1, anscombe$y1)
+```
+
+All four datasets result in roughly the same correlation coefficient: 0.816
+
+!
+
+From looking at the plots above, we can conclude that:
+
+    1 looks suitable for a correlation analysis, as it looks like a linear trend with expected random spread of the data points.
+    2 has a clearly non-linear trend, and so a classic Pearson correlation is not suitable as it assumes linearity.
+    3 looks like a perfectly linear trend, but the presence of an outlier is highly influencing the correlation coefficient.
+    4 shows no relationship between variables, but once again the presence of an outlier has influenced the correlation coefficient.
+
+These four datasets are actually referred to as Anscombe’s Quartet and should hopefully help you remember the importance of visualising data before analysing it, as well as the effect of outliers on descriptive statistics. I highly recommend reading more about Anscombe’s Quartet, because you’ll see that the correlation coefficient isn’t the only statistical property these four datasets have in common!
+
+So always plot data before calculating and interpreting descriptive statistics!
+
+
+
+Task - 2 mins See if you can suggest any confounding variable(s) for the following associations:
+“1. Sleeping with shoes on is strongly correlated with waking up with a headache. Therefore, sleeping with shoes on causes headaches.”
+“2. Atmospheric CO2 level and obesity levels have both increased sharply since the 1950s. Therefore, atmospheric CO2 causes obesity.”
+“3. The more bacon someone eats, the higher their blood pressure. Therefore bacon causes hypertension.”
+
+
+Solution
+
+    Amount of alcohol consumed the day before
+    GDP - rich populations eat more food and produce more CO2
+    Preference for salty food - more likely to eat bacon, more likely to have hypertension
+
+
+
+
+
+
+Task - 15 mins Let’s calculate correlation coefficients for various variables in the state.x77 dataset!
+
+    Examine the contents of this dataset (try accessing documentation via ?state.x77 or running summary() on it).
+    Choose a few combinations of variables to plot as y
+
+versus x
+
+    and calculate the correlation coefficients for the same combinations. Do you find any strong correlations?
+    Have a think about what kind of evidence you would need to be able to claim that any of the correlations you find are due to a causal relationship between the variables.
+
+[Hint the dataset is a matrix so convert it to a tibble first via tibble_states <- clean_names(as_tibble(state.x77)) to make manipulations easier].
+
+
+```{r}
+tibble_states <- clean_names(as_tibble(state.x77))
+
+tibble_states %>% 
+  ggplot(aes(x=illiteracy, y = income)) +
+  geom_point()
+
+tibble_states %>% 
+  cor(illiteracy, income)
+```
+
+
+
+```{r}
+pairs(iris)
+```
+
+
+```{r}
+psych::pairs.panels(state.x77, gap = 0.2)
+```
+
+```{r}
+# other ways to this
+pairs()
+psych::pairs.panels()
+GGally::ggscatmat()
+GGally::ggpairs()
+```
+
+
+
+

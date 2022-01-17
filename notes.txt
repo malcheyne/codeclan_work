@@ -31,3 +31,16 @@ I think LengthOfX refers to the total number of days for X. From what I can gath
 David  10:17 AM
 https://publichealthscotland.scot/media/9394/specialty-stays-methodology-sep2021.pdf
 The examples at the end are useful, I think, for seeing the difference between "episodes" and "spells"
+
+
+Ah, yes, so LaTeX isn't an R package - it's  its own program - https://www.latex-project.org/ You can get it install LaTeX by going to https://www.latex-project.org/get/ which I think directs you to installing MikTex. After installation you should be able to knit to PDF
+If you don't want to leave R, have a look at TinyTex https://bookdown.org/yihui/rmarkdown-cookbook/install-latex.html
+Alternatively, students in the past have gotten around installing LaTeX by knitting their markdown files to html and then saving it from their web browser as a PDF file. I don't know how successful this is at keeping formatting.
+5:12
+And that css: error.
+css (cascading style sheets) apply styles to html tags. these custom style files can be used to style r markdown files by specifying the path to the file in the yaml header. So, at some point there was maybe a style file several directories up that the markdown was referencing. If you don't have a style file there, it will throw an error.
+5:13
+https://bookdown.org/yihui/rmarkdown-cookbook/structure-of-the-book.html
+bookdown.org
+Structure of the book | R Markdown Cookbook
+This book showcases short, practical examples of lesser-known tips and tricks to helps users get the most out of these tools. After reading this book, you will understand how R Markdown documents are transformed from plain text and how you may customize nearly every step of this processing. For example, you will learn how to dynamically create content from R code, reference code in other documents or chunks, control the formatting with customer templates, fine-tune how your code is processed, and incorporate multiple languages into your analysis.
