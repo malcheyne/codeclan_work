@@ -198,6 +198,11 @@ bootstrap_distribution_slope %>%
 clean_names(tidy(model_dis_2, conf.int = TRUE, conf.level = 0.95))
 ```
 
+```{r}
+plot(model_dis_2)
+hist(resid(model_dis_2))
+```
+
 
 
 *the order of (x ~ y) (y ~ x) matters*
