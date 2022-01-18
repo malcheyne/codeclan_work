@@ -1,0 +1,126 @@
+---
+title: "Variable Engineering"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(fastDummies)
+```
+
+
+```{r}
+grades <- read_csv("data/grades.csv")
+
+grades
+```
+# Handling missing data
+
+```{r}
+summary(grades)
+```
+
+NA's   :1        NA's   :3  
+
+Task - 5 mins
+Replace the NA values in our dataset by imputing the mean value of the appropriate columns. Refer to the summary above to see which columns need work.
+
+```{r}
+grades <- grades %>% 
+  mutate(take_home = coalesce(take_home, median(take_home, na.rm = TRUE)),
+         final = coalesce(final, median(final, na.rm = TRUE)))
+
+summary(grades)
+```
+jonny work
+```{r}
+grades_imputed <- grades %>%
+  group_by(subject) %>%
+  mutate(across(where(is.numeric), ~ coalesce(.x, mean(.x, na.rm = TRUE))))
+
+summary(grades_imputed)
+```
+
+# Creating dummy variables
+
+```{r}
+grades %>%
+  distinct(subject)
+```
+
+```{r}
+grades_subject_dummy <- grades %>%
+  mutate(subject_engl = ifelse(subject == "english", 1, 0))
+
+head(grades_subject_dummy)
+```
+
+```{r}
+grades_subject_dummy <- grades_subject_dummy %>%
+  mutate(subject_phys = ifelse(subject == "physics", 1, 0)) %>%
+  mutate(subject_maths = ifelse(subject == "maths", 1, 0)) %>%
+  mutate(subject_fren = ifelse(subject == "french", 1, 0)) %>%
+  mutate(subject_bio = ifelse(subject == "biology", 1, 0))
+
+head(grades_subject_dummy)
+```
+
+```{r}
+grades_subject_dummy %>% 
+  select(contains("subject"),
+         -subject) 
+```
+
+```{r}
+grades_subject_dummy <- grades_subject_dummy %>% 
+  select(-subject)
+
+grades_subject_dummy
+```
+## The dummy variable trap
+
+We’ve actually done more work than we really needed to here. We’ve created a dummy variable for every possible value, but in fact that’s one more than we need. Every data point must have a values of “1” for one of the five dummy variables because of how we’ve defined them. Now think about how the dataframe would look if we only had four dummy variables. We would end up with some data points which had a 0 in each column, but because we know that there are only five possible values we can infer this particular data point must have value “1” for the variable which we haven’t represented. In general, if we have n values we only need n-1 dummy variables.
+
+The scenario where we have n dummy variables for n values is known by some as the dummy variable trap. When this occurs we have two or more variables which are multicollinear, ie. one can be predicted from the other(s). Collinearity between variables is undesirable for many machine learning models (including regression), and while we should take care of it at the variable selection stage (a future lesson) it would be better to avoid creating the work for ourselves in the first place!
+
+Note: sometimes creating dummy variables is referred to as one hot encoding. Usually when using the term ‘one hot encoding’ it refers to the creation of n dummy variables, for a model where multicollinearity is not an issue, where as dummy encoding is when we remove one variable to avoid multicollinearity.
+
+```{r}
+grades_subject_dummy2 <- grades %>%
+  fastDummies::dummy_cols(select_columns = "subject", remove_first_dummy = TRUE, remove_selected_columns = TRUE) 
+
+head(grades_subject_dummy2)
+```
+
+```{r}
+assignment_mean <- mean(grades$assignment)
+assignment_sd <- sd(grades$assignment)
+
+assignment_mean
+assignment_sd
+```
+
+```{r}
+grades_scaled <- grades %>%
+  mutate(assignment_scaled = (assignment - assignment_mean) / assignment_sd)
+
+grades_scaled
+```
+
+
+```{r}
+grades %>% 
+  ggplot(aes(x = assignment)) +
+  geom_density() +
+  geom_vline(xintercept = mean(grades$assignment), size = 1, colour = "red") +
+  labs(title = "Raw data")
+```
+
+```{r}
+grades_scaled %>% 
+  ggplot(aes(x = assignment_scaled)) +
+  geom_density() +
+  geom_vline(xintercept = mean(grades_scaled$assignment_scaled), size = 1, colour = "red") +
+  labs(title = "Raw data")
+```
+

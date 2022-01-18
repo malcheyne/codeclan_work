@@ -1,0 +1,101 @@
+---
+title: "Elements of multiple regression"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(mosaicData)
+library(janitor)
+```
+
+```{r}
+RailTrail
+```
+
+```{r}
+railtrail_clean <- RailTrail %>%
+  clean_names() %>% 
+  mutate(across(spring:fall, as.logical))
+   
+head(railtrail_clean)      
+```
+
+```{r}
+railtrail_trim <- railtrail_clean %>% 
+  select(-c("hightemp", "lowtemp", "fall", "day_type"))
+
+head(railtrail_trim)
+```
+
+```{r}
+alias(lm(volume ~ . , data = railtrail_clean))
+```
+
+```{r}
+alias(lm(volume ~ . , data = railtrail_trim))
+```
+
+
+```{r}
+library(GGally)
+ggpairs(railtrail_trim)
+```
+
+Use this for an idea of what to plot
+
+```{r}
+library(ggfortify)
+```
+
+```{r}
+model <- lm(volume ~ avgtemp, data = railtrail_trim)
+autoplot(model)
+```
+
+
+```{r}
+summary(model)
+```
+
+
+Task - 2 mins
+Check the regression assumptions. How well does this simple model perform in predicting volume?
+[Hint - remember, we can check the regression assumptions by plotting the model object]
+
+What does the R value tell us about how well it performs?
+
+* Multiple R-squared: 18% (0.1822)
+
+* Residual standard error: 115.9 has a high level of error, for 500 people this could show 385-615 people.
+
+The regression doesn’t seem too bad, although there is some evidence of systematic variation not captured in the Residuals vs Fitted plot, some deviation from normality in the high quantile residuals in the Normal Q-Q plot, and evidence of rather mild heteroscedasticity in the Scale-Location plot.
+
+Alas, however, the model isn’t very effective. The r2
+value is 0.18, and the residual standard error is 115.9. To put the latter in context, let’s see the boxplot of volume.
+
+```{r}
+railtrail_trim %>%
+  ggplot(aes(y = volume)) + 
+  geom_boxplot()
+```
+
+The median is just below 400 users, and our estimated volume values are accurate to only 116 users on average (we get this from the residual standard error)! So our estimates are out by around 25% of the typical user volume.
+
+How do we fix this then? This is where the magic of multiple linear regression comes in. We can hopefully do better by adding further predictors to the model, taking us into the territory of multiple linear regression! Adding predictors might well also fix some of the rather mild breaches of the regression assumptions we have observed. Fingers crossed!
+
+# Add in another Variable
+
+```{r}
+model2 <- lm(volume ~ avgtemp + weekday, data = railtrail_trim)
+
+summary(model2)
+autoplot(model2)
+```
+
+* weekdayTRUE  -70.320: There are approx 70 fewer users on the trail each weekday as compares with the weekend (with avg temp held constant)
+
+* Pr is the P-value
+
+
+
