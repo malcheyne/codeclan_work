@@ -98,4 +98,169 @@ autoplot(model2)
 * Pr is the P-value
 
 
+```{r}
+library(mosaic)
+```
+
+```{r}
+plotModel(model2)
+```
+
+
+So we see the model effectively has *two lines*: one for weekdays, and another for weekend days. The lines are **parallel** (their slopes are the same), so we call this a 'parallel slopes model'.
+
+How do these two lines come about? Let's look again at the regression equation:
+
+<br>
+
+$$\widehat{\textrm{volume}} = \textrm{intercept} + b_{\textrm{avgtemp}} \times \textrm{avgtemp} + b_{\textrm{weekday}} \times \textrm{weekday}$$
+
+<br>
+
+The slope of the line with respect to `avgtemp` is $b_\textrm{weekday}$, and remember that `weekday` is **categorical**. So for `weekday = TRUE` values, the line is effectively
+
+<br>
+
+$$\widehat{\textrm{volume}} = (\textrm{intercept} + b_{\textrm{weekday}}) + b_{\textrm{avgtemp}} \times \textrm{avgtemp}$$
+
+<br>
+
+i.e. just a shift in the `intercept`, while for `weekday = FALSE` values, we get
+
+<br>
+
+$$\widehat{\textrm{volume}} = \textrm{intercept} + b_{\textrm{avgtemp}} \times \textrm{avgtemp}$$
+
+**Task - 5 mins**
+
+Try adding the `summer` categorical predictor to the existing model with `avgtemp` and `weekday`.
+
+<br>
+
+$$\widehat{\textrm{volume}} = \textrm{intercept} + b_{\textrm{avgtemp}} \times \textrm{avgtemp} + b_{\textrm{weekday}} \times \textrm{weekday} + b_{\textrm{summer}} \times \textrm{summer}$$
+
+```{r}
+model3 <- lm(volume ~ avgtemp + weekday + summer, data = railtrail_trim)
+
+summary(model3)
+```
+
+```{r}
+plotModel(model3)
+```
+
+We find four parallel lines, as expected! However, we’ll leave summer out of the model, as the p-value of its coefficient indicates that it is not significant.
+
+
+# Interactions
+
+```{r}
+railtrail_trim %>%
+  ggplot(aes(x = avgtemp, y = volume, color = weekday)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+
+```
+
+How do we interpret this? What we see is equivalent to grouping the data by `weekday` and obtaining best-fit lines of `volume` versus `avgtemp` for each group of data independently. It's clear that **the slopes and intercepts of these best-fit lines vary depending on whether `weekday` is `TRUE` or `FALSE`**.
+<br>
+
+How can we add this behaviour into our model? By adding an **interaction** between `avgtemp` and `weekday`.
+
+<br>
+
+$$\widehat{\textrm{volume}} = \textrm{intercept} + b_{\textrm{avgtemp}} \times \textrm{avgtemp} + b_{\textrm{weekday}} \times \textrm{weekday} + b_{\textrm{avgtemp:weekday}} \times \textrm{avgtemp} \times \textrm{weekday}$$
+
+<br>
+
+The last term here is the interaction. Notice that it involves the **product** of the two predictors: $\textrm{avgtemp} \times \textrm{weekday}$.
+
+<br>
+
+We do this in `patsy` formula notation with the $:$ operator as follows:
+
+<br>
+
+```{r}
+model4 <- lm(volume ~ avgtemp + weekday + avgtemp:weekday, data = railtrail_trim)
+
+summary(model4)
+```
+
+<br>
+
+We can read $:$ as *'...interacting with...'*, so `+ avgtemp:weekday` can be read as *'add `avgtemp` interacting with `weekday`'*. This is useful blog [here](https://statisticsbyjim.com/regression/interaction-effects/) on more about interaction effects. In the blog they suggest reading an intercation term like 'it depends' so in our example we can explain it as:  
+
+* What effect does an increase in average temp have on volume - it depends on whether it’s a week day or not. 
+* What effect does a change from weekday to weekend have on volume - it depends on what the average temperature is. 
+
+<br>
+
+```{r}
+plotModel(model4)
+```
+<br>
+
+This looks promising! We reproduce our `ggplot` figure from earlier in this section.
+
+Task - 2 mins
+Examine the summary of the model including the interaction between avgtemp and weekday. Is our inclusion of the interaction justified?
+
+no as the p-value of its coefficient indicates that it is not significant, lower than 0.05.
+
+```{r}
+model5 <- lm(volume ~ avgtemp + weekday + cloudcover, data = railtrail_trim)
+
+summary(model5)
+```
+
+all the p-value of its coefficient indicates that it is significant, all higher than 0.05.
+
+avgtemp       5.2461 = for each 1 degree  of temp we have 5 more people
+
+weekdayTRUE -47.9480 = have about 48 less people over the weekday than the weekend
+
+cloudcover  -16.0115 = for each 1 what ever of cloudcover we have 16 less people
+
+
+Task - 5 mins
+Add precip (daily precipitation in inches) into the regression model. Perform diagnostics, and if you find that precip is a significant predictor, interpret its fitted coefficient.
+
+```{r}
+model6 <- lm(volume ~ avgtemp + weekday + cloudcover +precip, data = railtrail_trim)
+
+summary(model6)
+```
+
+precip p-value of its coefficient indicates that it is significant, higher than 0.05.
+
+precip      -117.5681 = for each 1 inch of precip we have 117 less people
+
+```{r}
+# model6.2 <- lm(volume ~ avgtemp + weekday  +precip, data = railtrail_trim)
+# 
+# summary(model6.2)
+```
+
+# Interaction of continuous predictors
+
+```{r}
+model7 <-  lm(volume ~ avgtemp + weekday + cloudcover + precip + 
+                avgtemp:precip, data = railtrail_trim)
+
+summary(model7)
+```
+
+Adding  as the p-value of its coefficient indicates that it is not significant, lower than 0.05.
+
+
+```{r}
+coplot(volume ~ avgtemp | precip,
+       rows = 1,
+       panel = function(x, y, ...){
+         points(x, y)
+         abline(lm(y ~ x), col = "blue")
+       },
+       data = railtrail_trim)
+```
 
