@@ -1,0 +1,163 @@
+---
+title: "Dimensionality Reduction"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+
+```
+
+
+```{r}
+?mtcars
+```
+
+```{r}
+cars_numeric <- mtcars %>% 
+  select(-c("vs", "am"))
+
+```
+
+
+```{r}
+cars_pca <- prcomp(cars_numeric, 
+                   center = TRUE, 
+                   scale. = TRUE)
+
+cars_pca
+```
+
+```{r}
+summary(cars_pca)
+```
+
+                        PC1    PC2     PC3     PC4
+Cumulative Proportion  0.6284 0.8598 0.91581 0.94525
+
+Cumulative Proportion should = 1.00000 when you run it the frist time with all variables
+
+
+
+```{r}
+library(factoextra)
+```
+
+```{r}
+fviz_eig(cars_pca)
+```
+
+```{r}
+cars_pca
+```
+
+```{r}
+fviz_pca_ind(cars_pca, 
+             repel = TRUE)    # Avoid text overlapping)
+```
+
+```{r}
+fviz_pca_var(cars_pca, 
+             col.var = "contrib", # Color by contributions to the PC
+             gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+             repel = TRUE     # Avoid text overlapping
+             )
+```
+
+
+```{r}
+fviz_pca_biplot(cars_pca, repel = TRUE, 
+                col.val = "#0008b",
+                col.ind = "#d3d3d3")
+```
+
+```{r}
+unsccaled_pca <- prcomp(cars_numeric, center = T, scale = F)
+
+summary(unsccaled_pca)
+```
+
+
+
+```{r}
+n_data <- nrow(cars_numeric) # number of rows 
+
+test_index <- sample(1:n_data, # from 1 to the end of our data
+                     size = n_data*0.2) 
+
+test <- slice(cars_numeric, test_index)
+
+train <- slice(cars_numeric, -test_index)
+
+
+cars_train_pca <- prcomp(train,
+                         center = T,
+                         scale. = T,
+                         rank. = 4) #cut down the number of PCA
+
+summary(cars_train_pca)
+```
+
+```{r}
+cars_predict <- predict(cars_train_pca, newdata = test)
+```
+
+```{r}
+p <- fviz_pca_biplot(cars_train_pca, repel = T,
+                     col.val = "#00008b",
+                     col.ind = "#d3d3d3")
+
+fviz_add(p, cars_predict,
+         col.val = "#00008b",
+         col.ind = "#d3d3d3")
+```
+
+
+```{r}
+# read in the data
+music <- read_csv("data/data_w_genres.csv")
+```
+
+```{r}
+head(music)
+```
+
+```{r}
+music_number <- music %>% 
+  select_if(is.numeric)
+```
+
+
+```{r}
+music_pca <- prcomp(music_number,
+                    center = T,
+                    scale. = T)
+
+fviz_eig(music_pca)
+```
+
+```{r}
+music_pca
+```
+
+```{r}
+summary(music_pca)
+```
+
+```{r}
+# don't use for high numbers, will take 5 min to work out
+
+fviz_pca_ind(music_pca,
+             repel = T)
+```
+
+```{r}
+fviz_pca_var(music_pca,
+             col.var = "contrib", # Color by contributions to the PC
+             gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+             repel = TRUE)     # Avoid text overlapping
+
+```
+
+
+
