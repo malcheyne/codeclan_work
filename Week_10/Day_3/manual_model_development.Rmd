@@ -267,3 +267,8 @@ summary(mod4c_betas)
 
 
 The values in the Standardized column provide a rough measure of predictor importance, but the lmg method of calc.relimp() is better!
+
+https://data.library.virginia.edu/diagnostic-plots/
+data.library.virginia.edudata.library.virginia.edu
+Understanding Diagnostic Plots for Linear Regression Analysis | University of Virginia Library Research Data Services + Sciences
+Collections, services, branches, and contact information.
