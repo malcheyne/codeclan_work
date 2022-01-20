@@ -1,0 +1,301 @@
+---
+title: "Over-fitting"
+output: html_notebook
+---
+
+
+```{r}
+library(tidyverse)
+library(CodeClanData)
+savings
+```
+
+# Over-fitting in multiple linear regression
+
+```{r}
+model_overfit <- lm(savings ~ ., data = savings)
+
+model_wellfit <- lm(savings ~ salary + age + retired, data = savings)
+
+model_underfit <- lm(savings ~ salary, data = savings)
+```
+
+
+```{r}
+summary(model_overfit)
+
+summary(model_wellfit)
+
+summary(model_underfit)
+```
+
+# Parsimonious measures of goodness-of-fit
+
+A Parsimonious model is one which included as few variables as necessary.
+
+Adjusted R squared - Measures the proportion of the variation in your response variable
+
+Akaike Information Criterion (AIC) - Single number score used to determine which of the model is most likely the best model.
+
+Bayes Information Criterion (BIC) - Measures of goodness of fit
+
+R-squared - Larger values are better
+AIC and BIC - Lower numbers are better
+
+BIC tends to be more parsimonious. (It tends to select smaller models)
+ - BIC penalizes larger models when compared to AIC
+
+
+
+```{r}
+summary(model_overfit)$adj.r.squared
+```
+
+```{r}
+AIC(model_overfit)
+```
+
+```{r}
+BIC(model_overfit)
+```
+
+If you want to see all the scores in one go in a handy data-frame form, you can install the broom package and use the glance function.
+
+```{r}
+broom::glance(model_overfit)
+```
+
+Task - 10 minutes
+
+Find the R-squared, adjusted R-squared, AIC and BIC score for:
+
+    The well fitted model
+
+model_wellfit <- lm(savings ~ salary + age + retired, data = savings)
+
+```{r}
+summary(model_wellfit)$adj.r.squared
+
+AIC(model_wellfit)
+
+BIC(model_wellfit)
+```
+
+    The over fitted model
+
+model_overfit <- lm(savings ~ ., data = savings)
+
+```{r}
+summary(model_overfit)$adj.r.squared
+
+AIC(model_overfit)
+
+BIC(model_overfit)
+```
+
+    The under-fitted model
+
+model_underfit <- lm(savings ~ salary, data = savings)
+
+```{r}
+summary(model_underfit)$adj.r.squared
+
+AIC(model_underfit)
+
+BIC(model_underfit)
+```
+
+
+Does the results you found match with your expectations?
+
+model_wellfit has the lower AIC & BIC and the mid r^2 which will be the better one 
+
+
+jonny's work
+```{r}
+a <- broom::glance(model_overfit)
+
+b <- broom::glance(model_underfit)
+
+c <- broom::glance(model_wellfit)
+
+models_summary_comparison <- bind_rows(a,b,c)
+
+models_summary_comparison
+```
+
+## Test and traing set
+
+
+Exploratory Data Analysis - EDA
+
+Feature Engineering
+
+Feature Selection 
+
+Frature Store
+
+Test and traing set
+
+Model Development
+
+
+
+
+
+
+Below is an example of splitting a dataset into a test and train set. First you use random sampling to get the indexes of the test data, then you can use slice to split the data. Let’s do this on our savings data.
+
+```{r}
+set.seed(9)
+
+# count rows
+n_data <- nrow(savings)
+
+# make teat index
+test_index <-  sample(1:n_data, size = n_data*0.2)
+
+# use test index to create test and training split
+test <- slice(savings, test_index)
+train <- slice(savings, -test_index)
+
+```
+
+Now we can fit the model on the the train data:
+
+```{r}
+model <- lm(savings ~ salary + age + retired,
+            data = train)
+```
+
+Using that model we can make predictions based on our test data. We can use the add_predictions() function from modelr to add a prediction for every observation in our dataset.
+
+```{r}
+library(modelr)
+
+predictions_test <- test %>%
+  add_predictions(model) %>%
+  select(savings, pred)
+
+predictions_test
+```
+
+Now we can calculate the mean squared error, just by taking the the average of the squares of the differences between the predictions and the actual values.
+
+```{r}
+mse_test <- mean((predictions_test$pred - test$savings)**2)
+mse_test
+
+# can use either vaible
+
+# mse_test <- mean((predictions_test$pred - predictions_test$savings)**2)
+# mse_test
+```
+
+
+Task - 10 minutes
+
+Calculate the mean squared error between predicted savings and actual savings in the training dataset.
+
+Which is higher, then error on the test or the error on the training data? Is this what you would expect?
+
+```{r}
+predictions_train <- train %>%
+  add_predictions(model) %>%
+  select(savings, pred)
+
+predictions_train
+```
+
+```{r}
+mse_train <- mean((predictions_train$pred - predictions_train$savings)**2)
+mse_train 
+```
+
+## K-fold cross validation
+
+```{r}
+library(caret)
+```
+
+```{r}
+# set options for cv
+cv_10_fold <- trainControl(method = "cv",
+                           number = 10,
+                           savePredictions = TRUE)
+
+model <- train(savings ~ salary + age + retired,
+               data = savings,
+               trControl = cv_10_fold,
+               method = "lm")
+```
+
+```{r}
+model$pred
+```
+
+```{r}
+model$resample
+```
+
+```{r}
+mean(model$resample$RMSE)
+```
+
+```{r}
+mean(model$resample$Rsquared)
+```
+
+
+
+
+
+Ricardo's work
+```{r, message=FALSE, warning=FALSE}
+cv_10_fold <- trainControl(method = "cv",
+                           number = 10,
+                           savePredictions = T)
+
+model <- train(savings ~ .,
+               data = savings,
+               trControl = cv_10_fold,
+               method = "lm")
+
+mean(model$resample$RMSE)
+```
+
+```{r, message=FALSE, warning=FALSE}
+cv_10_fold <- trainControl(method = "cv",
+                           number = 10,
+                           savePredictions = T)
+
+model <- train(savings ~ .,
+               data = savings,
+               trControl = cv_10_fold,
+               method = "lm")
+
+mean(model$resample$Rsquared)
+```
+
+
+rout mean squred error - RMSE
+
+well-fit model RMSE - 9663.584
+
+over-fit model RMSE - 9789.31
+
+
+
+well-fit model Rsquared - 0.340796
+
+over-fit model Rsquared - 0.3216934
+
+
+```{r}
+
+```
+
+
+
+
+
