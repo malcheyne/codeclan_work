@@ -291,6 +291,14 @@ well-fit model Rsquared - 0.340796
 over-fit model Rsquared - 0.3216934
 
 
+Test-train split is 20% - 80%
+
+K-fold cross validation uses the 80% to make x number of folds (ie 5 or 10 samples from the 80% of the data, 3 should be the minimum), the mean of that is taken to average out the errors 
+
+In the examples above we're using the whole data to test the model but would normally uses the 20% validation set that we split off. See the next part
+
+
+
 ```{r}
 
 ```

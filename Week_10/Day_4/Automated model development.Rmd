@@ -1,0 +1,181 @@
+---
+title: "Automated model development"
+output: html_notebook
+---
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(leaps)
+library(CodeClanData)
+```
+
+
+```{r}
+insurance
+```
+
+```{r}
+regsubsets_forwards <- regsubsets(charges ~ .,
+                                  data = insurance,
+                                  nvmax = 8,
+                                  method = "forward")
+```
+
+
+```{r}
+sum_regsubsets_forwards <- summary(regsubsets_forwards)
+
+sum_regsubsets_forwards
+```
+
+in the above results reading along the lines each star indecaes which perditers to include ie 1 perditer should include smokeryes, 3 perditers age, bmi, smokeryes.
+
+```{r}
+# sames as above
+sum_regsubsets_forwards$which
+```
+
+```{r}
+# picking how many you want
+sum_regsubsets_forwards$which[3,]
+```
+
+
+```{r}
+plot(regsubsets_forwards, scale = "adjr2")
+```
+
+Reading a long the rows each black boxs is included 
+
+```{r}
+plot(regsubsets_forwards, scale = "bic")
+```
+
+null model = lm(charges ~1)
+wellfit model = lm(charges ~ age + bmi = children + smoker)
+
+BIC(wellfit_model) - BIC(null_model)
+
+```{r}
+null_model = lm(charges ~ 1, data = insurance)
+wellfit_model = lm(charges ~ age + bmi + children + smoker, 
+                   data = insurance)
+overfit_model = lm(charges ~ ., data = insurance)
+
+BIC(wellfit_model) - BIC(null_model)
+```
+
+```{r}
+BIC(overfit_model) - BIC(null_model)
+```
+
+```{r}
+plot(sum_regsubsets_forwards$rsq, type = "b")
+```
+
+```{r}
+plot(sum_regsubsets_forwards$bic, type = "b")
+```
+
+
+BIC from 5 onwards it rises back up as it is overfitted as it is too complex. 
+
+
+These show 3 and 4 have very little diffrence between them and are the best to use, we when with 3 it had the least number of perditers. 
+
+Task - 10 mins
+Re-run the analyses above using the backward selection and exhaustive search variable selection methods [Hint - look at the regsubsets() docs to see how to do this]
+Compare the tables (or plots, whichever you find easier) showing which predictors are included for forward selection, backward selection and exhaustive search. Do you find any differences? Use adjusted R-squared as your measure of fit.
+
+```{r}
+regsubsets_backwards <- regsubsets(charges ~ .,
+                                  data = insurance,
+                                  nvmax = 8,
+                                  method = "backward")
+
+plot(regsubsets_backwards, scale = "adjr2")
+```
+
+```{r}
+regsubsets_muti <- regsubsets(charges ~ .,
+                                  data = insurance,
+                                  nvmax = 8,
+                                  method = c("backward", "forward"))
+
+plot(regsubsets_backwards, scale = "adjr2")
+```
+
+`regsubsets()` all three methods bring the same resaults 
+
+
+# Human intervention is needed…
+
+Finally, understand that the models returned by the variable selection methods and chosen by us on the basis of AIC, BIC etc. have not been tested for statistical significance. We should perform these tests, and also check that any model we select makes sense in terms of the context of the analysis we are undertaking.
+
+Let’s check the specification of the 6
+-predictor model!
+
+```{r}
+summary(regsubsets_muti)$which[6,]
+```
+
+```{r}
+mod_without_region <- lm(charges ~ age + bmi +
+                           children + smoker, 
+                         data = insurance)
+summary(mod_without_region)
+```
+
+```{r}
+mod_with_region <- lm(charges ~ age + bmi +
+                        children + smoker + region, 
+                      data = insurance)
+summary(mod_with_region)
+```
+
+```{r}
+anova(mod_with_region, mod_without_region)
+```
+
+The model with region is not significantly better than the model without, so we should discard region. Let’s check the diagnostics of mod_without_region
+
+```{r}
+par(mfrow = c(2, 2))
+plot(mod_without_region)
+```
+
+Hmm, the diagnostic plots don’t look very promising for this model, the residuals are clearly not normal, and there is evidence of heteroscedasticity. Some variable transformations may be necessary (in which case, we would need to start the variable selection process again after performing the transformations).
+
+
+
+Task - 5 mins
+
+Go ahead and extract the 3
+-predictor model, and then check its significance and the diagnostic plots.
+
+```{r}
+summary(regsubsets_muti)$which[3,]
+```
+
+
+```{r}
+mod_with_3 <- lm(charges ~ age + bmi +
+                           smoker, 
+                         data = insurance)
+
+par(mfrow = c(2, 2))
+plot(mod_with_3)
+```
+
+
+
+```{r}
+mod_with_2 <- lm(charges ~ age + bmi, 
+                         data = insurance)
+
+par(mfrow = c(2, 2))
+plot(mod_with_2)
+```
+
+
+
