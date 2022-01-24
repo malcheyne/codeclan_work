@@ -199,4 +199,339 @@ odds_at_544 <- tibble(tu_score = 544) %>%
 odds_at_544
 ```
 
+# Multiple predictors
 
+Make a new model with multiple predictors
+
+```{r}
+mortgage_multi_log_model <- glm(accepted ~ tu_score + employed + age, 
+                                data = mortgage_data,
+                                family = binomial(link = 'logit'))
+
+mortgage_multi_log_model
+```
+
+
+
+
+```{r}
+tidy_out <- tidy(mortgage_multi_log_model)
+
+tidy_out
+```
+
+tu_score and employedTRUE are significant 
+
+Final model: accepted ~ tu_score + employed
+
+```{r}
+b_employedTRUE <- tidy(mortgage_multi_log_model) %>% 
+  filter(term == "employedTRUE") %>% 
+  select(estimate)
+
+exp(b_employedTRUE)
+```
+
+On average, a customer's odds of being axxepted for a mortgage are 4.39 times higher if they are employed.
+
+# Evaluating the Perfirmance of a Model
+
+
+```{r}
+mortgage_3pred_model <- glm(accepted ~ tu_score + employed + age, 
+                            data = mortgage_data, 
+                            family = binomial(link = 'logit'))
+
+mortgage_data_with_3pred <- mortgage_data %>%
+  add_predictions(mortgage_3pred_model, type = "response")
+head(mortgage_data_with_3pred)
+```
+
+**Threshold probability**: cut off for whether a value gets classed as true or false, that depends on a prob level.
+
+Set the threshold to 0.6
+```{r}
+threshold <-  0.6
+
+mortgage_data_with_3pred <- mortgage_data_with_3pred %>% 
+  mutate(pred_thresh_0.6 = pred > threshold)
+
+mortgage_data_with_3pred
+```
+
+Count how many times our classifier?model is correct - confusion matrix
+
+```{r}
+conf_table <- mortgage_data_with_3pred %>% 
+  tabyl(accepted, pred_thresh_0.6)
+
+conf_table
+```
+
+The table is pretty self-explanatory:
+
+    The ‘correct’ predictions, i.e. true negatives and true positives are on the top left to bottom right diagonal.
+    The ‘incorrect’ predictions, i.e. false negatives and false positives are on the bottom left to top right diagonal. A perfect classifier would have zeroes on this diagonal.
+
+‘True’, ‘false’, ‘negative’ and ‘positive’ can be confusing terms at first. It might help to think that ‘negative’ and ‘positive’ are the outcomes predicted by the logistic regression and ‘true’ and ‘false’ relate to whether the prediction was correct with reference to the sample data.
+
+```{r}
+mortgage_data_with_3pred %>% 
+  filter(tu_score == 594)
+```
+
+
+# Accuracy Score
+
+What is the accuracy of a classifier
+
+$$\textrm{accuracy} = \frac{NTP + NTN}{N}$$
+
+So, in our case, the classifier is $\frac{679+179}{1000}=0.858$ or $85.8\%$ accurate! This sounds great, but it isn't enough. Accuracy has a **subtle weakness** that means we need to consider additional measures of performance for our classifier.
+
+
+
+# Rates
+
+Performance measures of the claaifier/model.
+
+**true positive rate** $$TPR = \frac{NTP}{NTP + NFN}$$
+
+TPR: The number of positive cases that are correctly identified/classified. **Sensitivity** of a classifier.
+
+**true negative rate** $$TNR = \frac{NTN}{NTN + NFP}$$
+
+TNR: The number of negative cases that are correctly identified/classified. **Sensitivity** of a classifier.
+
+**false positive rate** $$FPR = \frac{NFP}{NFP + NTN}$$
+
+FPR: False alarm rate - nagative cases that are incorrectly identified as a positive. **Type I Error**
+
+**false negative rate** $$FNR = \frac{NFN}{NFN + NTP}$$
+
+FNR: incorrectly identifies a case as negative when it's positive :( **Type II Error**
+
+
+```{r}
+NTP <- 179
+NTN <- 679
+NFP <- 49
+NFN <- 93
+
+TPR <- NTP / (NTP + NFN)
+TNR <- NTN / (NTN + NFP)
+FPR <- NFP / (NFP + NTN)
+FNR <- NFN / (NFN + NTP)
+```
+
+```{r}
+TPR
+TNR
+FPR
+FNR
+```
+
+# ROC curves, AUC values, Gini Coefficients and cross validation
+
+```{r}
+summary(mortgage_3pred_model)
+```
+
+# ROC curves
+
+```{r}
+library(pROC)
+```
+
+```{r}
+roc_obj_3pred <- mortgage_data_with_3pred %>% 
+  roc(response = accepted, predictor = pred)
+```
+
+```{r}
+ggroc(data = roc_obj_3pred, laegacy.axes =TRUE) +
+  coord_fixed() +
+  ylab("Sensitivy (TPR)") +
+  xlab("1-Sensitivy (FPR)")
+```
+
+
+```{r}
+classifier_data <- tibble(
+  threshold = roc_obj_3pred$thresholds,
+  sensitivity = roc_obj_3pred$sensitivities,
+  specificity = roc_obj_3pred$specificities
+)
+
+head(classifier_data)
+```
+
+Task - 10 mins
+OK, let’s fit another classifier and add its curve to the ROC plot from earlier!
+Fit a single predictor logistic regression model to the `mortgage_data.` We recommend `tu_score` as the predictor. Save the model as `mortgage_1pred_model`
+Add the predicted probabilities from this model to `mortgage_data`, and save the resulting data as `mortgage_data_with_1pred`
+Use this data to generate an an object from `roc()`, save the object as `roc_obj_1pred`
+Pass your old `roc_obj_3pred` and new `roc_obj_1pred` into `ggroc()` [Hint check the ggroc() docs to see how to pass in multiple `roc` objects].
+Given these ROC curves, which classifier is better?
+If you have time, try another single predictor, i.e. `age` or `employed`
+
+```{r}
+mortgage_1pred_model <- glm(accepted ~ tu_score, 
+                            data = mortgage_data, 
+                            family = binomial(link = 'logit'))
+
+mortgage_data_with_1pred <- mortgage_data %>%
+  add_predictions(mortgage_1pred_model, type = "response")
+head(mortgage_data_with_1pred)
+```
+
+```{r}
+threshold <-  0.6
+
+mortgage_data_with_1pred <- mortgage_data_with_1pred %>% 
+  mutate(pred_thresh_0.6 = pred > threshold)
+
+mortgage_data_with_1pred
+```
+
+```{r}
+conf_table_1pred <- mortgage_data_with_1pred %>% 
+  tabyl(accepted, pred_thresh_0.6)
+
+conf_table_1pred
+```
+
+```{r}
+NTP <- 145
+NTN <- 684
+NFP <- 44
+NFN <- 127
+
+TPR <- NTP / (NTP + NFN)
+TNR <- NTN / (NTN + NFP)
+FPR <- NFP / (NFP + NTN)
+FNR <- NFN / (NFN + NTP)
+```
+
+```{r}
+TPR
+TNR
+FPR
+FNR
+```
+
+
+```{r}
+roc_obj_1pred <- mortgage_data_with_1pred %>% 
+  roc(response = accepted, predictor = pred)
+```
+
+```{r}
+ggroc(data = roc_obj_1pred, laegacy.axes =TRUE) +
+  coord_fixed() +
+  ylab("Sensitivy (TPR)") +
+  xlab("1-Sensitivy (FPR)")
+```
+
+
+```{r}
+roc_curve <- ggroc(data = list(pred3 = roc_obj_3pred, pred1 = roc_obj_1pred), legacy.axes = TRUE) +
+  coord_fixed()
+
+roc_curve
+```
+
+ROC - gives us a convienent way to compare performance of classifiers visually
+
+AUC value - gives us a singular number to measure effectiveness of a classifier
+
+AUC : Area under the Curve
+
+```{r}
+auc(roc_obj_3pred)
+```
+
+```{r}
+auc(roc_obj_1pred)
+```
+
+Gini Coefficient: normalises AUC so that a total random classifier has 0 and a perfect classifier has 1 : not %
+
+GINI = 2 * AUC -1
+
+0 : 1
+
+```{r}
+gini1 <- 2 * 0.866 - 1
+gini1
+
+gini3 <- 2 * 0.881 - 1
+gini3
+```
+
+# Cross Validation
+
+```{r}
+library(caret)
+```
+
+
+```{r}
+mortgage_data <- mortgage_data %>%
+  mutate(employed = as_factor(if_else(employed, "t", "f")),
+         accepted = as_factor(if_else(accepted, "t", "f")),
+         employed = relevel(employed, ref = "f"),
+         accepted = relevel(accepted, ref = "f")) 
+
+mortgage_data
+```
+
+```{r}
+train_control <- trainControl(method = "repeatedcv",
+                              number = 5, # cuts data into 5 folds to test
+                              repeats = 100,
+                              savePredictions = TRUE,
+                              classProbs = TRUE,
+                              summaryFunction = twoClassSummary) 
+
+
+```
+
+```{r}
+model <- train(accepted ~ tu_score + employed + age, 
+               data = mortgage_data, 
+               trControl = train_control, 
+               method = "glm", 
+               family = binomial(link = "logit"))
+```
+
+```{r}
+summary(model)
+```
+
+```{r}
+model$results
+```
+
+Ricardo found this:
+
+tem as its discrimination threshold is varied.
+
+
+A receiver operating characteristic curve, or ROC curve, is a graphical plot that illustrates the diagnostic ability of a binary classifier system as its discrimination threshold is varied.
+WikipediaWikipedia
+Graph of a function
+In mathematics, the graph of a function
+ 
+   
+     
+       f
+Show more
+https://en.wikipedia.org/wiki/Graph_of_a_function
+
+WikipediaWikipedia
+Binary classification
+Binary classification is the task of classifying the elements of a set into two groups on the basis of a classification rule. Typical binary classification problems include:
+Medical testing to determine if a patient has certain disease or not;
+Quality control in industry, deciding whether a specification has been met;
+In information retrieval, deciding whether a page should be in the result set of a search or not.Binary classification is dichotomization applied to a practical situation. In many practical binary classification problems, the two groups are not symmetric, and rather than overall accuracy, the relative proportion of different types of errors is of interest. For example, in medical… Show more
