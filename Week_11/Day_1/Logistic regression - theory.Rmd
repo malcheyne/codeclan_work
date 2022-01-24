@@ -1,0 +1,202 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Logistic Regression
+
+binary dependent variable: (0 or 1)
+
+- spam emails or not
+- married or not
+- clicked or not
+- cat or dog
+- organic or conventional 
+- registered user or not
+- accepted or not mortgages
+
+
+```{r}
+library(tidyverse)
+library(janitor)
+```
+
+```{r}
+mortgage_data <- read_csv("data/mortgage_applications.csv") %>%
+  clean_names()
+              
+head(mortgage_data)
+```
+
+```{r}
+library(GGally)
+
+ggpairs(mortgage_data)
+```
+
+```{r}
+# Let's reduce the symbol size and 'jitter' the y-values so we can see more of the data without overlap of symbols
+# geom_jitter() adds adds a small amount of random variation (vertically and/ore horizontally depending on the arguments) to the location of each point
+
+score_plot <- ggplot(mortgage_data) +
+  geom_jitter(aes(y = tu_score, x = as.integer(accepted)), shape = 1, 
+              position = position_jitter(width = 0.05)) + 
+  xlab("Accepted Status") + scale_x_continuous(breaks=seq(0, 1,1))
+
+score_plot
+```
+
+# Logistic Function
+
+Logistic regession is estimating the LOG ODDS OF AN EVENT, RATHER THAN THE PROBABILTITY.
+
+ask - 2 mins
+If we roll a fair die, what are the odds of getting a 6?
+
+Odds(success) = 1/6 / 5/6 = 0.2
+
+```{r}
+logit <- function(x){
+  return(log(x/(1-x))) # x is prob
+}
+
+logit_data <- tibble(p = seq(0.001, 0.999, 0.001)) %>%
+  mutate(logit_p = logit(p))
+
+head(logit_data)
+```
+
+```{r}
+ggplot(logit_data, aes(y = p, x = logit_p)) + 
+  geom_line() + 
+  ylab("probability") + xlab("logit(p) value")
+```
+
+
+**Build a model that predicts the probaility of a loan being accepted or not, given a tu_score**
+
+1. Build the logistis model
+
+```{r}
+mortgage_data_log_model <- glm(accepted ~ tu_score, data = mortgage_data, 
+                               family = binomial(link = "logit"))
+
+mortgage_data_log_model
+```
+
+2. Add these predictions into your dataset
+
+```{r}
+library(modelr)
+
+predict_log <- tibble(tu_score = seq(0, 710, 1)) %>% 
+  add_predictions(mortgage_data_log_model, type = "response")
+```
+
+3. Check model fits the data?
+```{r}
+ggplot(mortgage_data) + 
+  geom_jitter(aes(x = tu_score, y = as.integer(accepted)), shape = 1, 
+              position = position_jitter(h = 0.05)) + 
+  geom_line(data = predict_log, aes(x = tu_score, y = pred), col = 'red')
+```
+
+
+Task - 5 mins
+Use and amend the code above to predict the probability of getting a mortgage application accepted with a tu_score of 594.
+
+```{r}
+predict_log_task <- tibble(tu_score = 594) %>% 
+  add_predictions(mortgage_data_log_model, type = "response")
+
+predict_log_task
+```
+
+60% of people will get a mortgage application accepted 
+
+1/1 + e(b0 = b1 * x)
+
+```{r}
+ggplot(mortgage_data) + 
+  geom_jitter(aes(x = tu_score, y = as.integer(accepted)), shape = 1, 
+              position = position_jitter(h = 0.05)) + 
+  geom_point(data = predict_log_task, aes(x = tu_score, y = pred), col = 'red')
+```
+
+4. Interpreting the B1 for a continuous predictor (tu_score)
+
+If the independent variable increases by one unit, then the estimate of the log odds of suscces changes (increases or decreases) by B1 units.
+
+Calculate the odds of having an accepted application at tu_score = 594:
+```{r}
+odds_at_594 <- tibble(tu_score = 594) %>% 
+  add_predictions(mortgage_data_log_model, type = "response") %>% 
+  mutate(odds = pred / (1-pred))
+
+odds_at_594
+```
+
+This implies that a 1 unit increase in tu_score increases the odds of getting approved for a loan by a factor of 1.58.
+
+How do these odds change if we increase the tu_score by 50 points?
+
+
+```{r}
+library(broom)
+```
+
+```{r}
+mortgage_data_log_model
+```
+Take the above details and make a table to read it easier below
+
+```{r}
+b_tu_score <- tidy(mortgage_data_log_model) %>% 
+  filter(term == "tu_score") %>% 
+  select(estimate)
+
+b_tu_score
+```
+
+```{r}
+odds_factor <- exp(b_tu_score * 50)
+
+odds_factor
+```
+
+Calculate the new odds of getting a loan accepted or not, based on a 50 point increase in tu_score
+
+```{r}
+odds_at_594 <- odds_at_594 %>% 
+  select(odds)
+
+odds_at_594
+```
+
+```{r}
+new_odds <- odds_factor * odds_at_594
+
+new_odds
+```
+
+```{r}
+odds_at_644 <- tibble(tu_score = 644) %>% 
+  add_predictions(mortgage_data_log_model, type = "response") %>% 
+  mutate(odds = pred / (1-pred))
+
+odds_at_644
+```
+
+Task - 5 mins How do the odds of acceptance change if we decrease tu_score by 50 points from 594 to 544? Calculate the new odds using R.
+
+[Hint - the change in x here is −50] 
+
+```{r}
+odds_at_544 <- tibble(tu_score = 544) %>% 
+  add_predictions(mortgage_data_log_model, type = "response") %>% 
+  mutate(odds = pred / (1-pred))
+
+odds_at_544
+```
+
+
