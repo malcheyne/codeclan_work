@@ -1,0 +1,236 @@
+---
+title: "Logistic regression lab"
+output: html_notebook
+---
+
+```{r, message=FALSE}
+library(tidyverse)
+library(janitor)
+library(GGally)
+library(modelr)
+library(broom)
+library(pROC)
+library(caret)
+library(readxl)
+library(leaps)
+```
+
+```{r}
+telecomms %>% 
+  mutate(total_sum = tenure * monthly_charges) %>%
+  select(total_charges, total_sum)
+```
+
+
+```{r}
+telecomms_no_total <- read_excel("data/telecomms_churn.xlsx") %>% 
+  clean_names() %>% 
+  select(-c(customer_id, total_charges)) %>%
+  mutate_if(is.character, as.factor) %>% 
+  mutate(senior_citizen = as.logical(senior_citizen))
+
+telecomms_no_total
+```
+
+```{r}
+ggpairs(telecomms_no_total)
+```
+
+```{r}
+telecomms <- read_excel("data/telecomms_churn.xlsx") %>% 
+  clean_names() %>% 
+  select(-c(customer_id)) %>%
+  mutate_if(is.character, as.factor) %>% 
+  mutate(senior_citizen = as.logical(senior_citizen)) %>% 
+  filter(!is.na(total_charges))
+  
+
+summary(telecomms)
+```
+
+```{r}
+ggpairs(telecomms)
+```
+
+```{r}
+regsubsets_backward <- regsubsets(churn ~ ., 
+                                 data = telecomms, 
+                                 method = "backward")
+```
+
+```{r}
+sum_regsubsets_backward<- summary(regsubsets_backward)
+sum_regsubsets_backward
+```
+
+```{r}
+plot(regsubsets_backward, scale = "adjr2")
+```
+
+```{r}
+plot(regsubsets_backward, scale = "bic")
+```
+
+```{r}
+plot(sum_regsubsets_backward$rsq, type = "b")
+```
+
+```{r}
+plot(sum_regsubsets_backward$bic, type = "b")
+```
+
+```{r}
+summary(regsubsets_backward)$which[7,]
+```
+
+```{r}
+mod_6 <- glm(churn ~ total_charges + monthly_charges +
+             contract + internet_service + phone_service, 
+             data = telecomms,
+             family = binomial(link = 'logit'))
+summary(mod_6)
+```
+
+
+```{r}
+mod_5 <- glm(churn ~ total_charges + monthly_charges +
+             contract + internet_service + phone_service, 
+             data = telecomms,
+             family = binomial(link = 'logit'))
+summary(mod_5)
+```
+
+```{r}
+mod_4 <- glm(churn ~ total_charges + monthly_charges +
+             contract + internet_service, 
+             data = telecomms,
+             family = binomial(link = 'logit'))
+summary(mod_4)
+```
+
+```{r}
+mod_3 <- glm(churn ~ total_charges + 
+             monthly_charges + contract, 
+             data = telecomms,
+             family = binomial(link = 'logit'))
+summary(mod_3)
+```
+
+```{r}
+data_with_6pred <- telecomms %>%
+  add_predictions(mod_6, type = "response")
+head(data_with_6pred)
+
+data_with_5pred <- telecomms %>%
+  add_predictions(mod_5, type = "response")
+head(data_with_5pred)
+
+data_with_4pred <- telecomms %>%
+  add_predictions(mod_4, type = "response")
+head(data_with_4pred)
+
+data_with_3pred <- telecomms %>%
+  add_predictions(mod_3, type = "response")
+head(data_with_3pred)
+```
+
+```{r}
+roc_obj_6pred <- data_with_6pred %>% 
+  roc(response = churn, predictor = pred)
+
+roc_obj_5pred <- data_with_5pred %>% 
+  roc(response = churn, predictor = pred)
+
+roc_obj_4pred <- data_with_4pred %>% 
+  roc(response = churn, predictor = pred)
+
+roc_obj_3pred <- data_with_3pred %>% 
+  roc(response = churn, predictor = pred)
+```
+
+```{r}
+ggroc(data = list(pred3 = roc_obj_3pred, pred4 = roc_obj_4pred, 
+                  pred5 = roc_obj_5pred, pred6 = roc_obj_6pred), 
+      laegacy.axes =TRUE) +
+  coord_fixed() +
+  ylab("Sensitivy (TPR)") +
+  xlab("1-Sensitivy (FPR)")
+```
+
+```{r}
+auc(roc_obj_5pred)
+```
+
+```{r}
+auc(roc_obj_6pred)
+```
+
+```{r}
+auc(roc_obj_4pred)
+```
+
+```{r}
+auc(roc_obj_3pred)
+```
+
+```{r}
+train_control <- trainControl(method = "repeatedcv",
+                              number = 5, # cuts data into 5 folds to test
+                              repeats = 100,
+                              savePredictions = TRUE,
+                              classProbs = TRUE,
+                              summaryFunction = twoClassSummary) 
+```
+
+
+```{r}
+model5 <- train(churn ~ total_charges + monthly_charges +
+               contract + internet_service + phone_service, 
+               data = telecomms,
+               trControl = train_control, 
+               method = "glm", 
+               family = binomial(link = "logit"))
+```
+
+```{r}
+model4 <- train(churn ~ total_charges + monthly_charges +
+               contract + internet_service, 
+               data = telecomms,
+               trControl = train_control, 
+               method = "glm", 
+               family = binomial(link = "logit"))
+```
+
+```{r}
+model3 <- train(churn ~ total_charges + monthly_charges +
+               contract, 
+               data = telecomms,
+               trControl = train_control, 
+               method = "glm", 
+               family = binomial(link = "logit"))
+```
+
+
+```{r}
+summary(model5)
+```
+
+```{r}
+summary(model4)
+```
+
+```{r}
+summary(model3)
+```
+
+
+```{r}
+model5$results
+```
+```{r}
+model4$results
+```
+```{r}
+model3$results
+```
+
