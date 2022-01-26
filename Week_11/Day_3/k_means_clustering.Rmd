@@ -1,0 +1,227 @@
+---
+title: "K-Means Clustering"
+output: html_notebook
+---
+
+```{r}
+library(janitor)
+```
+
+
+```{r}
+edu_data <- read_csv("data/school_data.csv")
+```
+
+```{r}
+edu_data <- edu_data %>%
+  column_to_rownames("X1") %>%
+  clean_names()
+
+edu_data
+```
+
+```{r}
+edu_data <- edu_data  %>% 
+              select(c(home_school, state_school))
+
+head(edu_data)
+```
+
+```{r}
+edu_data %>% 
+ggplot(aes(x = home_school, y = state_school)) +
+  geom_point()
+```
+
+see blog in the notes above this code
+
+```{r}
+edu_data %>%
+  as_tibble() %>%
+  pivot_longer(cols = c(home_school, state_school), 
+               names_to = "type", 
+               values_to = "value") %>% #convert data to long format
+  group_by(type)%>%
+  summarise(mean = round(mean(value)), 
+            sd = sd(value))
+```
+
+
+Task - 5 mins
+Scale the data! (via creating a new dataframe called edu_scale)
+
+```{r}
+edu_scale <- edu_data %>%
+              mutate_if(is.numeric, scale)
+
+edu_scale <- edu_data %>%   # dose the same but is more up todate
+              mutate(across(where(is.numeric), scale))
+
+edu_scale
+```
+
+```{r}
+edu_scale %>%
+  as_tibble() %>%
+  pivot_longer(cols = c(home_school, state_school), 
+               names_to = "type", 
+               values_to = "value") %>% #convert data to long format
+  group_by(type)%>%
+  summarise(mean = round(mean(value)), 
+            sd = sd(value))
+```
+
+```{r}
+set.seed(1234)
+
+clustered_edu <- kmeans(edu_scale,
+                        centers = 6,
+                        nstart = 25)
+
+clustered_edu
+```
+
+```{r}
+library(broom)
+library(tidyverse)
+```
+
+```{r}
+tidy(clustered_edu,
+     col.names = colnames(edu_scale))
+```
+
+```{r}
+augment(clustered_edu, edu_data)
+```
+
+
+```{r}
+glance(clustered_edu)
+```
+From this, we get the following metrics:
+
+  *  **totss:** total sum of squares.
+  *  **withinss:** vector of within-cluster sum of squares, one component per cluster (not in this output but can extract from clusters)
+  *  **tot.withinss:** total within-cluster sum of squares, i.e. sum(withinss).
+  *  **betweenss:** the between-cluster sum of squares, i.e. totss−tot.withinss.
+  *  **iter:** number of iterations until stopped.
+
+```{r}
+
+# just another way to check
+clustered_edu$totss
+```
+
+
+>When choosing our number of clusters, we are looking to minimise the variation within the clusters (so in turn increasing the between cluster variation). Within cluster variation measures how compact the clusters are : we want less variation. However there is a trade off - to get the lowest within cluster variation would be a single data point per cluster i.e. as many clusters as there is data points and there then would be zero variation within cluster! But this would be overfitting. So there is a balance. Let’s discuss how we use the total within-cluster sum of squares to find to optimum number of clusters. 
+
+
+## Gathering your cluster information
+
+```{r}
+# Set min & max number of clusters want to look at 
+max_k <- 20 
+
+k_clusters <- tibble(k = 1:max_k) %>%
+  mutate(
+    kclust = map(k, ~ kmeans(edu_scale, .x, nstart = 25)), 
+    tidied = map(kclust, tidy),
+    glanced = map(kclust, glance),
+    augmented = map(kclust, augment, edu_data)
+  )
+
+k_clusters
+
+# tidied, glanced, and augmented are based on the kclust data
+
+```
+
+```{r}
+k_clusters %>% 
+  select(1,5) %>% 
+  unnest()
+```
+
+## Choosing the number of clusters
+
+#### Method 1 - Elbow method
+
+```{r}
+clusterings <- k_clusters %>%
+  unnest(glanced)
+
+clusterings
+```
+
+```{r}
+ggplot(clusterings, aes(x=k, y=tot.withinss)) +
+  geom_point() +
+    geom_line() +
+    scale_x_continuous(breaks = seq(1, 20, by = 1))
+```
+
+```{r}
+library(factoextra)
+```
+
+```{r}
+fviz_nbclust(edu_scale, 
+             kmeans, 
+             method = "wss", 
+             nstart = 25)
+```
+
+#### Method 2 - Silhouette coefficient
+
+```{r}
+fviz_nbclust(edu_scale, 
+             kmeans, 
+             method = "silhouette", 
+             nstart = 25)
+```
+
+#### Method 3 - Gap statistic
+
+```{r}
+fviz_nbclust(edu_scale, 
+             kmeans, 
+             method = "gap_stat", 
+             nstart = 25, 
+             k.max = 10)
+```
+
+Note each of these methods can also be used for hierarchical clustering you just replace the kmeans argument in fviz_nbclust with FUN = hcut.
+
+```{r}
+fviz_nbclust(edu_scale, 
+             hcut, 
+             method = "gap_stat", 
+             nstart = 25, 
+             k.max = 10)
+```
+
+
+## Now we have chosen value of k
+
+```{r}
+clusterings %>% 
+  unnest(cols = c(augmented)) %>%
+  filter(k <= 6) %>%
+  ggplot(aes(x = home_school, y = state_school)) +
+  geom_point(aes(color = .cluster))
+```
+
+```{r}
+clusterings %>% 
+  unnest(cols = c(augmented)) %>%
+  filter(k == 3) %>%
+ ggplot(aes(x = home_school, y = state_school, colour = .cluster, label = .rownames)) +
+  geom_point(aes(color = .cluster)) +
+  geom_text(hjust = 0, vjust = - 0.5, size = 3)
+```
+
+
+
+
+

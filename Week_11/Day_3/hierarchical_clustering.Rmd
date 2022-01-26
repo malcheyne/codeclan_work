@@ -282,6 +282,10 @@ plot(private_clusters, cex = 0.6, hang = -1)
 rect.hclust(private_clusters, k = 2, border = 2:5)
 ```
 
+After clusters have been created often you will want to give them labels to give them meaning and context (as discussed earlier today).
+
+> Remember, dendrograms are useful tools, but are far from perfect. Because of they way in which we only join the two closest clusters at each step, we may find that a data point is occasionaly placed in the “wrong” cluster. This is only generally a problem when dealing with points which are very close together, however. In general a mis-sorted cluster will be grouped back in with its “correct” cluster at a later point in the algorithm, so assuming we are looking for a sufficiently small number of clusters the problem should resolve itself.
+
 
 # john's graphs to better read the cluster
 ```{r}
@@ -295,4 +299,14 @@ edu_data %>%
   guides(colour = 'none')
 ```
 
+```{r}
+edu_data %>% 
+  rownames_to_column('state') %>% 
+  mutate(school_cluster = cutree(clusters, 3)) %>% 
+  ggplot(aes(private_school, state_school, colour = factor(school_cluster))) +
+  geom_point() +
+  geom_text(aes(label = state), check_overlap = T, size = 3,
+            hjust = 'inward', vjust = 'inward') +
+  guides(colour = 'none')
+```
 
