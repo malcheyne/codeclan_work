@@ -1,0 +1,73 @@
+---
+title: "Clustering Lab"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(CodeClanData)
+```
+
+
+
+Part a
+
+* We’ve been asked to create clusters of students for the answers to the ‘importance’ questions (where students rate how important they find certain topics on a scale from 0 to 1000, the higher the number the more important they think the issue is).
+
+* If we are to use the mathematical methods (elbow etc.) what would your optimal value of k been? Do you think the data seems well suited to cluster.
+
+```{r}
+students_big
+```
+
+```{r}
+glimpse(students_big)
+```
+
+
+```{r}
+scale_students <- students_big %>% 
+                      select(15:20) %>% 
+                      # pivot_longer(
+                      #   cols = starts_with("importance_"),
+                      #   names_to = "question",
+                      #   names_prefix = "importance_",
+                      #   values_to = "importance",
+                      #   values_drop_na = TRUE) %>% 
+                      mutate(across(where(is.numeric), scale))# %>% 
+                      column_to_rownames("question") 
+
+scale_students
+```
+
+```{r}
+set.seed(1234)
+
+clustered_edu <- kmeans(scale_students,
+                        centers = 6,
+                        nstart = 25)
+
+clustered_edu
+```
+
+```{r}
+augment(clustered_edu, students_big %>% 
+                      select(15:20))
+```
+
+```{r}
+# augment(clustered_edu, students_big %>% 
+#                       select(15:20)) %>% 
+# pivot_longer(
+#   cols = starts_with("importance_"),
+#   names_to = "question",
+#   names_prefix = "importance_",
+#   values_to = "importance",
+#   values_drop_na = TRUE) 
+```
+
+```{r}
+
+```
+
