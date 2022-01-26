@@ -1,0 +1,298 @@
+---
+title: "Hierarchical Clustering"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(cluster)
+library(factoextra)
+library(dendextend)
+library(corrplot)
+```
+
+```{r}
+edu_data <- read_csv("data/school_data.csv")
+```
+
+```{r}
+head(edu_data)
+```
+
+```{r}
+# check the data. For clustering, we want no text, but want to be able to view the states still. We can get round this, by moving the column (X1) which has our text, into the rownames instead. 
+edu_data <- edu_data %>%
+  column_to_rownames("X1")
+head(edu_data)
+```
+
+So we have a data frame, with 50 rows and 5 columns. Next we can check if we have any missing values to deal with.
+```{r}
+any(is.na(edu_data))
+```
+
+```{r}
+edu_data_scale <- edu_data %>%
+              mutate_if(is.numeric, scale)
+
+edu_data_scale <- edu_data %>%   # dose the same but is more up todate
+              mutate(across(where(is.numeric), scale))
+
+edu_data_scale
+```
+
+```{r}
+edu_data_scale %>%
+  pivot_longer(cols = everything(),
+               names_to = "type", 
+               values_to = "value") %>% #convert data to long format
+  group_by(type) %>%
+  summarise(mean = round(mean(value)), 
+            sd = sd(value))
+```
+
+```{r}
+# create a correlation plot
+corrplot(cor(edu_data_scale), method = "number", type = "lower")
+```
+
+```{r}
+# take only home school
+diss_matrix <- edu_data_scale %>%
+              select(home_school) %>%
+              dist(method = "euclidean") 
+
+```
+```{r}
+# what it's doing in the background, not needed 
+matrix(1:12, 4)                           
+dist(matrix(1:12, 4),method = "euclidean") # distance from each other
+```
+
+
+```{r}
+# create a dissimilarity matrix showing distances
+fviz_dist(diss_matrix)
+```
+
+## Building our dendrogram
+
+```{r}
+clusters <- diss_matrix %>%
+                 hclust(method = "complete")
+```
+
+```{r}
+clusters %>%
+  plot(cex = 0.7, hang = .1)
+```
+
+```{r}
+alt_clusters <- diss_matrix %>%
+                    hclust(method = "ward.D2")
+```
+
+
+```{r}
+clustering_dendrogram <- clusters %>%
+                                  as.dendrogram() %>%
+                                  dendextend::set("labels_cex", 0.5) 
+
+clustering_dendrogram
+```
+
+
+```{r}
+alt_clustering_dendrogram <- alt_clusters %>%
+                              as.dendrogram() %>%
+                                 dendextend::set("labels_cex", 0.6)
+
+alt_clustering_dendrogram
+```
+
+
+```{r}
+dend_diff(clustering_dendrogram, alt_clustering_dendrogram) 
+```
+
+The red lines show diffrences 
+
+```{r}
+plot(clusters, cex = 0.6, hang = -1)
+```
+
+```{r}
+plot(clusters, cex = 0.6, hang = -1)
+rect.hclust(clusters, k = 2, border = 2:5)
+```
+
+This looks not too bad. Groups don’t seem too big, or too small. In this case, I’d be tempted to stop here and say something along the following lines:
+
+> We investigated education rates (per 100000) across US States using cluster analysis. Based on this analysis, we have defined two cluster groupings. States such as Alaska and Kentucky have similar education rates to one another. States such as Vermont and Maine have similar education rates to one another. These states have different education rates to one another. From our analysis, we could use these clusters to predict future education rate data in these states.
+
+
+```{r}
+# not needed
+
+# This is base r palette, used above in border =
+palette()
+```
+
+```{r}
+edu_clustered_h2 <- edu_data %>%
+                          mutate(school_cluster = cutree(clusters, k=2))
+
+head(edu_clustered_h2,20)
+```
+
+
+
+Task - 20 mins
+
+>  Spend some time carrying out cluster analysis for your other variables. What do you find for each variable? How many clusters do you choose, and why? What are your interpretations from your analysis?
+
+>   What happens if you include all your data and perform clustering? (i.e. do not subset the data as we did in one of our first steps). For this, you have moved from predicting a specific variable to predicting something you might denoted as “overall education rates”. Do you get different results when the clustering takes into account all your data at once for each state? How would you interpret your results?
+
+### Overall Education Rates
+
+```{r}
+overall_matrix <- edu_data_scale %>%
+              dist(method = "euclidean") 
+```
+
+```{r}
+overall_clusters <- overall_matrix %>%
+                 hclust(method = "complete")
+```
+
+```{r}
+overall_alt_clusters <- overall_matrix %>%
+                    hclust(method = "ward.D2")
+```
+
+
+```{r}
+overall_clustering_dendrogram <- overall_clusters %>%
+                                  as.dendrogram() %>%
+                                  dendextend::set("labels_cex", 0.5) 
+
+overall_clustering_dendrogram
+```
+
+```{r}
+overall_alt_clustering_dendrogram <- overall_alt_clusters %>%
+                              as.dendrogram() %>%
+                                 dendextend::set("labels_cex", 0.6)
+
+overall_alt_clustering_dendrogram
+```
+
+```{r}
+dend_diff(overall_clustering_dendrogram, overall_alt_clustering_dendrogram) 
+```
+
+```{r}
+plot(overall_clusters, cex = 0.6, hang = -1)
+rect.hclust(overall_clusters, k = 2, border = 2:5)
+```
+
+### State School
+
+```{r}
+state_matrix <- edu_data_scale %>%
+              dist(method = "euclidean") 
+```
+
+```{r}
+state_clusters <- state_matrix %>%
+                 hclust(method = "complete")
+```
+
+```{r}
+state_alt_clusters <- state_matrix %>%
+                    hclust(method = "ward.D2")
+```
+
+
+```{r}
+state_clustering_dendrogram <- state_clusters %>%
+                                  as.dendrogram() %>%
+                                  dendextend::set("labels_cex", 0.5) 
+
+state_clustering_dendrogram
+```
+
+```{r}
+state_alt_clustering_dendrogram <- state_alt_clusters %>%
+                              as.dendrogram() %>%
+                                 dendextend::set("labels_cex", 0.6)
+
+state_alt_clustering_dendrogram
+```
+
+```{r}
+dend_diff(state_clustering_dendrogram, state_alt_clustering_dendrogram) 
+```
+
+```{r}
+plot(state_clusters, cex = 0.6, hang = -1)
+rect.hclust(state_clusters, k = 2, border = 2:5)
+```
+
+### Private School
+
+```{r}
+private_matrix <- edu_data_scale %>%
+              dist(method = "euclidean") 
+```
+
+```{r}
+private_clusters <- private_matrix %>%
+                 hclust(method = "complete")
+```
+
+```{r}
+private_alt_clusters <- private_matrix %>%
+                    hclust(method = "ward.D2")
+```
+
+
+```{r}
+private_clustering_dendrogram <- private_clusters %>%
+                                  as.dendrogram() %>%
+                                  dendextend::set("labels_cex", 0.5) 
+
+private_clustering_dendrogram
+```
+
+```{r}
+private_alt_clustering_dendrogram <- private_alt_clusters %>%
+                              as.dendrogram() %>%
+                                 dendextend::set("labels_cex", 0.6)
+
+private_alt_clustering_dendrogram
+```
+
+```{r}
+dend_diff(private_clustering_dendrogram, private_alt_clustering_dendrogram) 
+```
+
+```{r}
+plot(private_clusters, cex = 0.6, hang = -1)
+rect.hclust(private_clusters, k = 2, border = 2:5)
+```
+
+
+# john's graphs to better read the cluster
+```{r}
+edu_data %>% 
+  rownames_to_column('state') %>% 
+  mutate(school_cluster = cutree(clusters, 4)) %>% 
+  ggplot(aes(home_school, state_school, colour = factor(school_cluster))) +
+  geom_point() +
+  geom_text(aes(label = state), check_overlap = T, size = 3,
+            hjust = 'inward', vjust = 'inward') +
+  guides(colour = 'none')
+```
+
+

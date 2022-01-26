@@ -23,17 +23,17 @@ telecomms %>%
 
 
 ```{r}
-telecomms_no_total <- read_excel("data/telecomms_churn.xlsx") %>% 
-  clean_names() %>% 
-  select(-c(customer_id, total_charges)) %>%
-  mutate_if(is.character, as.factor) %>% 
-  mutate(senior_citizen = as.logical(senior_citizen))
-
-telecomms_no_total
+# telecomms_no_total <- read_excel("data/telecomms_churn.xlsx") %>% 
+#   clean_names() %>% 
+#   select(-c(customer_id, total_charges)) %>%
+#   mutate_if(is.character, as.factor) %>% 
+#   mutate(senior_citizen = as.logical(senior_citizen))
+# 
+# telecomms_no_total
 ```
 
 ```{r}
-ggpairs(telecomms_no_total)
+# ggpairs(telecomms_no_total)
 ```
 
 ```{r}
