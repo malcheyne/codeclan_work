@@ -1,0 +1,129 @@
+---
+title: "Sentiment Analysis"
+output: html_notebook
+---
+
+```{r}
+library(tidytext)
+library(tidyverse)
+library(janeaustenr)
+library(textdata)
+```
+
+```{r}
+get_sentiments("afinn")
+```
+
+```{r}
+get_sentiments("bing")
+```
+
+```{r}
+get_sentiments("loughran")
+```
+
+```{r}
+get_sentiments("loughran") %>%
+  count(sentiment, sort = TRUE)
+```
+
+```{r}
+get_sentiments("nrc") %>%
+  count(sentiment, sort = TRUE)
+```
+
+```{r}
+book_pride <- tibble(
+    text = prideprejudice,
+    # treat each row as sentence
+    sentence = 1:length(prideprejudice)
+  ) %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words)
+```
+
+```{r}
+book_pride %>% 
+  left_join(get_sentiments("bing"))
+```
+
+```{r}
+book_pride %>% 
+  inner_join(get_sentiments("bing")) # no NA
+```
+
+```{r}
+book_pride %>% 
+  inner_join(get_sentiments("loughran"))
+```
+
+```{r}
+book_pride %>% 
+  inner_join(get_sentiments("nrc"))
+```
+
+```{r}
+book_pride %>% 
+  inner_join(get_sentiments("nrc")) %>% 
+  count(sentiment, sort = T)
+```
+
+Task - 10 minutes
+
+Find the most common positive, negative and neutral words in the book “Emma”. Use the loughran sentiment lexicon.
+
+```{r}
+book_emma <- tibble(
+    text = emma,
+    sentence = 1:length(emma)
+  ) %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words)
+
+book_emma_sentiment <- book_emma %>%
+  left_join(get_sentiments("loughran"))
+```
+
+```{r}
+book_emma_sentiment %>%
+  filter(sentiment == "positive") %>%
+  count(word, sort = TRUE)
+```
+
+
+
+
+```{r}
+book_sentiments <- book_pride %>% 
+  inner_join(get_sentiments("afinn"))
+```
+
+
+```{r}
+sentence_sentiments <- book_sentiments %>%
+  group_by(sentence) %>%
+  summarise(
+    mean_sentiment = mean(value)
+  )
+
+sentence_sentiments
+```
+
+```{r}
+ggplot(sentence_sentiments) +
+  aes(x = sentence, y = mean_sentiment) +
+  geom_point(alpha = 0.1) +
+  geom_smooth()
+```
+
+```{r}
+ggplot(sentence_sentiments) +
+  aes(x = sentence, y = mean_sentiment) +
+  #geom_point(alpha = 0.1) +
+  geom_smooth()
+```
+
+
+
+
+
