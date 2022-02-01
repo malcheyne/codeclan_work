@@ -1,0 +1,13 @@
+source("my_functions.R")
+ will run my_functions.R, any functions will be added to your global environment
+in python you import specific functions. So if I had the function greet() saved in a file my_functions.py:
+from my_functions import greet
+
+
+
+
+
+
+
+!jupyter nbconvert joins_and_tidy_data.ipynb --to html --template classic
+"knit" to html
