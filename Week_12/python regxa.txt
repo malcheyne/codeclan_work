@@ -1,0 +1,5 @@
+# r = raw
+pattern = r"Coffee|Espresso"
+
+
+drinks.loc[drinks['Beverage_category'].str.contains(pat=pattern)]
